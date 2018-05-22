@@ -79,7 +79,7 @@ public class IHM1 extends JFrame {
 		contentPane.add(lblNbrIA);
 		
 		JSpinner spinner_NbrJoueur = new JSpinner();
-		spinner_NbrJoueur.setModel(new SpinnerNumberModel(1, 0, 6, 1));
+		spinner_NbrJoueur.setModel(new SpinnerNumberModel(2, 2, 6, 1));
 		spinner_NbrJoueur.setBounds(372, 144, 76, 23);
 		contentPane.add(spinner_NbrJoueur);
 		
@@ -92,12 +92,12 @@ public class IHM1 extends JFrame {
 		btnJouer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				IHM2 choixcouleur = new IHM2 ();
-				choixcouleur.setVisible(true);
-				System.out.println(spinner_NbrJoueur.getValue());
-				System.out.println(spinner_NbrIA.getValue());
+				//System.out.println(spinner_NbrJoueur.getValue());
+				//System.out.println(spinner_NbrIA.getValue());
 				int nbrJoueur = ((Integer)spinner_NbrJoueur.getValue()).intValue();
 				int nbrIA = ((Integer)spinner_NbrIA.getValue()).intValue();
+				IHM2 choixcouleur = new IHM2 (nbrJoueur, nbrIA);
+				choixcouleur.setVisible(true);
 				dispose();
 			}
 		});
@@ -108,6 +108,4 @@ public class IHM1 extends JFrame {
 		contentPane.add(btnJouer);
 	}
 	
-	// fonction get nbrJoueur
-	// fonction get nbrIA
 }
