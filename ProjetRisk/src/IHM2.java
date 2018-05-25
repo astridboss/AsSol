@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class IHM2 extends JFrame {
 
@@ -101,10 +102,18 @@ public class IHM2 extends JFrame {
 		btnLancerLeJeu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				IHM3carte map = new IHM3carte (nbreJoueur);
-				map.setVisible(true);
-				dispose ();
-			}
+				IHM3carte map;
+				
+				try {
+					map = new IHM3carte (nbreJoueur);
+					map.setVisible(true);
+					dispose ();
+
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
 		});
 		btnLancerLeJeu.setBounds(461, 206, 125, 47);
 		contentPane.add(btnLancerLeJeu);
