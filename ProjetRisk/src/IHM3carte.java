@@ -1,4 +1,3 @@
-//Librairie utilisees
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
@@ -30,11 +29,19 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.peer.SystemTrayPeer;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-// Interface 3 : plateau du jeu
+/**
+ * INTERFACE : plateau de jeu
+ * 
+ *
+ */
+
 public class IHM3carte extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
 	/**
 	 * Create the frame.
 	 */
@@ -46,7 +53,7 @@ public class IHM3carte extends JFrame {
 		
 		// creer une fenetre au dimension de l'ecran
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, width, height);
+		setBounds(100, 100, 1054, 704);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -82,30 +89,58 @@ public class IHM3carte extends JFrame {
 				Color current_color = robot.getPixelColor(xPos, yPos);
 				System.out.println(current_color);
 				
-				Pays pays = new Pays();
+				/*Pays pays = new Pays();
 				pays = triePays(current_color);
-				System.out.println("Vous avez cliqué sur" + pays.nomPays);
+				System.out.println("Vous avez cliqué sur" + pays.nomPays);*/
 				
 			}
 		});
 		map.setVerticalAlignment(SwingConstants.TOP);
-		map.setIcon(new ImageIcon(maps));
+		map.setIcon(new ImageIcon(IHM3carte.class.getResource(map)));
 		map.setBounds(10, 0, 900, 487);
 		contentPane.add(map);
 		
+		JLabel lblJoueur = new JLabel("Joueur bleu :");
+		lblJoueur.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
+		lblJoueur.setBounds(10, 498, 124, 32);
+		contentPane.add(lblJoueur);
+		
+		table = new JTable();
+		table.setToolTipText("");
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{new Integer(5), new Integer(4), null},
+			},
+			new String[] {
+				"Soldat", "Cavalier", "Canon"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, Integer.class, Integer.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.setBounds(10, 618, 243, 16);
+		contentPane.add(table);
+		
+		JLabel iconSoldat = new JLabel("");
+		iconSoldat.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconSoldat.PNG")));
+		iconSoldat.setBounds(20, 541, 46, 78);
+		contentPane.add(iconSoldat);
+		
+		JLabel iconCavalier = new JLabel("");
+		iconCavalier.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconCavalier.PNG")));
+		iconCavalier.setBounds(98, 541, 57, 78);
+		contentPane.add(iconCavalier);
+		
+		JLabel iconCanon = new JLabel("");
+		iconCanon.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconCanon.PNG")));
+		iconCanon.setBounds(165, 558, 88, 52);
+		contentPane.add(iconCanon);
+		
 		
 		
 	}
-	
-
-	
-	
-	public Pays triePays (Color colorPixelClick) {
-		Pays pays = new Pays();
-		
-		return pays;
-		
-		
-	}
-	
 }
