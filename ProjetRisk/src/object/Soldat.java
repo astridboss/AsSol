@@ -1,4 +1,4 @@
-package unites;
+package object;
 
 import jeu.Arme;
 
