@@ -1,3 +1,5 @@
+
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -26,30 +28,23 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-public class IHM1 extends JFrame {
+/**
+ * Menu du jeu : première interface, permet de choisir le nombre de joueur et d'IA.
+ * 
+ *
+ */
 
+public class MenuJeu extends JFrame {
+	
+	/*__ATTRIBUTS___________________________________________________*/
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IHM1 frame = new IHM1();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public IHM1() {
+	private int nbrJoueur;
+	private int nbrIA;
+	
+	/*__METHODES____________________________________________________*/
+	
+	//CONSTRUCTEUR
+	public MenuJeu() {
 		setTitle("RISK'ISEP");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 634, 442);
@@ -65,8 +60,8 @@ public class IHM1 extends JFrame {
 		lbl_titrejeux.setBounds(16, 11, 592, 30);
 		contentPane.add(lbl_titrejeux);
 		
-		JLabel image_acceuil = new JLabel("New label");
-		image_acceuil.setIcon(new ImageIcon(IHM1.class.getResource("/Images/Image_accueil.jpg")));
+		JLabel image_acceuil = new JLabel("");
+		image_acceuil.setIcon(new ImageIcon(MenuJeu.class.getResource("/Images/Image_accueil.jpg")));
 		image_acceuil.setBounds(16, 138, 230, 151);
 		contentPane.add(image_acceuil);
 		
@@ -94,8 +89,8 @@ public class IHM1 extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				//System.out.println(spinner_NbrJoueur.getValue());
 				//System.out.println(spinner_NbrIA.getValue());
-				int nbrJoueur = ((Integer)spinner_NbrJoueur.getValue()).intValue();
-				int nbrIA = ((Integer)spinner_NbrIA.getValue()).intValue();
+				nbrJoueur = ((Integer)spinner_NbrJoueur.getValue()).intValue();
+				nbrIA = ((Integer)spinner_NbrIA.getValue()).intValue();
 				IHM2 choixcouleur = new IHM2 (nbrJoueur, nbrIA);
 				choixcouleur.setVisible(true);
 				dispose();
@@ -108,4 +103,20 @@ public class IHM1 extends JFrame {
 		contentPane.add(btnJouer);
 	}
 	
+	//GETTERS & SETTERS
+	public int getNbrJoueur() {
+		return nbrJoueur;
+	}
+
+	public void setNbrJoueur(int nbrJoueur) {
+		this.nbrJoueur = nbrJoueur;
+	}
+
+	public int getNbrIA() {
+		return nbrIA;
+	}
+
+	public void setNbrIA(int nbrIA) {
+		this.nbrIA = nbrIA;
+	}
 }

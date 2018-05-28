@@ -1,6 +1,7 @@
-package jeu;
+
 
 import java.awt.Color;
+import java.lang.ref.WeakReference;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +19,7 @@ public class Territoire {
     private int territoireId;
     private String nomT;
     private Color couleurT;
-    //private Zone zoneT;
+    //private ArrayList<> zoneT;
     
     private String regionT;
     private ArrayList<Territoire> voisinT;
@@ -27,6 +28,8 @@ public class Territoire {
     private int soldatT;
 	private int cavalierT;
 	private int canonT;
+	
+	private static ArrayList <Territoire> mondeT = new ArrayList <Territoire> ();
 
 	/*__METHODES____________________________________________________*/
 
@@ -37,6 +40,9 @@ public class Territoire {
     	this.nomT=nomT;
     	this.couleurT= couleurT;
     	this.regionT = region;
+    	
+    	mondeT.add(this);
+    	
     }
 	
 	
@@ -44,10 +50,14 @@ public class Territoire {
 	//FONCTIONS
 	
 	public Territoire territoireClic (Color couleurSelectionne) {
-		for (Terrritoire territoire) {
-			if (couleurSelectionne == pays.couleur) {
+		for (int i = 0 ; i < mondeT.size() ; i++) {
+			if (couleurSelectionne == mondeT.get(i).getCouleurT()) {
+				Territoire territoire = mondeT.get(i);
+				System.out.println("Vous êtes sur le: " + territoire.nomT);
 				return territoire;
-			}
+			}}
+		return null;
+		}
     
 			
 	
@@ -131,5 +141,18 @@ public class Territoire {
 	public void setProprietaireT(String proprietaireT) {
 		this.proprietaireT = proprietaireT;
 	}
+
+
+
+	public static ArrayList<Territoire> getMondeT() {
+		return mondeT;
+	}
+
+
+
+	public static void setMondeT(ArrayList<Territoire> mondeT) {
+		Territoire.mondeT = mondeT;
+	}
     
+	
 }

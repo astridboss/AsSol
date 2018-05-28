@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.projectIsep.risk.Territory;
 
+import Territoire;
+
 public class Partie {
 
 	/**

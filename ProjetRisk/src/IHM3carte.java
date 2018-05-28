@@ -25,6 +25,7 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -39,12 +40,14 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class IHM3carte extends JFrame {
-
+	
+	/*__ATTRIBUTS___________________________________________________*/
 	private JPanel contentPane;
 	private JTable table;
-	/**
-	 * Create the frame.
-	 */
+
+	/*__METHODES____________________________________________________*/
+	
+	//CONSTRUCTEUR
 	public IHM3carte (int nbrJoueur) throws IOException {
 		//recuperer la taille de l'ecran
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -53,7 +56,7 @@ public class IHM3carte extends JFrame {
 		
 		// creer une fenetre au dimension de l'ecran
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1054, 704);
+		setBounds(100, 100, width, height);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,11 +87,21 @@ public class IHM3carte extends JFrame {
 				}
 				
 				Color current_color = robot.getPixelColor(xPos, yPos);
-				System.out.println(current_color);
+				//System.out.println(current_color);
 				
-				/*Pays pays = new Pays();
-				pays = triePays(current_color);
-				System.out.println("Vous avez cliqué sur" + pays.nomPays);*/
+				ArrayList<Territoire> mondeT = Territoire.getMondeT();
+				System.out.println(current_color);
+				System.out.println(mondeT.get(2));
+				
+				for (int i = 0 ; i < mondeT.size() ; i++) {
+					System.out.println("Dans la boucle if");
+					if (current_color == mondeT.get(i).getCouleurT()) {
+						Territoire territoire = mondeT.get(i);
+						System.out.println("Vous êtes sur le: " + territoire.getNomT());
+						
+					}}
+				
+				
 				
 			}
 		});
@@ -139,10 +152,7 @@ public class IHM3carte extends JFrame {
 		});
 		table.setBounds(10, 618, 243, 16);
 		contentPane.add(table);
-		
-		
-		
-		
+
 		
 	}
 }
