@@ -65,9 +65,6 @@ public class IHM3carte extends JFrame {
 		/**System.out.println(file.getAbsolutePath());*/
 		
 		
-		
-		
-		
 		//Afficher l'image 	
 		JLabel map = new JLabel("");
 		map.addMouseListener(new MouseAdapter() {
@@ -96,34 +93,17 @@ public class IHM3carte extends JFrame {
 			}
 		});
 		map.setVerticalAlignment(SwingConstants.TOP);
-		map.setIcon(new ImageIcon(IHM3carte.class.getResource(map)));
+		map.setIcon(new ImageIcon(maps));
 		map.setBounds(10, 0, 900, 487);
 		contentPane.add(map);
 		
+		// Label pour indiquer le joueur dont c'est le tour
 		JLabel lblJoueur = new JLabel("Joueur bleu :");
 		lblJoueur.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
 		lblJoueur.setBounds(10, 498, 124, 32);
 		contentPane.add(lblJoueur);
 		
-		table = new JTable();
-		table.setToolTipText("");
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new Integer(5), new Integer(4), null},
-			},
-			new String[] {
-				"Soldat", "Cavalier", "Canon"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Integer.class, Integer.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.setBounds(10, 618, 243, 16);
-		contentPane.add(table);
+		//Tableau pour afficher le nombre de soldat, cavalier et canon
 		
 		JLabel iconSoldat = new JLabel("");
 		iconSoldat.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconSoldat.PNG")));
@@ -139,6 +119,28 @@ public class IHM3carte extends JFrame {
 		iconCanon.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconCanon.PNG")));
 		iconCanon.setBounds(165, 558, 88, 52);
 		contentPane.add(iconCanon);
+		
+		table = new JTable();
+		table.setToolTipText("");
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{new Integer(5), new Integer(4), new Integer(4)},
+			},
+			new String[] {
+				"Soldat", "Cavalier", "Canon"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, Integer.class, Integer.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.setBounds(10, 618, 243, 16);
+		contentPane.add(table);
+		
+		
 		
 		
 		
