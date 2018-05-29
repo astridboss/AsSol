@@ -1,3 +1,4 @@
+package jeu;
 // (default package)
 
 import java.io.IOException;

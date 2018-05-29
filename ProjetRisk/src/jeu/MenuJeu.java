@@ -1,3 +1,4 @@
+package jeu;
 
 
 import java.awt.BorderLayout;
