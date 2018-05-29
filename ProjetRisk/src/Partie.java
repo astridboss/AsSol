@@ -1,45 +1,35 @@
-import java.awt.BorderLayout;
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JEditorPane;
-import javax.swing.JSpinner;
-import javax.swing.JList;
-import javax.swing.JScrollBar;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.awt.MouseInfo;
+import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Toolkit;
-import java.awt.Dimension;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.awt.*;
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.awt.peer.SystemTrayPeer;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+// (default package)
+	
+
 /**
- * INTERFACE : plateau de jeu
+ * FICHIER PRINCIPALE DU JEU
  * 
- *
  */
 
-public class IHM3carte extends JFrame {
+public class Partie extends JFrame {
+	
 	
 	/*__ATTRIBUTS___________________________________________________*/
 	private JPanel contentPane;
@@ -47,10 +37,11 @@ public class IHM3carte extends JFrame {
 	private Color current_color;
 	private BufferedImage maps;
 
-	/*__METHODES____________________________________________________*/
 	
-	//CONSTRUCTEUR
-	public IHM3carte (int nbrJoueur) throws IOException {
+	/*__METHODES___________________________________________________*/
+	
+	public Partie (int nbrJoueur, ArrayList<Territoire> territoireList) throws IOException {
+		
 		//recuperer la taille de l'ecran
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
@@ -91,15 +82,14 @@ public class IHM3carte extends JFrame {
 				current_color = robot.getPixelColor(xPos, yPos);
 				System.out.println(current_color);
 				
-				Territoire territoireActuel = Territoire.territoireClic (current_color);
+				Territoire territoireActuel = Territoire.territoireClic (current_color, territoireList);
 				
-				System.out.println("Vous êtes en : " + territoireActuel.getNomT());
-				
-				
+				System.out.println("Vous êtes en : " + territoireActuel.getNomT());	
 				
 				
 			}
 		});
+		
 		map.setVerticalAlignment(SwingConstants.TOP);
 		map.setIcon(new ImageIcon(maps));
 		map.setBounds(10, 0, 900, 487);
@@ -114,17 +104,17 @@ public class IHM3carte extends JFrame {
 		//Tableau pour afficher le nombre de soldat, cavalier et canon
 		
 		JLabel iconSoldat = new JLabel("");
-		iconSoldat.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconSoldat.PNG")));
+		iconSoldat.setIcon(new ImageIcon(Partie.class.getResource("/Images/IconSoldat.PNG")));
 		iconSoldat.setBounds(20, 541, 46, 78);
 		contentPane.add(iconSoldat);
 		
 		JLabel iconCavalier = new JLabel("");
-		iconCavalier.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconCavalier.PNG")));
+		iconCavalier.setIcon(new ImageIcon(Partie.class.getResource("/Images/IconCavalier.PNG")));
 		iconCavalier.setBounds(98, 541, 57, 78);
 		contentPane.add(iconCavalier);
 		
 		JLabel iconCanon = new JLabel("");
-		iconCanon.setIcon(new ImageIcon(IHM3carte.class.getResource("/Images/IconCanon.PNG")));
+		iconCanon.setIcon(new ImageIcon(Partie.class.getResource("/Images/IconCanon.PNG")));
 		iconCanon.setBounds(165, 558, 88, 52);
 		contentPane.add(iconCanon);
 		
@@ -151,14 +141,14 @@ public class IHM3carte extends JFrame {
 		
 	}
 
-
-
-
-
-
-	//GETTERS & SETTERS
 	
+	/*public void initArmee(ArrayList<Joueur> joueurList, ArrayList<Territoire> territoireList) {
 
+	}*/
+	
+	
+	/*__GETTERS_&_SETTERS___________________________________________________*/
+	
 	public BufferedImage getMaps() {
 		return maps;
 	}
@@ -174,10 +164,10 @@ public class IHM3carte extends JFrame {
 	public void setCurrent_color(Color current_color) {
 		this.current_color = current_color;
 	}
-
-
-
-
-
-
+	
+	
+	
 }
+
+
+
