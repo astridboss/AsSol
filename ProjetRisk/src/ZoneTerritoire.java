@@ -9,8 +9,8 @@ public class ZoneTerritoire {
 	
 	public static void zoneTerritoire () {
 		//definit la taille de l'image / nombre de pixel en hauteur & largeur
-		int w = IHM3carte.getMaps().getWidth();
-		int h = getMaps().getHeight();
+		int w; //= IHM3carte.getMaps().getWidth();
+		int h; //= getMaps().getHeight();
 		
 	}
 }

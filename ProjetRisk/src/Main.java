@@ -1,5 +1,5 @@
 // (default package)
-/*
+
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import javax.naming.InitialContext;
 
 import jeu.Joueur;
 
-public class Partie {
+public class Main {
 	/**
 	 * @param joueurList
 	 * @param territoireList
@@ -17,7 +17,7 @@ public class Partie {
 	
 	/*__FONCTION_PRINCIPALE___________________________________________________*/
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		//INIT TERRITOIRE
 		ArrayList<Territoire> territoireArrayList = new ArrayList<Territoire>();
 		territoireArrayList = initTerritoire ();
@@ -50,18 +50,18 @@ public class Partie {
 		
 		Color c7 = new Color(77, 135, 116);
 		Territoire ukraine = new Territoire (6, "Ukraine", c7 ,"Europe");
-		mondeT.add(ukraine);
+		mondeT.add(ukraine);*/
 		
 		//AFFICHAGE MENU
 		
 		
-	}*/
+	}
 	
 	
 	/*__METHODES___________________________________________________*/
 	
 	//INIT TERRITOIRE FONCTIONS
-	/*private static Color color(int r, int g, int b) {
+	private static Color color(int r, int g, int b) {
 		Color color = new Color(r, g, b);
 		return color;
 	}
@@ -93,7 +93,7 @@ public class Partie {
 	/*public void initArmee(ArrayList<Joueur> joueurList, ArrayList<Territoire> territoireList) {
 
 	}*/
-/*}
+}
 
-*/
+
 

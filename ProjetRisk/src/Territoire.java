@@ -31,7 +31,7 @@ public class Territoire {
 	private int cavalierT;
 	private int canonT;
 	
-	/**private static ArrayList <Territoire> mondeT = new ArrayList <Territoire> ();*/
+	private static ArrayList <Territoire> mondeT = new ArrayList <Territoire> ();
 
 	/*__METHODES____________________________________________________*/
 
