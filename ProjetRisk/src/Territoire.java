@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.jar.Attributes.Name;
 
+import javax.net.ssl.ExtendedSSLSession;
+
 /**
  * 
  *
@@ -29,7 +31,7 @@ public class Territoire {
 	private int cavalierT;
 	private int canonT;
 	
-	private static ArrayList <Territoire> mondeT = new ArrayList <Territoire> ();
+	/**private static ArrayList <Territoire> mondeT = new ArrayList <Territoire> ();*/
 
 	/*__METHODES____________________________________________________*/
 
@@ -41,21 +43,24 @@ public class Territoire {
     	this.couleurT= couleurT;
     	this.regionT = region;
     	
-    	mondeT.add(this);
-    	
+    	/**mondeT.add(this);*/    	
     }
 	
 	
 	
 	//FONCTIONS
+
 	
-	public Territoire territoireClic (Color couleurSelectionne) {
+	public static Territoire territoireClic (Color couleurSelectionne) {
 		for (int i = 0 ; i < mondeT.size() ; i++) {
 			if (couleurSelectionne == mondeT.get(i).getCouleurT()) {
 				Territoire territoire = mondeT.get(i);
 				System.out.println("Vous êtes sur le: " + territoire.nomT);
 				return territoire;
-			}}
+			}else {
+				System.out.println("Il ne s'agit pas de du pays " + mondeT.get(i).getNomT());
+				}
+			}
 		return null;
 		}
     

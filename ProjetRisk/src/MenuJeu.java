@@ -91,8 +91,8 @@ public class MenuJeu extends JFrame {
 				//System.out.println(spinner_NbrIA.getValue());
 				nbrJoueur = ((Integer)spinner_NbrJoueur.getValue()).intValue();
 				nbrIA = ((Integer)spinner_NbrIA.getValue()).intValue();
-				IHM2 choixcouleur = new IHM2 (nbrJoueur, nbrIA);
-				choixcouleur.setVisible(true);
+				//IHM2 choixcouleur = new IHM2 (nbrJoueur, nbrIA);
+				//choixcouleur.setVisible(true);
 				dispose();
 			}
 		});

@@ -1,48 +1,44 @@
-import java.awt.Color;
+/*import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.awt.*;
 
-
-
 public class Initialisation {
+	
 
-	public static void main(String[] args) {
+	
 		
 		/*__CREATION_DES_PAYS_____________________________________________*/
-			
-		//Pays europe = [];
 		
-		//Collection<Pays> listeEurope;
-		//listeEurope = new ArrayList<Pays>();
+		/*ArrayList<Territoire> mondeT = new ArrayList<Territoire>();
 		
 		Color c1 = new Color(200, 12, 25);
 		Territoire islande = new Territoire (0, "islande", c1 ,"Europe");
-		//listeEurope.add(islande);
+		mondeT.add(islande);
 
 		Color c2 = new Color(16, 124, 183);
 		Territoire eurNord = new Territoire (1, "Europe du Nord", c2 ,"Europe");
-		//listeEurope.add(eurNord);
+		mondeT.add(eurNord);
 		
 		Color c3 = new Color(2, 90, 138);
 		Territoire eurSud = new Territoire (2, "Europe du Sud", c3 ,"Europe");
-		//listeEurope.add(eurSud);
+		mondeT.add(eurSud);
 		
 		Color c4 = new Color(104, 168, 203);
 		Territoire scandinavie = new Territoire (3, "Scandinavie", c4 ,"Europe");
-		//listeEurope.add(scandinavie);
+		mondeT.add(scandinavie);
 		
 		Color c5 = new Color(13, 79, 115);
 		Territoire eurOcc = new Territoire (4, "Europe Occidentale", c5 ,"Europe");
-		//listeEurope.add(eurOcc);
+		mondeT.add(eurOcc);
 		
 		Color c6 = new Color(77, 135, 116);
 		Territoire angleterre = new Territoire (5, "Grande Bretagne", c6 ,"Europe");
-		//listeEurope.add(angleterre);
+		mondeT.add(angleterre);
 		
-		Color c7 = new Color(52, 179, 249);
+		Color c7 = new Color(77, 135, 116);
 		Territoire ukraine = new Territoire (6, "Ukraine", c7 ,"Europe");
-		//listeEurope.add(ukraine);
+		mondeT.add(ukraine);
 		
 		
 		
@@ -79,7 +75,7 @@ public class Initialisation {
 		Territoire nvlleGuinee = new Territoire (4, "Nouvelle Guinée", cou4 ,"Océanie");
 		
 		Color cou5 = new Color(225, 191, 223);
-		Territoire indonesieIle = new Territoire (5, "Iles d'Indonésie", cou5 ,"Océanie");
+		Territoire indonesieIle = new Territoire (5, "Iles d'Indonésie", cou5 ,"Océanie");*/
 		
 		
 		
@@ -87,10 +83,15 @@ public class Initialisation {
 		
 		/*__LANCER_LE_JEU_____________________________________________*/
 		
-		MenuJeu fenetre = new MenuJeu ();
+		/*System.out.println(mondeT);
+		
+		
+		/*MenuJeu fenetre = new MenuJeu ();
 		fenetre.setVisible(true);
-
-	}
+		
+		IHM2 ihm2 = new IHM2 (fenetre.getNbrJoueur(),fenetre.getNbrIA());
+		ihm2.setVisible(true);*/
+	/*}
 	
 
-}
+}*/

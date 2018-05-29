@@ -44,6 +44,8 @@ public class IHM3carte extends JFrame {
 	/*__ATTRIBUTS___________________________________________________*/
 	private JPanel contentPane;
 	private JTable table;
+	private Color current_color;
+	private BufferedImage maps;
 
 	/*__METHODES____________________________________________________*/
 	
@@ -64,7 +66,7 @@ public class IHM3carte extends JFrame {
 		
 		//Creation de l'image
 		File file = new File("src/Images/carte_mondeV3.png");
-		BufferedImage maps = ImageIO.read(file);
+		maps = ImageIO.read(file);
 		/**System.out.println(file.getAbsolutePath());*/
 		
 		
@@ -86,20 +88,13 @@ public class IHM3carte extends JFrame {
 					e2.printStackTrace ();
 				}
 				
-				Color current_color = robot.getPixelColor(xPos, yPos);
-				//System.out.println(current_color);
-				
-				ArrayList<Territoire> mondeT = Territoire.getMondeT();
+				current_color = robot.getPixelColor(xPos, yPos);
 				System.out.println(current_color);
-				System.out.println(mondeT.get(2));
 				
-				for (int i = 0 ; i < mondeT.size() ; i++) {
-					System.out.println("Dans la boucle if");
-					if (current_color == mondeT.get(i).getCouleurT()) {
-						Territoire territoire = mondeT.get(i);
-						System.out.println("Vous êtes sur le: " + territoire.getNomT());
-						
-					}}
+				Territoire territoireActuel = Territoire.territoireClic (current_color);
+				
+				System.out.println("Vous êtes en : " + territoireActuel.getNomT());
+				
 				
 				
 				
@@ -155,4 +150,34 @@ public class IHM3carte extends JFrame {
 
 		
 	}
+
+
+
+
+
+
+	//GETTERS & SETTERS
+	
+
+	public BufferedImage getMaps() {
+		return maps;
+	}
+
+	public void setMaps(BufferedImage maps) {
+		this.maps = maps;
+	}
+
+	public Color getCurrent_color() {
+		return current_color;
+	}
+
+	public void setCurrent_color(Color current_color) {
+		this.current_color = current_color;
+	}
+
+
+
+
+
+
 }
