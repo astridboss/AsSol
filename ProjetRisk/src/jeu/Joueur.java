@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class Joueur {
 	private Color couleur;
-	private int renfortTPossedés;
-	private int renfortTGagnés;
-	public ArrayList<Territoire> territoireList;
+	private int renfortTControles;
+	private int renfortTGagnes;
+	public ArrayList<Territoire> territoireListJoueur;
+	private int unit;
 	
 	public Joueur() {
 		
@@ -21,20 +22,37 @@ public class Joueur {
 		this.couleur = couleur;
 	}
 
-	public int getRenfortTPossedés() {
-		return renfortTPossedés;
+
+	public ArrayList<Territoire> getTerritoireList() {
+		return territoireListJoueur;
 	}
 
-	public void setRenfortTPossedés(int renfortTPossedés) {
-		this.renfortTPossedés = renfortTPossedés;
+	public void setTerritoireList(ArrayList<Territoire> territoireList) {
+		this.territoireListJoueur = territoireListJoueur;
 	}
 
-	public int getRenfortTGagnés() {
-		return renfortTGagnés;
+	public int getUnit() {
+		return unit;
 	}
 
-	public void setRenfortTGagnés(int renfortTGagnés) {
-		this.renfortTGagnés = renfortTGagnés;
+	public void setUnit(int unit) {
+		this.unit = unit;
+	}
+
+	public int getRenfortTControles() {
+		return renfortTControles;
+	}
+
+	public void setRenfortTControles(int renfortTControles) {
+		this.renfortTControles = renfortTControles;
+	}
+
+	public int getRenfortTGagnes() {
+		return renfortTGagnes;
+	}
+
+	public void setRenfortTGagnes(int renfortTGagnes) {
+		this.renfortTGagnes = renfortTGagnes;
 	}
 
 	
