@@ -39,7 +39,8 @@ public class Territoire {
     	this.territoireId= territoireId;
     	this.nomT=nomT;
     	this.couleurT= couleurT;
-    	this.regionT = region;   	
+    	this.regionT = region;   
+    	this.proprietaireT = null;
     }
 	
 	

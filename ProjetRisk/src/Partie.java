@@ -25,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * FICHIER PRINCIPALE DU JEU
- * 
  */
 
 public class Partie extends JFrame {

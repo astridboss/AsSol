@@ -26,13 +26,27 @@ public class Main {
 		menu.setVisible(true);
 		
 		try {
-			Partie partie1 = new Partie (menu.getNbrJoueur(), territoireArrayList);
-			partie1.setVisible(true);
-			
-		} catch (IOException e1) {
+			Thread.sleep(5 * 1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
+		while (menu.isVisible() == true) {
+			//System.out.println("avantIF");
+			if (menu.getFenetreFerme() == true) {	
+				//System.out.println("IF");
+					try {
+						Partie partie = new Partie (menu.getNbrJoueur(), territoireArrayList);
+						partie.setVisible(true);
+					
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}else {/*System.out.println("ELSE");*/}
+		
+		}
+
 	}
 
 }

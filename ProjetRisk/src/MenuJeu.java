@@ -1,37 +1,23 @@
 
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.ListSelectionModel;
 //import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.AbstractListModel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 /**
- * Menu du jeu : première interface, permet de choisir le nombre de joueur et d'IA.
- * 
- *
+ * MENU DU JEU
+ * @parameter nbrJoueur
+ * @parameter nbrIA
  */
 
 public class MenuJeu extends JFrame {
@@ -40,6 +26,8 @@ public class MenuJeu extends JFrame {
 	private JPanel contentPane;
 	private int nbrJoueur;
 	private int nbrIA;
+	private boolean fenetreFerme = false;
+	private static final long serialVersionUID = 1L;
 	
 	/*__METHODES____________________________________________________*/
 	
@@ -87,12 +75,12 @@ public class MenuJeu extends JFrame {
 		btnJouer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				fenetreFerme = true;
+				//System.out.println(fenetreFerme);
 				//System.out.println(spinner_NbrJoueur.getValue());
 				//System.out.println(spinner_NbrIA.getValue());
 				nbrJoueur = ((Integer)spinner_NbrJoueur.getValue()).intValue();
 				nbrIA = ((Integer)spinner_NbrIA.getValue()).intValue();
-				//IHM2 choixcouleur = new IHM2 (nbrJoueur, nbrIA);
-				//choixcouleur.setVisible(true);
 				dispose();
 			}
 		});
@@ -103,6 +91,7 @@ public class MenuJeu extends JFrame {
 		contentPane.add(btnJouer);
 	}
 	
+
 	//GETTERS & SETTERS
 	public int getNbrJoueur() {
 		return nbrJoueur;
@@ -118,5 +107,13 @@ public class MenuJeu extends JFrame {
 
 	public void setNbrIA(int nbrIA) {
 		this.nbrIA = nbrIA;
+	}
+	
+	public boolean getFenetreFerme() {
+		return fenetreFerme;
+	}
+
+	public void setFenetreFerme(Boolean fenetreFerme) {
+		this.fenetreFerme = fenetreFerme;
 	}
 }
