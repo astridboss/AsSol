@@ -1,4 +1,5 @@
 package jeu;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,9 +21,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
-import com.projectIsep.risk.Player;
-import com.projectIsep.risk.Territory;
 
 // (default package)
 
@@ -95,6 +93,8 @@ public class map extends JFrame {
 
 				current_color = robot.getPixelColor(xPos, yPos);
 				System.out.println(current_color);
+				int couleurTerritoire = maps.getRGB(xPos, yPos);
+				System.out.println("Couleur = " + couleurTerritoire);
 
 				Territoire territoireActuel = Territoire.territoireClic (current_color, territoireList);
 

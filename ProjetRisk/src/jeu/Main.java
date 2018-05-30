@@ -1,39 +1,49 @@
 package jeu;
-// (default package)
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		//INIT TERRITOIRE
 		ArrayList<Territoire> territoireArrayList = new ArrayList<Territoire>();
+		int [] testpixel = {235, 85};
 		territoireArrayList = Territoire.initTerritoire();
+		
+		//ZoneT.zone (territoireArrayList);
+		
+		
 				
 		//Boucle test de la liste de territoire :
-		/*for (int i = 0; i <territoireArrayList.size() ; i++ ) {
+		for (int i = 0; i <territoireArrayList.size() ; i++ ) {
 			System.out.println(" ");
-			System.out.print(territoireArrayList.get(i).getTerritoireId());
-			System.out.print("| " + territoireArrayList.get(i).getNomT());
-			System.out.print("| " + territoireArrayList.get(i).getCouleurT());
-			System.out.print("| " + territoireArrayList.get(i).getRegionT());
-		}*/
+			System.out.println(territoireArrayList.get(i).getTerritoireId());
+			System.out.println(territoireArrayList.get(i).getNomT());
+			System.out.println(territoireArrayList.get(i).getCouleurT());
+			System.out.println(territoireArrayList.get(i).getPixelT() [0] + " " +territoireArrayList.get(i).getPixelT() [1] );
+			System.out.println(territoireArrayList.get(i).getRegionT());
+			//System.out.println(territoireArrayList.get(i).getZoneT());
+			System.out.println("******************************************************");
+		}
+		
+		
+		ArrayList<ZoneT> zoneTest = new ArrayList<>();
+		zoneTest = ZoneT.zoneTerritoireCalcul(testpixel);
+		System.out.println(zoneTest);
 				
 
 		//AFFICHAGE MENU
 		MenuJeu menu = new MenuJeu ();
 		menu.setVisible(true);
 		
-		try {
-			Thread.sleep(5 * 1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//maps carte = new maps(3, territoireArrayList);
+		//carte.setVisible(true);
 		
-		while (menu.isVisible() == true) {
+		
+		/*while (menu.isVisible() == true) {
 			//System.out.println("avantIF");
 			if (menu.getFenetreFerme() == true) {	
 				//System.out.println("IF");
@@ -44,9 +54,9 @@ public class Main {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}else {/*System.out.println("ELSE");*/}
+				}else {/*System.out.println("ELSE");}
 		
-		}
+		}*/
 
 	}
 
