@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.MouseInfo;
+import java.awt.Panel;
 import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,60 +24,130 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-// (default package)
-
-
 /**
  * FICHIER PRINCIPALE DU JEU
  */
 
-public class map extends JFrame {
+public class Partie {
 
 
 	/*__ATTRIBUTS___________________________________________________*/
-	private JPanel contentPane;
-	private JTable table;
+	public ArrayList<Territoire> territoireArrayList;
+	public ArrayList<Joueur> joueurList;
+	
+	
+	public JPanel contentPaneJeu;
+	//private JTable table;
 	private Color current_color;
 	private BufferedImage maps;
 
 
 	/*__METHODES___________________________________________________*/
-	public void partie(int nbrJoueur) {
-
+	public Partie (int nbrJoueur, JFrame fenetre) throws IOException {
 		
-        
-        ArrayList<Joueur> joueurList = new ArrayList<>();
-		for (int i = 0; i < nbrJoueur; i++) { // initialisation des joueurs
-			Joueur joueur = new Joueur();
-			
-		}
+		ArrayList<Territoire> territoireArrayList = new ArrayList<Territoire>();
+		territoireArrayList = Territoire.initTerritoire();
+				
+		//INIT JOUEUR
+		ArrayList<Joueur> joueurList = new ArrayList<>();
+		joueurList = Joueur.initJoueur(nbrJoueur);
+		
+		System.out.println("Boucle créer : " + joueurList);
 
+		//REPARTITION DES TERRITOIRES ENTRE LES JOUEURS
+		
+		map(fenetre, joueurList, territoireArrayList);
+		
 	}
+	
+	//MISE EN PLACE DE LA CARTE
+	public void map (JFrame fenetre, ArrayList<Joueur> nbrJoueur, ArrayList<Territoire> territoireList) throws IOException {
 
-	public map (int nbrJoueur, ArrayList<Territoire> territoireList) throws IOException {
-
-		//recuperer la taille de l'ecran
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
 		int width  = (int)dimension.getWidth();
 
-		// creer une fenetre au dimension de l'ecran
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, width, height);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		fenetre.setBounds(100, 100, width, height);
+		
+		contentPaneJeu = new JPanel();
+		fenetre.setContentPane(contentPaneJeu);
+		contentPaneJeu.setLayout(null);
 
-		//Creation de l'image
+		//IMAGE
 		File file = new File("src/Images/carte_mondeV3.png");
 		maps = ImageIO.read(file);
-		/**System.out.println(file.getAbsolutePath());*/
-
-
-		//Afficher l'image 	
+	
 		JLabel map = new JLabel("");
+		map.setIcon(new ImageIcon(maps));
+		map.setBounds(10, 0, 900, 487);
+		contentPaneJeu.add(map);
+		
 		map.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked (MouseEvent e) {
+				int  xPos = (int) (e.getX());
+			    int  yPos = (int) (e.getY());
+			    System.out.println("Cursor: " + xPos + ", " + yPos);
+			    
+			    Territoire paysSelect = Territoire.territoireDetection(xPos, yPos, territoireList);
+			    
+			    if (paysSelect != null) {
+				    //TABLEAU INFORMATION PAYS SELECTIONNE / APPROCHER
+					JLabel tabInfo_NomT = new JLabel("Nom du pays");
+					tabInfo_NomT.setFont(new Font("Tahoma", Font.BOLD, 13));
+					tabInfo_NomT.setBounds(10, 510, 113, 23);
+					contentPaneJeu.add(tabInfo_NomT);
+				
+					JLabel TabInfo_Proprio = new JLabel("Propri\u00E9taire");
+					TabInfo_Proprio.setFont(new Font("Tahoma", Font.BOLD, 13));
+					TabInfo_Proprio.setBounds(117, 514, 92, 14);
+					contentPaneJeu.add(TabInfo_Proprio);
+					
+					JLabel TabInfo_Soldat = new JLabel("Soldat");
+					TabInfo_Soldat.setFont(new Font("Tahoma", Font.BOLD, 13));
+					TabInfo_Soldat.setBounds(219, 514, 46, 14);
+					contentPaneJeu.add(TabInfo_Soldat);
+					
+					JLabel TabInfo_Cavalier = new JLabel("Cavalier");
+					TabInfo_Cavalier.setFont(new Font("Tahoma", Font.BOLD, 13));
+					TabInfo_Cavalier.setBounds(282, 514, 61, 14);
+					contentPaneJeu.add(TabInfo_Cavalier);
+					
+					JLabel TabInfo_Canon = new JLabel("Canon");
+					TabInfo_Canon.setFont(new Font("Tahoma", Font.BOLD, 13));
+					TabInfo_Canon.setBounds(353, 514, 46, 14);
+					contentPaneJeu.add(TabInfo_Canon);
+					
+					JLabel lblVariablenompays = new JLabel(paysSelect.getNomT());
+					lblVariablenompays.setBounds(10, 539, 92, 14);
+					contentPaneJeu.add(lblVariablenompays);
+					
+					JLabel lblProprio = new JLabel(paysSelect.getProprietaireT());
+					lblProprio.setBounds(127, 539, 61, 14);
+					contentPaneJeu.add(lblProprio);
+					
+					JLabel nbrSoldat = new JLabel(String.valueOf(paysSelect.getSoldatT()));
+					nbrSoldat.setBounds(229, 539, 26, 14);
+					contentPaneJeu.add(nbrSoldat);
+					
+					JLabel nbrCav = new JLabel(String.valueOf(paysSelect.getCavalierT()));
+					nbrCav.setBounds(302, 539, 26, 14);
+					contentPaneJeu.add(nbrCav);
+					
+					JLabel nbrCanon = new JLabel(String.valueOf(paysSelect.getCanonT()));
+					nbrCanon.setBounds(363, 539, 26, 14);
+					contentPaneJeu.add(nbrCanon);
+			    }			
+			} } );
+		
+		
+		
+		fenetre.validate();
+        fenetre.repaint();
+        
+        
+		
+		/*map.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//Recupere la couleur du pixel lors du clic de souris
@@ -102,12 +174,10 @@ public class map extends JFrame {
 
 
 			}
-		});
+		});*/
 
-		map.setVerticalAlignment(SwingConstants.TOP);
-		map.setIcon(new ImageIcon(maps));
-		map.setBounds(10, 0, 900, 487);
-		contentPane.add(map);
+		
+		/**
 
 		// Label pour indiquer le joueur dont c'est le tour
 		JLabel lblJoueur = new JLabel("Joueur bleu :");
@@ -150,7 +220,7 @@ public class map extends JFrame {
 			}
 		});
 		table.setBounds(10, 618, 243, 16);
-		contentPane.add(table);
+		contentPane.add(table);*/
 
 
 	}
@@ -170,42 +240,6 @@ public class map extends JFrame {
 		}
 
 
-	}
-	/**
-	 * 40 armées par joueur à 2 
-	 * 35 armées par joueur à 3
-	 * 30 armées par joueur à 4 
-	 * 25 armées par joueur à 5 
-	 * 20 armées par joueur à 6
-	 * @param joueurList
-	 */
-	public void distributionUnit(ArrayList<Joueur>joueurList) {
-		int unit=0;
-		if(joueurList.size()==2) {
-			unit=40;
-			
-		}
-		if(joueurList.size()==3) {
-			unit=35;
-			
-		}
-		if(joueurList.size()==4) {
-			unit=30;
-			
-		}
-		if(joueurList.size()==5) {
-			unit=25;
-			
-		}
-		if(joueurList.size()==6) {
-			unit=20;
-			
-		}
-		for(int joueurIndex=0; joueurIndex<joueurList.size();joueurIndex++ ) {
-			Joueur joueur = joueurList.get(joueurIndex);
-			joueur.setUnit(unit);
-		}
-		
 	}
 	public
 	

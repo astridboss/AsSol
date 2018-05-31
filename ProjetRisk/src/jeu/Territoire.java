@@ -2,16 +2,11 @@ package jeu;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.jar.Attributes.Name;
 
-import javax.net.ssl.ExtendedSSLSession;
 
 /**
- * 
+ * GESTION DES TERRITOIRES
  *
  *
  */
@@ -120,16 +115,18 @@ public class Territoire {
 	
 	//FONCTIONS
 		
-	public static Territoire territoireClic (Color couleurSelectionne, ArrayList<Territoire> list) {
-		for (int i = 0 ; i < list.size() ; i++) {
-			if (couleurSelectionne == list.get(i).getCouleurT()) {
-				Territoire territoire = list.get(i);
-				//System.out.println("Vous êtes sur le: " + territoire.nomT);
-				return territoire;
-			}//else {System.out.println("Il ne s'agit pas de du pays " + list.get(i).getNomT());}
-			}
-		return null;
-		}
+	public static Territoire territoireDetection (int posx, int posy, ArrayList<Territoire> list) {
+		
+		//for (int i = 0 ; i < list.size() ; i++) {
+		//	System.out.println(list.get(i).getNomT());
+			for (int j = 0; j < list.get(1).zoneT.size(); j++) {
+				System.out.println("x= " + list.get(1).zoneT.get(j).posX + " | y = " + list.get(1).zoneT.get(j).posY);
+				if ( (posx == list.get(1).zoneT.get(j).posX) && (posy == list.get(1).zoneT.get(j).posY)) {
+					return list.get(1);
+				}
+			//} 
+		} return null;
+	}
     
 			
 	
