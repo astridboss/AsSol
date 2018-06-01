@@ -66,3 +66,100 @@ while (terrDist>=42){
 /*public void initArmee(ArrayList<Joueur> joueurList, ArrayList<Territoire> territoireList) {
 
 }*/
+
+/**
+
+import java.awt.Color; 
+import java.awt.Container; 
+import java.awt.Dimension; 
+import java.awt.Graphics; 
+import java.awt.event.MouseAdapter; 
+import java.awt.event.MouseEvent; 
+import java.awt.image.BufferedImage; 
+import javax.swing.JFrame; import javax.swing.JPanel; 
+/** * Created on 07-avr.-07 * * @author: HackTrack */ 
+
+/**public class PixelDemo extends JFrame { 
+	private Container c; 
+	
+	public PixelDemo() { 
+		super("Pixel demo"); 
+		this.initialize(); 
+		} 
+	
+	private void initialize() { 
+		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+		c = getContentPane(); 
+		JPanel panel = new DemoPanel(); 
+		panel.setPreferredSize(new Dimension(320, 200)); 
+		c.add(panel); } 
+	
+	
+	class DemoPanel extends JPanel { 
+		private BufferedImage img; 
+		public DemoPanel() { 
+			super(); 
+			this.initialize(); } 
+		
+		private void initialize() { 
+			img = new BufferedImage(320, 200, BufferedImage.TYPE_INT_ARGB); 
+			addMouseListener(new MouseAdapter() { 
+				public void mouseClicked(MouseEvent e) { 
+					int x = e.getX(); 
+					int y = e.getY(); 
+					img.setRGB(x, y,Color.red.getRGB()); 
+					repaint(); }}); 
+			} 
+		
+		public void paint(Graphics g) {
+			g.drawImage(img, 0, 0, null); 
+			} } 
+	
+	
+	public static void main(String[] args) { 
+		PixelDemo demo = new PixelDemo(); 
+		demo.pack(); 
+		demo.setVisible(true); 
+		} 
+	}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

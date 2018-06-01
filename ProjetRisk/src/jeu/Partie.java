@@ -13,9 +13,11 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.security.auth.x500.X500Principal;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -66,9 +68,6 @@ public class Partie {
 
 		//REPARTITION DES TERRITOIRES ENTRE LES JOUEURS
 		Territoire.distributionTerritoire (territoireArrayList, joueurList);
-		
-		//CHANGER LA COULEUR DES TERRITOIRES
-		chgmCouleurT (ArrayList<Territoire> territoireArrayList, ArrayList<Joueur> joueurList);
 		
 		//AFFICHER LA CARTE
 		map(fenetre, joueurList, territoireArrayList);
@@ -210,6 +209,9 @@ public class Partie {
 		/**IMAGE : INSERTION ET AFFICHAGE*/
 		File file = new File("src/Images/carte_mondeV3.png");
 		maps = ImageIO.read(file);
+		
+		/**IMAGE : CHANGEMENT DE COULEUR*/
+		//chgmCouleurT (territoireArrayList, joueurList, maps);
 	
 		map = new JLabel("");
 		map.setIcon(new ImageIcon(maps));
@@ -258,16 +260,21 @@ public class Partie {
 	
 	/*__FONCTION_CHANGEMENT_COULEUR_____________________-___________________*/
 		
-	public void chgmCouleurT (ArrayList<Territoire> territoireArrayList, ArrayList<Joueur> joueurList) {
+	public void chgmCouleurT (ArrayList<Territoire> territoireArrayList, ArrayList<Joueur> joueurList, BufferedImage map) {
 		for (int iT = 0; iT < territoireArrayList.size(); iT++) {
 			for (int iJ = 0; iJ < joueurList.size(); iJ++) {
 				if (territoireArrayList.get(iT).getProprietaireT() == joueurList.get(iJ).getNomJoueur()) {
+					//Color pixel = joueurList.get(iJ).getCouleur();
 					
+					for (int indice = 0; indice < territoireArrayList.get(iT).getZoneTerritoires().size(); indice ++) {
+						int x = territoireArrayList.get(iT).getZoneTerritoires(indice).getPosX();			
+						int y = territoireArrayList.get(iT).getZoneTerritoires(indice).getPosY();
+						
+						map.setRGB(x, y, joueurList.get(iJ).getCouleur());
+					}
 				}
 			}
-		}
-		
-		
+		}		
 	}
 	
 		

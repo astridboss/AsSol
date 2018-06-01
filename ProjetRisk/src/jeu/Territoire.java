@@ -18,7 +18,7 @@ public class Territoire {
     private String nomT;
     private Color couleurT;
     private int[] pixelT;
-    private ArrayList<ZoneT> zoneT;
+    private ArrayList<ZoneT> zoneTerritoires;
     
 	private String regionT;
     private ArrayList<Territoire> voisinT;
@@ -40,7 +40,7 @@ public class Territoire {
     	this.pixelT = pixel;
     	this.regionT = region;   
     	this.proprietaireT = null;
-    	this.zoneT = ZoneT.zoneTerritoireCalcul(pixel);
+    	this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
     }
 	
 	
@@ -119,9 +119,9 @@ public class Territoire {
 		
 		for (int i = 0 ; i < list.size() ; i++) {
 		//	System.out.println(list.get(i).getNomT());
-			for (int j = 0; j < list.get(i).getZoneT().size(); j++) {
+			for (int j = 0; j < list.get(i).getZoneTerritoires().size(); j++) {
 				//System.out.println("x= " + list.get(i).getZoneT().get(j).getPosX() + " | y = " + list.get(i).getZoneT().get(j).getPosY());
-				if ( (posx == list.get(i).getZoneT().get(j).getPosX()) && (posy == list.get(i).getZoneT().get(j).getPosY())) {
+				if ( (posx == list.get(i).getZoneTerritoires().get(j).getPosX()) && (posy == list.get(i).getZoneTerritoires().get(j).getPosY())) {
 					System.out.println("Vous êtes en : " + list.get(i).getNomT());
 					return list.get(i);
 				}
@@ -256,13 +256,13 @@ public class Territoire {
 		this.pixelT = pixelT;
 	}
 	
-	public ArrayList<ZoneT> getZoneT() {
-		return zoneT;
+	public ArrayList<ZoneT> getZoneTerritoires() {
+		return zoneTerritoires;
 	}
 
 
-	public void setZoneT(ArrayList<ZoneT> zoneT) {
-		this.zoneT = zoneT;
+	public void setZoneTerritoires(ArrayList<ZoneT> zoneT) {
+		this.zoneTerritoires = zoneT;
 	}
 
 
