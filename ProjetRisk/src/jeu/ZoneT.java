@@ -1,7 +1,6 @@
 package jeu;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,12 +10,28 @@ import javax.imageio.ImageIO;
 public class ZoneT {
 
 	/*__ATTRIBUTS___________________________________________________*/
-	int posX;
-	int posY;
+	private int posX;
+	private int posY;
 
 	public ZoneT (int x, int y) {
 		this.posX = x;
 		this.posY = y;
+	}
+	
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
 	}
 
 	/*__METHODES____________________________________________________*/
@@ -53,6 +68,7 @@ public class ZoneT {
 		//TAILLE IMAGE
 		int w = maps.getWidth();
 		int h = maps.getHeight();
+		//System.out.println("h : " + h + "w: " + w);
 		
 		//ARRAYLIST ZONE
 		ArrayList<ZoneT> zoneT = new ArrayList<>();

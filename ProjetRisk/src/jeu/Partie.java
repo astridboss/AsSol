@@ -89,54 +89,67 @@ public class Partie {
 			    int  yPos = (int) (e.getY());
 			    System.out.println("Cursor: " + xPos + ", " + yPos);
 			    
-			    Territoire paysSelect = Territoire.territoireDetection(xPos, yPos, territoireList);
+			    Territoire paysSelect = Territoire.territoireDetection (xPos, yPos, territoireList);
+			    
+			    //System.out.println("ICI : " + paysSelect.getNomT());
 			    
 			    if (paysSelect != null) {
+			    	
+			    	System.out.println("DANS IF : " + paysSelect.getNomT());
+			    	
 				    //TABLEAU INFORMATION PAYS SELECTIONNE / APPROCHER
+			    	JPanel panelInfoT = new JPanel();
+			    	panelInfoT.setBounds(10, 510, 406, 50);
+					contentPaneJeu.add(panelInfoT);
+					panelInfoT.setLayout(null);
+			    	
 					JLabel tabInfo_NomT = new JLabel("Nom du pays");
 					tabInfo_NomT.setFont(new Font("Tahoma", Font.BOLD, 13));
-					tabInfo_NomT.setBounds(10, 510, 113, 23);
-					contentPaneJeu.add(tabInfo_NomT);
+					tabInfo_NomT.setBounds(10, 5, 82, 16);
+					panelInfoT.add(tabInfo_NomT);
 				
 					JLabel TabInfo_Proprio = new JLabel("Propri\u00E9taire");
 					TabInfo_Proprio.setFont(new Font("Tahoma", Font.BOLD, 13));
-					TabInfo_Proprio.setBounds(117, 514, 92, 14);
-					contentPaneJeu.add(TabInfo_Proprio);
+					TabInfo_Proprio.setBounds(111, 5, 78, 16);
+					panelInfoT.add(TabInfo_Proprio);
 					
 					JLabel TabInfo_Soldat = new JLabel("Soldat");
 					TabInfo_Soldat.setFont(new Font("Tahoma", Font.BOLD, 13));
-					TabInfo_Soldat.setBounds(219, 514, 46, 14);
-					contentPaneJeu.add(TabInfo_Soldat);
+					TabInfo_Soldat.setBounds(225, 5, 41, 16);
+					panelInfoT.add(TabInfo_Soldat);
 					
 					JLabel TabInfo_Cavalier = new JLabel("Cavalier");
 					TabInfo_Cavalier.setFont(new Font("Tahoma", Font.BOLD, 13));
-					TabInfo_Cavalier.setBounds(282, 514, 61, 14);
-					contentPaneJeu.add(TabInfo_Cavalier);
+					TabInfo_Cavalier.setBounds(280, 5, 52, 16);
+					panelInfoT.add(TabInfo_Cavalier);
 					
 					JLabel TabInfo_Canon = new JLabel("Canon");
 					TabInfo_Canon.setFont(new Font("Tahoma", Font.BOLD, 13));
-					TabInfo_Canon.setBounds(353, 514, 46, 14);
-					contentPaneJeu.add(TabInfo_Canon);
+					TabInfo_Canon.setBounds(356, 5, 40, 16);
+					panelInfoT.add(TabInfo_Canon);
 					
 					JLabel lblVariablenompays = new JLabel(paysSelect.getNomT());
-					lblVariablenompays.setBounds(10, 539, 92, 14);
-					contentPaneJeu.add(lblVariablenompays);
+					lblVariablenompays.setBounds(10, 27, 116, 14);
+					panelInfoT.add(lblVariablenompays);
 					
 					JLabel lblProprio = new JLabel(paysSelect.getProprietaireT());
-					lblProprio.setBounds(127, 539, 61, 14);
-					contentPaneJeu.add(lblProprio);
+					lblProprio.setBounds(136, 27, 34, 14);
+					panelInfoT.add(lblProprio);
 					
 					JLabel nbrSoldat = new JLabel(String.valueOf(paysSelect.getSoldatT()));
-					nbrSoldat.setBounds(229, 539, 26, 14);
-					contentPaneJeu.add(nbrSoldat);
+					nbrSoldat.setBounds(235, 27, 12, 14);
+					panelInfoT.add(nbrSoldat);
 					
 					JLabel nbrCav = new JLabel(String.valueOf(paysSelect.getCavalierT()));
-					nbrCav.setBounds(302, 539, 26, 14);
-					contentPaneJeu.add(nbrCav);
+					nbrCav.setBounds(290, 27, 12, 14);
+					panelInfoT.add(nbrCav);
 					
 					JLabel nbrCanon = new JLabel(String.valueOf(paysSelect.getCanonT()));
-					nbrCanon.setBounds(363, 539, 26, 14);
-					contentPaneJeu.add(nbrCanon);
+					nbrCanon.setBounds(366, 27, 12, 14);
+					panelInfoT.add(nbrCanon);
+					
+					fenetre.validate();
+					fenetre.repaint();
 			    }			
 			} } );
 		

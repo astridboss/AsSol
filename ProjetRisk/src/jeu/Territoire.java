@@ -117,15 +117,17 @@ public class Territoire {
 		
 	public static Territoire territoireDetection (int posx, int posy, ArrayList<Territoire> list) {
 		
-		//for (int i = 0 ; i < list.size() ; i++) {
+		for (int i = 0 ; i < list.size() ; i++) {
 		//	System.out.println(list.get(i).getNomT());
-			for (int j = 0; j < list.get(1).zoneT.size(); j++) {
-				System.out.println("x= " + list.get(1).zoneT.get(j).posX + " | y = " + list.get(1).zoneT.get(j).posY);
-				if ( (posx == list.get(1).zoneT.get(j).posX) && (posy == list.get(1).zoneT.get(j).posY)) {
-					return list.get(1);
+			for (int j = 0; j < list.get(i).getZoneT().size(); j++) {
+				//System.out.println("x= " + list.get(i).getZoneT().get(j).getPosX() + " | y = " + list.get(i).getZoneT().get(j).getPosY());
+				if ( (posx == list.get(i).getZoneT().get(j).getPosX()) && (posy == list.get(i).getZoneT().get(j).getPosY())) {
+					System.out.println("Vous êtes en : " + list.get(i).getNomT());
+					return list.get(i);
 				}
-			//} 
-		} return null;
+			} 
+		} 
+		return null;
 	}
     
 			
