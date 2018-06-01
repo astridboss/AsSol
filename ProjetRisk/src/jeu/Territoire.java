@@ -129,8 +129,41 @@ public class Territoire {
 		} 
 		return null;
 	}
-    
+	
+	
+	public static void distributionTerritoire (ArrayList<Territoire> territoireList, ArrayList<Joueur>joueurList ) {
+		int terrDist = 42;
+		ArrayList<Integer> indexTerritoireUtiliser = new ArrayList<>();
+		
+		while (terrDist != 0) {
+			//System.out.println("terrDist = "+terrDist);
 			
+			for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {
+				
+				//System.out.println("Joueur = "+joueurIndex);
+				int territoireIndex = (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42); 
+				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
+					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
+						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1;//(int) (Math.random()*42); 
+					}
+				}
+				//System.out.println("Territoire index = " + territoireIndex);
+				
+				indexTerritoireUtiliser.add(territoireIndex);
+				Territoire territoire = territoireList.get(territoireIndex);
+				joueurList.get(joueurIndex).getTerritoireList().add(territoire);
+				territoire.setProprietaireT(joueurList.get(joueurIndex).getNomJoueur());
+				
+				//System.out.println("ProprioT = " + territoireList.get(territoireIndex).getProprietaireT());
+				//System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
+				terrDist = terrDist - 1;
+				if (joueurIndex == joueurList.size()) {
+					joueurIndex = 0;
+				}
+			}
+		}
+	}
+
 	
     //GETTERS & SETTERS 
     public int getSoldatT() {

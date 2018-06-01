@@ -11,17 +11,19 @@ import java.util.ArrayList;
 public class Joueur {
 	
 	/*__ATTRIBUTS___________________________________________________*/
+	private String nomJoueur;
 	private Color couleur;
 	private int unit;
 	private int renfortTControles;
 	private int renfortTGagnes;
 	
-	public ArrayList<Territoire> territoireListJoueur;
+	public ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
 	
 	/*__METHODES____________________________________________________*/
 	
 	//CONSTRUCTEUR
-	public Joueur(Color color, int unitDebut) {
+	public Joueur(Color color, int unitDebut, String name) {
+		this.nomJoueur = name;
 		this.couleur = color;
 		this.unit = unitDebut;
 	}
@@ -42,7 +44,15 @@ public class Joueur {
 			if(nbrJoueur == 5) { unit = 25; }
 			if(nbrJoueur == 6) { unit = 20; }
 			
-			Joueur player = new Joueur (couleur,unit);
+			String name = "";
+			if (couleur == Color.BLUE) { name = "Bleu"; }
+			if (couleur == Color.RED) { name = "Rouge"; }
+			if (couleur == Color.GREEN) { name = "Vert"; }
+			if (couleur == Color.ORANGE) { name = "Orange"; }
+			if (couleur == Color.MAGENTA) { name = "Magenta"; }
+			if (couleur == Color.YELLOW) { name = "Jaune"; }
+			
+			Joueur player = new Joueur (couleur,unit, name);
 			joueurList.add(player);
 		}
 		
@@ -90,6 +100,16 @@ public class Joueur {
 	public void setRenfortTGagnes(int renfortTGagnes) {
 		this.renfortTGagnes = renfortTGagnes;
 	}
+
+	public String getNomJoueur() {
+		return nomJoueur;
+	}
+
+	public void setNomJoueur(String nomJoueur) {
+		this.nomJoueur = nomJoueur;
+	}
+	
+	
 
 	
 }
