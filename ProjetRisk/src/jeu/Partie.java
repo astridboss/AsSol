@@ -211,7 +211,7 @@ public class Partie {
 		maps = ImageIO.read(file);
 		
 		/**IMAGE : CHANGEMENT DE COULEUR*/
-		//chgmCouleurT (territoireArrayList, joueurList, maps);
+		chgmCouleurT (territoireArrayList, joueurList, maps);
 	
 		map = new JLabel("");
 		map.setIcon(new ImageIcon(maps));
@@ -266,11 +266,13 @@ public class Partie {
 				if (territoireArrayList.get(iT).getProprietaireT() == joueurList.get(iJ).getNomJoueur()) {
 					//Color pixel = joueurList.get(iJ).getCouleur();
 					
-					for (int indice = 0; indice < territoireArrayList.get(iT).getZoneTerritoires().size(); indice ++) {
-						int x = territoireArrayList.get(iT).getZoneTerritoires(indice).getPosX();			
-						int y = territoireArrayList.get(iT).getZoneTerritoires(indice).getPosY();
-						
-						map.setRGB(x, y, joueurList.get(iJ).getCouleur());
+					for (int indice = 0; indice < territoireArrayList.get(iT).getZoneTerritoires().size(); indice ++) {			
+						ArrayList<ZoneT> zoneTerritoire = territoireArrayList.get(iT).getZoneTerritoires();
+						int x = zoneTerritoire.get(indice).getPosX();
+						int y = zoneTerritoire.get(indice).getPosY();
+						Color joueurCouleur = joueurList.get(iJ).getCouleur();
+						int newColor = joueurCouleur.getRGB();
+						map.setRGB(x, y, newColor);
 					}
 				}
 			}

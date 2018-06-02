@@ -18,7 +18,7 @@ public class Territoire {
     private String nomT;
     private Color couleurT;
     private int[] pixelT;
-    private ArrayList<ZoneT> zoneTerritoires;
+    private ArrayList<ZoneT> zoneTerritoires = new ArrayList<>();
     
 	private String regionT;
     private ArrayList<Territoire> voisinT;
@@ -141,10 +141,10 @@ public class Territoire {
 			for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {
 				
 				//System.out.println("Joueur = "+joueurIndex);
-				int territoireIndex = (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42); 
+				int territoireIndex =  (int) (Math.random()*43); //(int) Math.floor(Math.random() * 42) + 1;
 				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
 					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
-						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1;//(int) (Math.random()*42); 
+						territoireIndex =  (int) (Math.random()*43); //(int) Math.floor(Math.random() * 42) + 1;
 					}
 				}
 				//System.out.println("Territoire index = " + territoireIndex);
