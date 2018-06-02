@@ -2,7 +2,7 @@ package jeu;
 /**
  * 
  * @author Astrid
- *Classe permettant d'itialialisé un format et des caracteristiques de l'armee
+ * Classe permettant d'itialialisé un format et des caracteristiques de l'armee
  */
 public abstract class Arme {
 
