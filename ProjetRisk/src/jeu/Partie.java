@@ -1,8 +1,6 @@
 package jeu;
 
-import java.awt.Button;
 import java.awt.Canvas;
-import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,13 +19,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.security.auth.x500.X500Principal;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -224,85 +219,7 @@ public class Partie {
 		contentPaneJeu.add(map);
 		
 		
-		JPanel panelDeplacement = new JPanel();
-		panelDeplacement.setBounds(922, 264, 359, 296);
-		contentPane.add(panelDeplacement);
-		panelDeplacement.setLayout(null);
 		
-		JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
-		titreDeplacement.setFont(new Font("LeHavre", Font.PLAIN, 17));
-		titreDeplacement.setBounds(120, 0, 134, 24);
-		panelDeplacement.add(titreDeplacement);
-		
-		JLabel lblTerrOrigine = new JLabel("Choisir votre territoire d'origine :");
-		lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTerrOrigine.setBounds(28, 35, 212, 14);
-		panelDeplacement.add(lblTerrOrigine);
-		
-		JLabel lblTerrDest = new JLabel("Choisir votre territoire de destination :");
-		lblTerrDest.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTerrDest.setBounds(28, 98, 249, 14);
-		panelDeplacement.add(lblTerrDest);
-		
-		Choice choixTerrOrigine = new Choice();
-		choixTerrOrigine.setBounds(55, 55, 200, 20);
-		panelDeplacement.add(choixTerrOrigine);
-		choixTerrOrigine.add("Territoire 1");
-		choixTerrOrigine.add("Territoire 2");
-		choixTerrOrigine.add("Territoire 3");
-		
-		
-		Choice choixTerrDest = new Choice();
-		choixTerrDest.setBounds(55, 131, 200, 20);
-		panelDeplacement.add(choixTerrDest);
-		choixTerrDest.add("Territoire 1");
-		choixTerrDest.add("Territoire 2");
-		choixTerrDest.add("Territoire 3");
-		
-		
-		Button boutonNext = new Button("Next");
-		boutonNext.setBounds(279, 131, 51, 22);
-		panelDeplacement.add(boutonNext);
-		boutonNext.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
-				lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblSoldat_1.setBounds(43, 185, 74, 14);
-				panelDeplacement.add(lblSoldat_1);
-				
-				JLabel lblCavalier_1 = new JLabel("Cavalier (2U)");
-				lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblCavalier_1.setBounds(131, 185, 80, 14);
-				panelDeplacement.add(lblCavalier_1);
-				
-				JLabel lblCanon_1 = new JLabel("Canon (3U)");
-				lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				lblCanon_1.setBounds(216, 185, 72, 14);
-				panelDeplacement.add(lblCanon_1);
-				
-				JSpinner spinnerSoldat = new JSpinner();
-				spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-				spinnerSoldat.setBounds(66, 209, 39, 24);
-				panelDeplacement.add(spinnerSoldat);
-				
-				JSpinner spinnerCavalier = new JSpinner();
-				spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-				spinnerCavalier.setBounds(158, 210, 39, 23);
-				panelDeplacement.add(spinnerCavalier);
-				
-				JSpinner spinnerCanon = new JSpinner();
-				spinnerCanon.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-				spinnerCanon.setBounds(236, 210, 39, 23);
-				panelDeplacement.add(spinnerCanon);
-				
-				JButton btnDeplacement = new JButton("D\u00E9placement/ Attaque");
-				btnDeplacement.setBounds(160, 258, 170, 23);
-				panelDeplacement.add(btnDeplacement);
-								
-				fenetre.validate();
-				fenetre.repaint();
 		map.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked (MouseEvent e) {
