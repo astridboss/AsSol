@@ -14,10 +14,19 @@ public abstract class Arme {
 	private int prioDefense;
 	private int mouvement;
 	private int score;
+	
+	
+	
+	public int nbSoldat;
+	public int nbCavalier;
+	public int nbCanon;
+	public boolean attaquePossible; 
+	public Territoire territoire;
+	
 
 	
 
-	public Arme(String couleur, int cout, int puissanceMin, int puissanceMax, int prioriteAtt, int prioriteDef, int mouvement) {
+	public Arme(String couleur, int cout, int puissanceMin, int puissanceMax, int prioriteAtt, int prioriteDef, int mouvement,int nbSoldat,int nbCavalier, int nbCanon,boolean attaquePossible,  Territoire territoire) {
 		this.couleur = couleur;
 		this.cout = cout;
 		this.desMin = puissanceMin;
@@ -26,6 +35,13 @@ public abstract class Arme {
 		this.prioDefense = prioriteDef;
 		this.mouvement = mouvement;
 		this.score = 0;
+		
+		
+		this.nbSoldat= nbSoldat;
+		this.nbCavalier= nbCavalier;
+		this.nbCanon= nbCanon;
+		this.attaquePossible= attaquePossible;
+		this.territoire= territoire;
 	}
 
 
@@ -102,6 +118,76 @@ public abstract class Arme {
 		this.score = 0;
 	}
 
+public Territoire getTerritoire() {
+	return territoire;
+}
+
+
+
+public void setTerritoire(Territoire territoire) {
+	this.territoire = territoire;
+}
+
+public int getNbSoldat() {
+	return nbSoldat;
+}
+
+
+
+public void setNbSoldat(int nbSoldat) {
+	this.nbSoldat = nbSoldat;
+}
+
+
+
+public int getNbCavalier() {
+	return nbCavalier;
+}
+
+
+
+public void setNbCavalier(int nbCavalier) {
+	this.nbCavalier = nbCavalier;
+}
+
+
+
+public int getNbCanon() {
+	return nbCanon;
+}
+
+
+
+public void setNbCanon(int nbCanon) {
+	this.nbCanon = nbCanon;
+}
+
+
+
+public boolean isAttaquePossible() {
+	return attaquePossible;
+}
+
+
+
+public void setAttaquePossible(boolean attaquePossible) {
+	this.attaquePossible = attaquePossible;
+}
+
+
+public boolean attaquePossible() {
+	//Récuperer du bouton soldat attaque le nbSoldat
+	int nbSoldatAttaque = 0;
+	if(this.getTerritoire().getSoldatT()<nbSoldat) {
+		System.out.println("Il n'y a pas assez de soldat");
+        return false;
+	}
+	this.setNbSoldat(nbSoldatAttaque);
+	//Récuperer du bouton Cavalier attaque le nbCavalierAttaque
+	int nbCavalierAttaque=0;
+	
+	if(this.getTerritoire().get)
+}
 
 
 
