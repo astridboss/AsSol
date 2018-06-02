@@ -31,7 +31,7 @@ public class Territoire {
 
 	/*__METHODES____________________________________________________*/
 
-	//CONSTRUCTEUR
+	/**_____CONSTRUCTEUR___________________*/
     
 	public Territoire (int territoireId, String nomT, Color couleurT, int [] pixel, String region) throws IOException {
     	this.territoireId= territoireId;
@@ -44,7 +44,8 @@ public class Territoire {
     }
 	
 	
-	//INIT TERRITOIRE FONCTIONS
+	/**_____FONCTION_INITIALISATION_DES_TERRITOIRES___________________*/
+	
 		private static Color color(int r, int g, int b) throws IOException {
 			Color color = new Color(r, g, b);
 			return color;
@@ -113,7 +114,7 @@ public class Territoire {
 		}
 
 	
-	//FONCTIONS
+	/**_____FONCTION_DE_DETECTION_DE_TERRITOIRES___________________*/
 		
 	public static Territoire territoireDetection (int posx, int posy, ArrayList<Territoire> list) {
 		
@@ -131,32 +132,40 @@ public class Territoire {
 	}
 	
 	
+	/**_____FONCTION_DE_DISTRIBUTION_DES_TERRITOIRES___________________*/
+	
 	public static void distributionTerritoire (ArrayList<Territoire> territoireList, ArrayList<Joueur>joueurList ) {
 		int terrDist = 42;
-		ArrayList<Integer> indexTerritoireUtiliser = new ArrayList<>();
+		//ArrayList<Integer> indexTerritoireUtiliser = new ArrayList<>();
+		ArrayList<Territoire> territoireRandom = territoireList;
 		
 		while (terrDist != 0) {
-			//System.out.println("terrDist = "+terrDist);
 			
 			for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {
 				
-				//System.out.println("Joueur = "+joueurIndex);
-				int territoireIndex =  (int) (Math.random()*43); //(int) Math.floor(Math.random() * 42) + 1;
-				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
-					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
-						territoireIndex =  (int) (Math.random()*43); //(int) Math.floor(Math.random() * 42) + 1;
-					}
-				}
-				//System.out.println("Territoire index = " + territoireIndex);
+				System.out.println("terrDist = "+terrDist);
+				System.out.println("Joueur = "+joueurIndex);
 				
-				indexTerritoireUtiliser.add(territoireIndex);
-				Territoire territoire = territoireList.get(territoireIndex);
+				int territoireIndex =  (int) (Math.random() * terrDist) ; //(int) (Math.random()*42);
+				
+				/*for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
+					while ( territoireIndex == indexTerritoireUtiliser.get(i)) {
+						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42);
+					}
+				}*/
+				
+				System.out.println("Territoire index = " + territoireIndex);
+			
+				//indexTerritoireUtiliser.add(territoireIndex);
+				Territoire territoire = territoireRandom.get(territoireIndex);
 				joueurList.get(joueurIndex).getTerritoireList().add(territoire);
 				territoire.setProprietaireT(joueurList.get(joueurIndex).getNomJoueur());
 				
-				//System.out.println("ProprioT = " + territoireList.get(territoireIndex).getProprietaireT());
-				//System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
+				System.out.println("ProprioT = " + territoireList.get(territoireIndex).getProprietaireT());
+				System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
+				
 				terrDist = terrDist - 1;
+				territoireRandom.remove(territoireIndex);
 				if (joueurIndex == joueurList.size()) {
 					joueurIndex = 0;
 				}
@@ -165,7 +174,9 @@ public class Territoire {
 	}
 
 	
-    //GETTERS & SETTERS 
+	
+	/*__GETTERS_&_SETTERS____________________________________________________*/
+	
     public int getSoldatT() {
 		return soldatT;
 	}

@@ -31,7 +31,9 @@ public class Joueur {
 	//INIT JOUEUR
 	public static ArrayList<Joueur> initJoueur (int nbrJoueur) {
 		
-		Color couleurList [] = {new Color(38, 146, 204), new Color(198, 41, 41), new Color(57, 154, 71), new Color(231, 112, 35), new Color(115, 88, 23,5), new Color(242, 227, 79)};
+		//Color couleurList [] = {new Color(38, 146, 204), new Color(198, 41, 41), new Color(57, 154, 71), new Color(231, 112, 35), new Color(115, 88, 23,5), new Color(242, 227, 79)};
+		Color couleurList [] = {Color.BLUE, Color.RED, Color.GREEN, Color.ORANGE, Color.MAGENTA, Color.YELLOW};
+		
 		ArrayList<Joueur> joueurList = new ArrayList<>();
 		
 		for (int i = 0; i < nbrJoueur; i++ ) {
@@ -45,12 +47,12 @@ public class Joueur {
 			if(nbrJoueur == 6) { unit = 20; }
 			
 			String name = "";
-			if (couleur == new Color(38, 146, 204)) { name = "Bleu"; }
-			if (couleur == new Color(198, 41, 41)) { name = "Rouge"; }
-			if (couleur == new Color(57, 154, 71)) { name = "Vert"; }
-			if (couleur == new Color(231, 112, 35)) { name = "Orange"; }
-			if (couleur == new Color(115, 88, 23,5)) { name = "Violet"; }
-			if (couleur == new Color(242, 227, 79)) { name = "Jaune"; }
+			if (couleur == Color.BLUE) { name = "Bleu"; }
+			if (couleur == Color.RED) { name = "Rouge"; }
+			if (couleur == Color.GREEN) { name = "Vert"; }
+			if (couleur == Color.ORANGE) { name = "Orange"; }
+			if (couleur == Color.MAGENTA) { name = "Violet"; }
+			if (couleur == Color.YELLOW) { name = "Jaune"; }
 			
 			Joueur player = new Joueur (couleur,unit, name);
 			joueurList.add(player);

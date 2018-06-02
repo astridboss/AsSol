@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketOption;
 import java.nio.Buffer;
 import java.util.ArrayList;
 
@@ -57,6 +58,8 @@ public class Partie {
 	/*__METHODES___________________________________________________*/
 	public Partie (int nbrJoueur, JFrame fenetre) throws IOException {
 		
+		System.out.println("ICI");
+		
 		//INIT TERRITOIRE
 		territoireArrayList = new ArrayList<Territoire>();
 		territoireArrayList = Territoire.initTerritoire();
@@ -65,7 +68,6 @@ public class Partie {
 		ArrayList<Joueur> joueurList = new ArrayList<>();
 		joueurList = Joueur.initJoueur(nbrJoueur);
 		
-
 		//REPARTITION DES TERRITOIRES ENTRE LES JOUEURS
 		Territoire.distributionTerritoire (territoireArrayList, joueurList);
 		
@@ -81,7 +83,6 @@ public class Partie {
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
 		int width  = (int)dimension.getWidth();
-
 		fenetre.setBounds(100, 100, width, height);
 		
 		/**CREATION DU CONTENEUR PRINCIPAL*/
@@ -190,7 +191,7 @@ public class Partie {
 		panelInfoT.add(lblVariablenompays);
 		
 		lblProprio = new JLabel(" ");
-		lblProprio.setBounds(136, 27, 34, 14);
+		lblProprio.setBounds(131, 27, 82, 14);
 		panelInfoT.add(lblProprio);
 		
 		nbrSoldat = new JLabel(" ");
@@ -217,8 +218,7 @@ public class Partie {
 		map.setIcon(new ImageIcon(maps));
 		map.setBounds(10, 0, 900, 487);
 		contentPaneJeu.add(map);
-		
-		
+	
 		
 		map.addMouseListener(new MouseAdapter() {
 			@Override
@@ -251,7 +251,7 @@ public class Partie {
 		lblUnits.setBounds(1056, 73, 46, 14);
 		contentPaneJeu.add(lblUnits);
 		
-		JLabel nbrUnite = new JLabel("35");
+		JLabel nbrUnite = new JLabel(String.valueOf(joueurList.get(0).getUnit()));
 		nbrUnite.setFont(new Font("Stencil", Font.PLAIN, 21));
 		nbrUnite.setBounds(1067, 93, 34, 23);
 		contentPaneJeu.add(nbrUnite);
