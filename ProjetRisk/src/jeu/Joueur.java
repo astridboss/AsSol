@@ -11,24 +11,29 @@ import java.util.ArrayList;
 public class Joueur {
 	
 	/*__ATTRIBUTS___________________________________________________*/
+	
 	private String nomJoueur;
 	private Color couleur;
 	private int unit;
 	private int renfortTControles;
 	private int renfortTGagnes;
-	
+	public Arme armeJoueur;
 	public ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
+	
 	
 	/*__METHODES____________________________________________________*/
 	
-	//CONSTRUCTEUR
-	public Joueur(Color color, int unitDebut, String name) {
-		this.nomJoueur = name;
+	/**_____CONSTRUCTEUR___________________*/
+	
+	public Joueur(Color color, int unitDebut, String nom) {
+		this.nomJoueur = nom;
 		this.couleur = color;
 		this.unit = unitDebut;
 	}
 	
-	//INIT JOUEUR
+	
+	/**____INITIALISATION_DES_JOUEURS_________________*/
+	
 	public static ArrayList<Joueur> initJoueur (int nbrJoueur) {
 		
 		//Color couleurList [] = {new Color(38, 146, 204), new Color(198, 41, 41), new Color(57, 154, 71), new Color(231, 112, 35), new Color(115, 88, 23,5), new Color(242, 227, 79)};
@@ -62,7 +67,8 @@ public class Joueur {
 	}
 
 	
-	//GETTERS & SETTERS
+	/*__GETTERS_&_SETTERS____________________________________________________*/
+	
 	public Color getCouleur() {
 		return couleur;
 	}

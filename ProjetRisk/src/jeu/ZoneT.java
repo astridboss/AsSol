@@ -7,43 +7,30 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+/**
+ * CREATION DES ZONES DES TERRITOIRES A PARTIR DES COULEURS
+ * @parameter pixel
+ * @parameter zoneT (posX + posY)
+ */
+
 public class ZoneT {
 
 	/*__ATTRIBUTS___________________________________________________*/
 	private int posX;
 	private int posY;
 
-	public ZoneT (int x, int y) {
-		this.posX = x;
-		this.posY = y;
-	}
-	
-	
 
 	/*__METHODES____________________________________________________*/
 	
+	/**_____CONSTRUCTEUR___________________*/
 	
-	public static void zone (int [] pixelT) throws IOException {
-		
-		//for (int id = 0; id < territoireArrayList.size(); id++) {
-			ArrayList<ZoneT> zoneT = new ArrayList<>();
-			
-			//System.out.println("ID = " + territoireArrayList.get(1).getTerritoireId());
-			//System.out.println("Pays = " + territoireArrayList.get(1).getNomT());
-			//System.out.println("Couleur = " + territoireArrayList.get(1).getCouleurT());
-						
-			zoneT = zoneTerritoireCalcul(pixelT);
-			
-			System.out.println("Zone = " + zoneT);
-			System.out.println("Taille de Zone = " + zoneT.size());
-			System.out.println("****************************");
-			
-		}
-		
-	//}
+	public ZoneT (int x, int y) {
+		this.posX = x;
+		this.posY = y;
+	}	
+
 	
-	
-	
+	/**_____CALCUL_LA_ZONE_DU_TERRITOIRE_CORRESPONDANT_AU_PIXEL___________________*/
 	
 	public static ArrayList<ZoneT> zoneTerritoireCalcul (int [] pixelT) throws IOException {
 	
