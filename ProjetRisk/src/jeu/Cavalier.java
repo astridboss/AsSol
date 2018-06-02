@@ -13,6 +13,7 @@ public class Cavalier extends Unit {
 
 
 	public Cavalier(Color couleur) {
+		this.unitId=unitId;
 		this.couleur= couleur;
 		this.cout=3;
 		this.desMin=2;

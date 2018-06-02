@@ -13,6 +13,7 @@ public class Soldat extends Unit {
 
 
 	public Soldat(Color couleur) {
+		this.unitId=unitId;
 		this.couleur= couleur;
 		this.cout=1;
 		this.desMin=1;

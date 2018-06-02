@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Joueur {
 	
 	/*__ATTRIBUTS___________________________________________________*/
-	private String nomJoueur;
+
 	private Color couleur;
 	private int unit;
 	private int renfortTControles;
@@ -22,8 +22,8 @@ public class Joueur {
 	/*__METHODES____________________________________________________*/
 	
 	//CONSTRUCTEUR
-	public Joueur(Color color, int unitDebut, String name) {
-		this.nomJoueur = name;
+	public Joueur(Color color, int unitDebut) {
+		
 		this.couleur = color;
 		this.unit = unitDebut;
 	}

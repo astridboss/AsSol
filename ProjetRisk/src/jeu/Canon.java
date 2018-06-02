@@ -13,6 +13,7 @@ public class Canon extends Unit {
 
 
 	public Canon(Color couleur) {
+		this.unitId=unitId;
 		this.couleur= couleur;
 		this.cout=7;
 		this.desMin=4;

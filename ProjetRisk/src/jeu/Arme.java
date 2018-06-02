@@ -2,6 +2,7 @@ package jeu;
 
 import java.awt.Button;
 import java.awt.Choice;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,35 +25,20 @@ import edu.princeton.cs.introcs.StdDraw;
  */
 public abstract class Arme {
 
-	private String couleur;
-	private int cout;
-	private int desMin;
-	private int desMax;
-	private int prioAttaque;
-	private int prioDefense;
-	private int mouvement;
-	private int score;
-
-
-
+	private Color couleur;
 	public int nbSoldat;
 	public int nbCavalier;
 	public int nbCanon;
 	public boolean attaquePossible; 
 	public Territoire territoire;
 
+	public ArrayList<Unit> armeList= new ArrayList<>();
 
 
 
-	public Arme(String couleur, int cout, int puissanceMin, int puissanceMax, int prioriteAtt, int prioriteDef, int mouvement,int nbSoldat,int nbCavalier, int nbCanon,boolean attaquePossible,  Territoire territoire) {
+	public Arme(Color couleur, int cout, int puissanceMin, int puissanceMax, int prioriteAtt, int prioriteDef, int mouvement,int nbSoldat,int nbCavalier, int nbCanon,boolean attaquePossible,  Territoire territoire) {
 		this.couleur = couleur;
-		this.cout = cout;
-		this.desMin = puissanceMin;
-		this.desMax = puissanceMax;
-		this.prioAttaque = prioriteAtt;
-		this.prioDefense = prioriteDef;
-		this.mouvement = mouvement;
-		this.score = 0;
+		
 
 
 		this.nbSoldat= nbSoldat;

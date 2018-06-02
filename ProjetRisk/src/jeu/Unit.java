@@ -6,6 +6,7 @@ public class Unit {
 	
 
 	protected Color couleur;
+	public int unitId;
 	public int cout;
 	public int desMin;
 	public int desMax;
@@ -17,9 +18,10 @@ public class Unit {
 	public Unit() {
 
 	}
-	public Unit(Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
+	public Unit(int unitId,Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
 			int score) {
 		super();
+		this.unitId=unitId;
 		this.couleur = couleur;
 		this.cout = cout;
 		this.desMin = desMin;
@@ -92,5 +94,11 @@ public class Unit {
 	}
 	public void setCouleur(Color couleur) {
 		this.couleur = couleur;
+	}
+	public int getUnitId() {
+		return unitId;
+	}
+	public void setUnitId(int unitId) {
+		this.unitId = unitId;
 	}
 }
