@@ -15,9 +15,23 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 public class PanelArme {
-
-	public void deplacementUnit (JPanel contentPane, JFrame fenetre) {
-	
+	public JFrame fenetre;
+	private JPanel contentPane;
+	public PanelArme() {
+		
+	}
+	public void deplacementUnit () {
+		/**CREATION DE LA FENETRE PRINCIPALE*/
+		fenetre = new JFrame ("RISK'ISEP");
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setBounds(100, 100, 634, 442);
+		fenetre.setVisible(true);
+		
+		/**CREATION DE LA ZONE DE CONTENUE DU MENU*/
+		contentPane = new JPanel();
+		contentPane.setLayout(null);
+		fenetre.setContentPane(contentPane);
+		
 			JPanel panelDeplacement = new JPanel();
 			panelDeplacement.setBounds(922, 264, 359, 296);
 			contentPane.add(panelDeplacement);

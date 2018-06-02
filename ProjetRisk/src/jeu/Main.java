@@ -13,6 +13,7 @@ public class Main {
 	//AFFICHAGE MENU
 	MenuJeu menu = new MenuJeu();
 	menu.Menu ();
-
+	
+	
 	}		
 }
