@@ -12,7 +12,7 @@ public class Cavalier extends Unit {
 	
 
 
-	public Soldat(Color couleur) {
+	public Cavalier(Color couleur) {
 		this.couleur= couleur;
 		this.cout=3;
 		this.desMin=2;
