@@ -13,23 +13,19 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.event.*;
 import java.io.IOException;
 
-
 /**
  * MENU DU JEU
  * @parameter nbrJoueur
  * @parameter nbrIA
  */
 
-public class MenuJeu /**implements ActionListener*/ {
+public class MenuJeu {
 	
 	/*__ATTRIBUTS___________________________________________________*/
 	public JFrame fenetre;
 	private JPanel contentPaneMenu;
-	//public JPanel contentPaneJeu;
 	public int nbrJoueur;
 	private int nbrIA;
-	/**private JButton btnJouer;
-	private JSpinner spinner_NbrJoueur, spinner_NbrIA; */
 	
 	/*__METHODES____________________________________________________*/
 	
@@ -41,28 +37,31 @@ public class MenuJeu /**implements ActionListener*/ {
 	//AFFICHAGE MENU ET CHOIX JOUEUR
 	public void Menu () {
 		
-		
+		/**CREATION DE LA FENETRE PRINCIPALE*/
 		fenetre = new JFrame ("RISK'ISEP");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setBounds(100, 100, 634, 442);
 		fenetre.setVisible(true);
 		
+		/**CREATION DE LA ZONE DE CONTENUE DU MENU*/
 		contentPaneMenu = new JPanel();
 		contentPaneMenu.setLayout(null);
 		fenetre.setContentPane(contentPaneMenu);
 			
-		
+		/**TITRE*/
 		JLabel titrejeux = new JLabel("Bienvenue sur RISK'ISEP");
 		titrejeux.setHorizontalAlignment(SwingConstants.CENTER);
 		titrejeux.setFont(new Font("Goudy Old Style", Font.PLAIN, 25));
 		titrejeux.setBounds(16, 11, 592, 30);
 		contentPaneMenu.add(titrejeux);
 		
+		/**IMAGE DE L'ACCUEIL*/
 		JLabel imageAcceuil = new JLabel("");
 		imageAcceuil.setIcon(new ImageIcon(MenuJeu.class.getResource("/Images/Image_accueil.jpg")));
 		imageAcceuil.setBounds(16, 138, 230, 151);
 		contentPaneMenu.add(imageAcceuil);
 		
+		/**OBTENTION DU NBR DE JOUEUR ET IA*/
 		JLabel lblNbrJoueur = new JLabel("Nombre de joueur :");
 		lblNbrJoueur.setBounds(256, 148, 118, 14);
 		contentPaneMenu.add(lblNbrJoueur);
@@ -81,6 +80,7 @@ public class MenuJeu /**implements ActionListener*/ {
 		spinner_NbrIA.setBounds(372, 202, 76, 23);
 		contentPaneMenu.add(spinner_NbrIA);
 		
+		/**BOUTON JOUER + ACTION APRES CLIC DE SOURIS*/
 		JButton btnJouer = new JButton("JOUER");
 		btnJouer.setBounds(496, 266, 89, 23);
 		contentPaneMenu.add(btnJouer);		
@@ -98,7 +98,7 @@ public class MenuJeu /**implements ActionListener*/ {
 		        fenetre.repaint();
 
 		        
-		        //DIRECTION PARTIE
+		        /**DIRECTION LE FICHIER PRINCIPAL DU JEU : PARTIE*/
 		        try {
 					new Partie(nbrJoueur, fenetre);
 				} catch (IOException e1) {
@@ -107,33 +107,12 @@ public class MenuJeu /**implements ActionListener*/ {
 				}
 			}
 		});
-
 		
-		
-		/**btnJouer.addActionListener(this);*/
 		fenetre.validate();
         fenetre.repaint();
-
 	}
 	
 	
-	//FONCTION : GESTION DES CLICS
-	/**public void actionPerformed(ActionEvent ae) {
-        JButton button = (JButton) ae.getSource();
-        if (button == btnJouer)
-        {   
-        	nbrJoueur = ((Integer)spinner_NbrJoueur.getValue()).intValue();
-			nbrIA = ((Integer)spinner_NbrIA.getValue()).intValue();
-			System.out.println(spinner_NbrJoueur.getValue());
-            fenetre.remove(contentPaneMenu);
-            fenetre.setContentPane(contentPaneJeu);
-        }
-        fenetre.validate();
-        fenetre.repaint();
-    }   */
-	
-	
-
 	//GETTERS & SETTERS
 	public int getNbrJoueur() {
 		return nbrJoueur;
@@ -170,17 +149,4 @@ public class MenuJeu /**implements ActionListener*/ {
 	public void setFenetre(JFrame fenetre) {
 		this.fenetre = fenetre;
 	}
-
-/*
-	public JPanel getContentPaneJeu() {
-		return contentPaneJeu;
-	}
-
-
-	public void setContentPaneJeu(JPanel contentPaneJeu) {
-		this.contentPaneJeu = contentPaneJeu;
-	}
-	
-*/
-	
 }

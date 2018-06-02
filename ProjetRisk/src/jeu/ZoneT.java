@@ -18,21 +18,7 @@ public class ZoneT {
 		this.posY = y;
 	}
 	
-	public int getPosX() {
-		return posX;
-	}
-
-	public void setPosX(int posX) {
-		this.posX = posX;
-	}
-
-	public int getPosY() {
-		return posY;
-	}
-
-	public void setPosY(int posY) {
-		this.posY = posY;
-	}
+	
 
 	/*__METHODES____________________________________________________*/
 	
@@ -88,4 +74,24 @@ public class ZoneT {
 		return zoneT;
 	}
 	
+	
+	
+	
+	/*__GETTERS_&_SETTERS____________________________________________________*/
+	
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
 }
