@@ -16,7 +16,7 @@ public class Joueur {
 	private int unit;
 	private int renfortTControles;
 	private int renfortTGagnes;
-	
+	public Arme armeJoueur;
 	public ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
 	
 	/*__METHODES____________________________________________________*/

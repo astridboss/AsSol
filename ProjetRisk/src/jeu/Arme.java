@@ -5,9 +5,11 @@ import java.awt.Choice;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -218,10 +220,10 @@ public abstract class Arme {
 
 
 
-	public boolean attaqueChoix(Joueur joueur, Partie partie) {
+	public boolean attaqueChoix(Joueur joueur, Partie partie,JFrame fenetre)throws IOException {
 		JPanel panelDeplacement = new JPanel();
 		panelDeplacement.setBounds(922, 264, 359, 296);
-		contentPane.add(panelDeplacement);
+		panelDeplacement.add(panelDeplacement);
 		panelDeplacement.setLayout(null);
 
 		JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
@@ -243,31 +245,32 @@ public abstract class Arme {
 		choixTerrOrigine.setBounds(55, 55, 200, 20);
 		panelDeplacement.add(choixTerrOrigine);
 		ArrayList<Territoire> territoireListJoueur= joueur.getTerritoireList();
+
 		for (int i=0; i<territoireListJoueur.size();i++) {
 			Territoire territoireInit=territoireListJoueur.get(i);
 			String nomT=territoireInit.getNomT();
 			choixTerrOrigine.add(nomT);
 		}
-
-
-
 		Choice choixTerrDest = new Choice();
 		choixTerrDest.setBounds(55, 131, 200, 20);
 		panelDeplacement.add(choixTerrDest);
-		ArrayList<Territoire> territoireArrayList=partie.territoireArrayList;
-		for (int i=0; i<territoireArrayList.size();i++) {
-			Territoire territoireMvt=territoireListJoueur.get(i);
-			String nomT=territoireMvt.getNomT();
-			choixTerrOrigine.add(nomT);
+		String choixTerrOrigineS=choixTerrOrigine.getSelectedItem();
+		Territoire choixTerrOrigineT =Territoire.nomTerritoire(choixTerrOrigineS, partie);
+		ArrayList<Territoire> voisinT=choixTerrOrigineT .getVoisinT();
+
+		for (int i=0; i<voisinT.size();i++) {
+			Territoire territoireVoisin=territoireListJoueur.get(i);
+			String nomT=territoireVoisin.getNomT();
+			choixTerrDest.add(nomT);
 		}
-		
+
 		Button boutonNext = new Button("Next");
 		boutonNext.setBounds(279, 131, 51, 22);
 		panelDeplacement.add(boutonNext);
 		boutonNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				for(joueur.)
 				JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 				lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblSoldat_1.setBounds(43, 185, 74, 14);
@@ -304,6 +307,7 @@ public abstract class Arme {
 
 				fenetre.validate();
 				fenetre.repaint();
+
 				boolean unite = false;
 				while (!unite){
 					int [] nbSoldatAttaque = new int[this.getTerritoire().getSoldatT()+1];
