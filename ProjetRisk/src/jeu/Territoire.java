@@ -16,7 +16,7 @@ public class Territoire {
 	/*__ATTRIBUTS___________________________________________________*/
 	private int territoireId;
 	private String nomT;
-	private Color couleurT;
+	private static Color couleurT;
 	private int[] pixelT;
 	private ArrayList<ZoneT> zoneTerritoires = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class Territoire {
 
 	//CONSTRUCTEUR
 
-	public Territoire (int territoireId, String nomT, Color couleurT, int [] pixel, String region) throws IOException {
+	public Territoire (Color proprietaireT ,int territoireId, String nomT, Color couleurT, int [] pixel, String region) throws IOException {
 		this.territoireId= territoireId;
 		this.nomT=nomT;
 		this.couleurT= couleurT;
@@ -76,37 +76,37 @@ public class Territoire {
 
 		for(int id = 0; id < territoireEurope.length; id++) {
 			String nomT= territoireEurope[id];
-			Territoire territory = new Territoire(id, nomT, couleurEurope [id], pixel [id] ,"Europe");
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurEurope [id], pixel [id] ,"Europe");
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 7; id < (territoireAfrique.length + 7); id++) {
 			String nomT= territoireAfrique[(id-7)];
-			Territoire territory = new Territoire(id, nomT, couleurAfrique [id-7], pixel[id] ,"Afrique");
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAfrique [id-7], pixel[id] ,"Afrique");
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 13; id < (territoireOceanie.length + 13); id++) {
 			String nomT= territoireOceanie[(id-13)];
-			Territoire territory = new Territoire(id, nomT, couleurOceanie [id-13], pixel [id] ,"Océanie");
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurOceanie [id-13], pixel [id] ,"Océanie");
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 18; id < (territoireAmeriqueSud.length + 18); id++) {
 			String nomT= territoireAmeriqueSud[(id-18)];
-			Territoire territory = new Territoire(id, nomT, couleurAmeriqueSud [id-18], pixel [id] ,"Amérique du Sud");
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAmeriqueSud [id-18], pixel [id] ,"Amérique du Sud");
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 22; id < (territoireAmeriqueNord.length + 22); id++) {
 			String nomT= territoireAmeriqueNord[(id-22)];
-			Territoire territory = new Territoire(id, nomT, couleurAmeriqueNord [id-22], pixel [id] ,"Amérique du Nord");
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAmeriqueNord [id-22], pixel [id] ,"Amérique du Nord");
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 31; id < (territoireAsie.length + 31); id++) {
 			String nomT= territoireAsie[(id-31)];
-			Territoire territory = new Territoire(id, nomT, couleurAsie [id-31], pixel [id] ,"Asie");
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAsie [id-31], pixel [id] ,"Asie");
 			territoireArrayList.add(territory);
 		}
 		return territoireArrayList;
@@ -163,8 +163,8 @@ public class Territoire {
 			}
 		}
 	}
-	public static Territoire nomTerritoire(String nom, Partie partie) {
-		ArrayList<Territoire> territoireArrayList=partie.territoireArrayList;
+	public static Territoire stringToTerritoire(String nom, Partie partie) {
+		ArrayList<Territoire> territoireArrayList = partie.territoireArrayList;
 		for (int i=0; i<territoireArrayList.size(); i++) {
 			Territoire territoire =territoireArrayList.get(i);
 			if(territoire.getNomT().equals(nom)) {

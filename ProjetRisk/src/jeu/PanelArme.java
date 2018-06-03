@@ -5,6 +5,8 @@ import java.awt.Choice;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,10 +19,12 @@ import javax.swing.SwingConstants;
 public class PanelArme {
 	public JFrame fenetre;
 	private JPanel contentPane;
+	
 	public PanelArme() {
 		
 	}
-	public void deplacementUnit () {
+	
+	public void deplacementUnit (Joueur joueur, Partie partie)throws IOException {
 		/**CREATION DE LA FENETRE PRINCIPALE*/
 		fenetre = new JFrame ("RISK'ISEP");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,46 +36,53 @@ public class PanelArme {
 		contentPane.setLayout(null);
 		fenetre.setContentPane(contentPane);
 		
-			JPanel panelDeplacement = new JPanel();
-			panelDeplacement.setBounds(922, 264, 359, 296);
-			contentPane.add(panelDeplacement);
-			panelDeplacement.setLayout(null);
-			
-			JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
-			titreDeplacement.setFont(new Font("LeHavre", Font.PLAIN, 17));
-			titreDeplacement.setBounds(120, 0, 134, 24);
-			panelDeplacement.add(titreDeplacement);
-			
-			JLabel lblTerrOrigine = new JLabel("Choisir votre territoire d'origine :");
-			lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblTerrOrigine.setBounds(28, 35, 212, 14);
-			panelDeplacement.add(lblTerrOrigine);
-			
-			JLabel lblTerrDest = new JLabel("Choisir votre territoire de destination :");
-			lblTerrDest.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblTerrDest.setBounds(28, 98, 249, 14);
-			panelDeplacement.add(lblTerrDest);
-			
-			Choice choixTerrOrigine = new Choice();
-			choixTerrOrigine.setBounds(55, 55, 200, 20);
-			panelDeplacement.add(choixTerrOrigine);
-			choixTerrOrigine.add("Territoire 1");
-			choixTerrOrigine.add("Territoire 2");
-			choixTerrOrigine.add("Territoire 3");
-			
-			
-			Choice choixTerrDest = new Choice();
-			choixTerrDest.setBounds(55, 131, 200, 20);
-			panelDeplacement.add(choixTerrDest);
-			choixTerrDest.add("Territoire 1");
-			choixTerrDest.add("Territoire 2");
-			choixTerrDest.add("Territoire 3");
-			
-			
-			Button boutonNext = new Button("Next");
-			boutonNext.setBounds(279, 131, 51, 22);
-			panelDeplacement.add(boutonNext);
-			boutonNext.addMouseListener(new MouseAdapter() {
+		JPanel panelDeplacement = new JPanel();
+		panelDeplacement.setBounds(922, 264, 359, 296);
+		contentPane.add(panelDeplacement);
+		panelDeplacement.setLayout(null);
+		
+		JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
+		titreDeplacement.setFont(new Font("LeHavre", Font.PLAIN, 17));
+		titreDeplacement.setBounds(120, 0, 134, 24);
+		panelDeplacement.add(titreDeplacement);
+		
+		JLabel lblTerrOrigine = new JLabel("Choisir votre territoire d'origine :");
+		lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTerrOrigine.setBounds(28, 35, 212, 14);
+		panelDeplacement.add(lblTerrOrigine);
+
+		Choice choixTerrOrigine = new Choice();
+		choixTerrOrigine.setBounds(55, 55, 200, 20);
+		panelDeplacement.add(choixTerrOrigine);
+		ArrayList<Territoire> territoireListJoueur= joueur.getTerritoireList();
+
+		for (int i=0; i<territoireListJoueur.size();i++) {
+			//Territoire territoireInit=territoireListJoueur.get(i);
+			//String nomT=territoireInit.getNomT();
+			choixTerrOrigine.add(territoireListJoueur.get(i).getNomT());
+		}
+		
+		JLabel lblTerrDest = new JLabel("Les territoires de destination possible  :");
+		lblTerrDest.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTerrDest.setBounds(28, 98, 249, 14);
+		panelDeplacement.add(lblTerrDest);
+		Choice choixTerrDest = new Choice();
+		choixTerrDest.setBounds(55, 131, 200, 20);
+		panelDeplacement.add(choixTerrDest);
+		String choixTerrOrigineS=choixTerrOrigine.getSelectedItem();
+		Territoire choixTerrOrigineT =Territoire.stringToTerritoire(choixTerrOrigineS, partie);
+		ArrayList<Territoire> voisinT=choixTerrOrigineT .getVoisinT();
+
+		for (int i=0; i<voisinT.size();i++) {
+			Territoire territoireVoisin=territoireListJoueur.get(i);
+			String nomT=territoireVoisin.getNomT();
+			choixTerrDest.add(nomT);
+		}
+
+		Button boutonNext = new Button("Next");
+		boutonNext.setBounds(279, 131, 51, 22);
+		panelDeplacement.add(boutonNext);
+		boutonNext.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
@@ -203,6 +214,7 @@ public class PanelArme {
 		
 		
 	}
+	
 
 }
 

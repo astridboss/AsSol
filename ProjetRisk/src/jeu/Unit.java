@@ -14,11 +14,11 @@ public class Unit {
 	public int prioDefense;
 	public int mouvement;
 	public int score;
-
+	public int mouventEffectif;
 	public Unit() {
 
 	}
-	public Unit(int unitId,Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
+	public Unit(int mouventEffectif,int unitId,Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
 			int score) {
 		super();
 		this.unitId=unitId;
@@ -30,6 +30,7 @@ public class Unit {
 		this.prioDefense = prioDefense;
 		this.mouvement = mouvement;
 		this.score = score;
+		this.mouventEffectif=mouventEffectif;
 	}
 
 	
@@ -100,5 +101,11 @@ public class Unit {
 	}
 	public void setUnitId(int unitId) {
 		this.unitId = unitId;
+	}
+	public int getMouventEffectif() {
+		return mouventEffectif;
+	}
+	public void setMouventEffectif(int mouventEffectif) {
+		this.mouventEffectif = mouventEffectif;
 	}
 }

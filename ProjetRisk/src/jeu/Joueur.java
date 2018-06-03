@@ -16,18 +16,27 @@ public class Joueur {
 	private int unit;
 	private int renfortTControles;
 	private int renfortTGagnes;
-	public Arme armeJoueur;
+	
 	public ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
 	
 	/*__METHODES____________________________________________________*/
 	
 	//CONSTRUCTEUR
-	public Joueur(Color color, int unitDebut) {
-		
-		this.couleur = color;
-		this.unit = unitDebut;
-	}
+//	public Joueur(Color color, int unitDebut ,int renfortTControles,int renfortTGagnes, ArrayList<Territoire> territoireListJoueur) {
+//		
+//		this.couleur = color;
+//		this.unit = unitDebut;
+//	}
 	
+	public Joueur(Color blue, int unitDebut, int renfortTControles2, int renfortTGagnes2,
+			ArrayList<Territoire> territoireListJoueur2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Joueur(Color couleur2, int unit2, String name) {
+		// TODO Auto-generated constructor stub
+	}
+
 	//INIT JOUEUR
 	public static ArrayList<Joueur> initJoueur (int nbrJoueur) {
 		
@@ -101,13 +110,6 @@ public class Joueur {
 		this.renfortTGagnes = renfortTGagnes;
 	}
 
-	public String getNomJoueur() {
-		return nomJoueur;
-	}
-
-	public void setNomJoueur(String nomJoueur) {
-		this.nomJoueur = nomJoueur;
-	}
 	
 	
 
