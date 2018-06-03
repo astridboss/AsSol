@@ -166,9 +166,8 @@ public class Territoire {
 	
 	/**_____FONCTION_POUR_RETOURNER_UN_TERRITOIRE_SELECTIONNE_PAR_UN_NOM____________*/
 	
-	public static Territoire nomTerritoire(String nom, Partie partie) {
+	public static Territoire stringToTerritoire(String nom,ArrayList<Territoire> territoireArrayList) {
 
-		ArrayList<Territoire> territoireArrayList = partie.territoireArrayList;
 		for (int i=0; i<territoireArrayList.size(); i++) {
 			Territoire territoire = territoireArrayList.get(i);
 			if(territoire.getNomT().equals(nom)) {
@@ -177,7 +176,6 @@ public class Territoire {
 		}
 		return null;
 	}
-
 
 	
 	/*__GETTERS_&_SETTERS____________________________________________________*/
