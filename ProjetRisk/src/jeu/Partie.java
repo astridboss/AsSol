@@ -15,9 +15,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 
 
 /**
@@ -47,10 +47,12 @@ public class Partie {
 	private BufferedImage maps;
 	
 	private int indexJoueur; /** pour l'initialisation, le placement des unités */
-	Territoire territoireSelect; /**Represente le pays selectionner par le joueur sur la carte*/
+	Territoire territoireSelect; /**Représente le pays selectionner par le joueur sur la carte*/
 
 
 	/*__METHODES___________________________________________________*/
+	
+	//
 	public Partie (int nbrJoueur, JFrame fenetre) throws IOException {
 		
 		System.out.println("ICI");
@@ -84,7 +86,7 @@ public class Partie {
 		contentPaneJeu = new JPanel();
 		fenetre.setContentPane(contentPaneJeu);
 		contentPaneJeu.setLayout(null);
-		
+
 		/**INFORMATION BONUS CONQUETE ET NBR JOUEUR*/
 		JLabel lblBonusConqute = new JLabel("Bonus conqu\u00EAte");
 		lblBonusConqute.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -205,6 +207,7 @@ public class Partie {
 		panelInfoT.add(nbrCanon);
 		
 		/**INFORMATION UNITES : DETAIL DU NOMBRE UNITE*/
+		
 		JLabel lblUnits = new JLabel("Unit\u00E9s");
 		lblUnits.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblUnits.setBounds(1056, 73, 46, 14);
@@ -226,66 +229,102 @@ public class Partie {
 		map.setIcon(new ImageIcon(maps));
 		map.setBounds(10, 0, 900, 487);
 		contentPaneJeu.add(map);
-	
 		
 		map.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked (MouseEvent e) {
+				
 				/**INFORMATION TERRITOIRE : AU CLIC DE SOURIS*/
 				int  xPos = (int) (e.getX());
 			    int  yPos = (int) (e.getY());
-			    //System.out.println("Cursor: " + xPos + ", " + yPos);
 			    
 			    territoireSelect = Territoire.territoireDetection (xPos, yPos, territoireList);
-			    //System.out.println("ICI : " + paysSelect.getNomT());
 			    
 			    if (territoireSelect != null) {
+			    	int soldatNombre = 0;
+			    	int cavalierNombre = 0;
+			    	int canonNombre = 0;
+			    	
+			    	for (int i = 0; i < territoireSelect.getArmeList().size(); i++) {
+			    		if (territoireSelect.getArmeList().get(i).getNom() == "Soldat") {
+			    			soldatNombre = soldatNombre + 1; }
+			    		
+			    		if (territoireSelect.getArmeList().get(i).getNom() == "Cavalier") {
+			    			cavalierNombre = cavalierNombre + 1; }
+			    		
+			    		if (territoireSelect.getArmeList().get(i).getNom() == "Canon") {
+			    			canonNombre = canonNombre + 1; }
+			    	}
+			    	
 			    	lblVariablenompays.setText(territoireSelect.getNomT());
 			    	lblProprio.setText(territoireSelect.getJoueur().getNomJoueur());
-			    	nbrSoldat.setText(String.valueOf(territoireSelect.getSoldatT()));
-			    	nbrCav.setText(String.valueOf(territoireSelect.getCavalierT()));
-			    	nbrCanon.setText(String.valueOf(territoireSelect.getCanonT()));
-				
-			    /**INITIALISATION : PLACER LES UNITES*/
-		
-				indexJoueur = 0;
-		
-				//while (indexJoueur < 6) {
-					
-					PlacerUnit placement = new PlacerUnit();
-					placement.placerUnite (joueurList, indexJoueur, fenetre, contentPaneJeu, nbrUnite);
-					
-					JLabel lblJoueurAct = new JLabel("Joueur " + joueurList.get(indexJoueur).getNomJoueur() +", c'est \u00E0 vous !");
-					lblJoueurAct.setHorizontalAlignment(SwingConstants.CENTER);
-					lblJoueurAct.setFont(new Font("LeHavre", Font.PLAIN, 15));
-					lblJoueurAct.setBounds(993, 158, 264, 28);
-					contentPaneJeu.add(lblJoueurAct);
-					
-					JButton btnFinDeTour = new JButton("Joueur suivant !");
-					btnFinDeTour.setBounds(1138, 654, 143, 37);
-					contentPaneJeu.add(btnFinDeTour);
-					btnFinDeTour.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							indexJoueur = indexJoueur +1;
-							System.out.println(indexJoueur);
-						}
-					});
-			//	}	
-					
+			    	nbrSoldat.setText (Integer.toString(soldatNombre));
+			    	nbrCav.setText(Integer.toString(cavalierNombre));
+			    	nbrCanon.setText(Integer.toString(canonNombre));
+
 					fenetre.revalidate();
-					fenetre.repaint();	
-					
+					fenetre.repaint();
 			    }		
 			} 
 		});
 		
 		
+		/**INITIALISATION : PLACER LES UNITES*/
 		
-	
+		indexJoueur = 0;
+		
+		JLabel lblJoueurAct = new JLabel("");
+		lblJoueurAct.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJoueurAct.setFont(new Font("LeHavre", Font.PLAIN, 15));
+		lblJoueurAct.setBounds(993, 158, 264, 28);
+		contentPaneJeu.add(lblJoueurAct);
+		
 		fenetre.validate();
         fenetre.repaint();
+        
+			
+		PlacerUnit placement = new PlacerUnit();
+		placement.placerUnite (joueurList, indexJoueur, fenetre, contentPaneJeu, nbrUnite);
+		
+		lblJoueurAct.setText("Joueur " + joueurList.get(indexJoueur).getNomJoueur() +", c'est a vous !");
+		
+		JButton btnJoueurSuivant = new JButton("Joueur suivant !");
+		btnJoueurSuivant.setBounds(1138, 654, 143, 37);
+		contentPaneJeu.add(btnJoueurSuivant);
+		btnJoueurSuivant.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if (joueurList.get(indexJoueur).getUnit() == 0) {
+					
+					fenetre.remove(placement.getPanelPlacerUnit());
+					fenetre.validate();
+				    fenetre.repaint();
+					
+				    indexJoueur = indexJoueur +1;
+					
+					if (indexJoueur < joueurList.size()) {
+						
+						lblJoueurAct.setText("Joueur " + joueurList.get(indexJoueur).getNomJoueur() +", c'est a vous !");
+						placement.placerUnite (joueurList, indexJoueur, fenetre, contentPaneJeu, nbrUnite);
+						nbrUnite.setText(String.valueOf(joueurList.get(indexJoueur).getUnit()));
+						
+					} else {
+						// PASSER AU JEU !!!!
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Il vous reste des unités à placer avant de finir votre tours !", "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+	
+	fenetre.validate();
+    fenetre.repaint();
+
 	}
+	
+	
 	
 	/*__FONCTION_CHANGEMENT_COULEUR_____________________-___________________*/
 		

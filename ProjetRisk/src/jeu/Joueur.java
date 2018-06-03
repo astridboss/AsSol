@@ -24,10 +24,6 @@ public class Joueur {
 	/*__METHODES____________________________________________________*/
 	
 
-	
-
-
-
 	/**_____CONSTRUCTEUR___________________*/
 	
 	public Joueur(Color color, int unitDebut, String nom) {
@@ -113,6 +109,16 @@ public class Joueur {
 
 	public void setRenfortTGagnes(int renfortTGagnes) {
 		this.renfortTGagnes = renfortTGagnes;
+	}
+
+
+	public String getNomJoueur() {
+		return nomJoueur;
+	}
+
+
+	public void setNomJoueur(String nomJoueur) {
+		this.nomJoueur = nomJoueur;
 	}
 
 	

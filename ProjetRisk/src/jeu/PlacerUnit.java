@@ -17,11 +17,13 @@ import javax.swing.JOptionPane;
 
 public class PlacerUnit {
 	
+	private JPanel panelPlacerUnit;
+	
 	
 	public void placerUnite (ArrayList<Joueur> joueurList, int idJoueur,JFrame fenetre, JPanel contentPaneJeu, JLabel nbrUnite) {
 		
 		/**CREATION D'UN JPANEL DEDIE AU PLACEMENT DES UNITES - INTERFACE GRAPHIQUE*/
-		JPanel panelPlacerUnit = new JPanel();
+		panelPlacerUnit = new JPanel();
 		panelPlacerUnit.setBounds(922, 264, 359, 296);
 		contentPaneJeu.add(panelPlacerUnit);
 		panelPlacerUnit.setLayout(null);
@@ -54,12 +56,12 @@ public class PlacerUnit {
 		lblSoldat_1.setBounds(38, 123, 74, 14);
 		panelPlacerUnit.add(lblSoldat_1);
 		
-		JLabel lblCavalier_1 = new JLabel("Cavalier (2U)");
+		JLabel lblCavalier_1 = new JLabel("Cavalier (3U)");
 		lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblCavalier_1.setBounds(126, 123, 80, 14);
 		panelPlacerUnit.add(lblCavalier_1);
 		
-		JLabel lblCanon_1 = new JLabel("Canon (3U)");
+		JLabel lblCanon_1 = new JLabel("Canon (7U)");
 		lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblCanon_1.setBounds(211, 123, 72, 14);
 		panelPlacerUnit.add(lblCanon_1);
@@ -91,22 +93,36 @@ public class PlacerUnit {
 				int nbrCavalier = ((Integer)spinnerCavalier.getValue()).intValue();
 				int nbrCanon = ((Integer)spinnerCanon.getValue()).intValue();
 				
-				int unitUtiliser = nbrSoldat + 2* nbrCavalier + 3*nbrCanon;
+				int unitUtiliser = nbrSoldat + 3* nbrCavalier + 7*nbrCanon;
 				
 				if (unitUtiliser <= joueurList.get(idJoueur).getUnit()) {
 					
 					for ( int i = 0; i < joueurList.get(idJoueur).getTerritoireList().size(); i++) {
-						if (choixTerr.getSelectedItem() == joueurList.get(idJoueur).getTerritoireList().get(i).getNomT())
+						if (choixTerr.getSelectedItem() == joueurList.get(idJoueur).getTerritoireList().get(i).getNomT()) {
 							
-							joueurList.get(idJoueur).getTerritoireList().get(i).setSoldatT(joueurList.get(idJoueur).getTerritoireList().get(i).getSoldatT() + nbrSoldat);
-							joueurList.get(idJoueur).getTerritoireList().get(i).setCavalierT(joueurList.get(idJoueur).getTerritoireList().get(i).getCavalierT() + nbrCavalier);
-							joueurList.get(idJoueur).getTerritoireList().get(i).setCanonT(joueurList.get(idJoueur).getTerritoireList().get(i).getCanonT() + nbrCanon);
+							ArrayList<Unit> armeeL = joueurList.get(idJoueur).getTerritoireList().get(i).getArmeList();
+									
+							for (int s = 0; s < nbrSoldat; s++) {
+								Unit unitS = new Soldat();
+								armeeL.add(unitS);
 							}
-					
-					joueurList.get(idJoueur).setUnit(joueurList.get(idJoueur).getUnit() - unitUtiliser);
-					nbrUnite.setText (String.valueOf(joueurList.get(0).getUnit()));
-				} else {
-					//JOptionPane popupErreur = new JOptionPane();
+							for (int c = 0; c < nbrCavalier; c++) {
+								Unit unitC = new Cavalier();
+								armeeL.add(unitC);
+							}
+							for (int ca = 0; ca < nbrCanon; ca++) {
+								Unit unitCa = new Canon();
+								armeeL.add(unitCa);
+							}
+
+							joueurList.get(idJoueur).getTerritoireList().get(i).setArmeList(armeeL);
+						}
+					}
+							
+				joueurList.get(idJoueur).setUnit(joueurList.get(idJoueur).getUnit() - unitUtiliser);
+				nbrUnite.setText (String.valueOf(joueurList.get(idJoueur).getUnit()));
+				
+				}else {
 					JOptionPane.showMessageDialog(null, "Hum ... On dirait que vous n'avez plus assez d'unité ... Pas d'unité, pas d'armée ! Veuillez recommencer.", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -115,5 +131,20 @@ public class PlacerUnit {
 		fenetre.validate();
 		fenetre.repaint();			
 	}
+
+
+	public JPanel getPanelPlacerUnit() {
+		return panelPlacerUnit;
+	}
+
+
+	public void setPanelPlacerUnit(JPanel panelPlacerUnit) {
+		this.panelPlacerUnit = panelPlacerUnit;
+	}
+	
+	
+	
+	
+	
 }
 	

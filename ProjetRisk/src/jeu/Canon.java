@@ -1,26 +1,18 @@
 package jeu;
 
-import java.awt.Color;
-
-
 /**
- * Initialisation composant unité Canon
- 
- *
+ * DESCRIPTION CANON (UNIT)
  */
+
 public class Canon extends Unit {
 	
-
-
-	public Canon(Color couleur) {
-		this.unitId=unitId;
-		this.couleur= couleur;
-		this.cout=7;
-		this.desMin=4;
-		this.desMax=9;
-		this.prioAttaque=3;
-		this.prioDefense=2;
-		this.mouvement=1;
+	public Canon() {
+		
+		this.cout = 7;
+		this.prioAttaque = 3;
+		this.prioDefense = 2;
+		this.mouvement = 1;
+		this.nom = "Canon";
 		
 	}
 	

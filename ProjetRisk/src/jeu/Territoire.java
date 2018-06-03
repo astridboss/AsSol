@@ -7,7 +7,6 @@ import java.util.ArrayList;
 /**
  * GESTION DES TERRITOIRES
  *
- *
  */
 
 public class Territoire {
@@ -15,34 +14,18 @@ public class Territoire {
 	/*__ATTRIBUTS___________________________________________________*/
 	private int territoireId;
 	private String nomT;
-
 	private int[] pixelT;
 	
 	private Joueur joueur;
 	private String regionT;
 	private ArrayList<Territoire> voisinT;
 
-	private int soldatT;
-	private int cavalierT;
-	private int canonT;
 
+	private ArrayList<Unit> armeList= new ArrayList<>();
 	private ArrayList<ZoneT> zoneTerritoires = new ArrayList<>();
 	
-	/*__METHODES____________________________________________________*/
-
-	//CONSTRUCTEUR
-
-	public Territoire ( int territoireId, String nomT, int [] pixel, String region) throws IOException {
-		this.territoireId= territoireId;
-		this.nomT=nomT;
-		
-		this.pixelT = pixel;
-		this.regionT = region;   
 	
-		this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
-	}
-
-
+	/*__METHODES____________________________________________________*/
 
 	/**_____CONSTRUCTEUR___________________*/
     
@@ -55,12 +38,12 @@ public class Territoire {
     	this.regionT = region;   
    
     	this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
+    	this.armeList = initArmeList(); 
     }
 	
 	
 	/**_____FONCTION_INITIALISATION_DES_TERRITOIRES___________________*/
 	
-
 
 	public static ArrayList<Territoire> initTerritoire() throws IOException {
 
@@ -77,66 +60,49 @@ public class Territoire {
 
 		for(int id = 0; id < territoireEurope.length; id++) {
 			String nomT= territoireEurope[id];
-<<<<<<< HEAD
-			Territoire territory = new Territoire(couleurT, id, nomT, couleurEurope [id], pixel [id] ,"Europe");
-=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Europe", null);
->>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 7; id < (territoireAfrique.length + 7); id++) {
 			String nomT= territoireAfrique[(id-7)];
-<<<<<<< HEAD
-			Territoire territory = new Territoire(couleurT, id, nomT, couleurAfrique [id-7], pixel[id] ,"Afrique");
-=======
 			Territoire territory = new Territoire(id, nomT, pixel[id] ,"Afrique", null);
->>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 13; id < (territoireOceanie.length + 13); id++) {
 			String nomT= territoireOceanie[(id-13)];
-<<<<<<< HEAD
-			Territoire territory = new Territoire(couleurT, id, nomT, couleurOceanie [id-13], pixel [id] ,"Océanie");
-=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Océanie", null);
->>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 18; id < (territoireAmeriqueSud.length + 18); id++) {
 			String nomT= territoireAmeriqueSud[(id-18)];
-<<<<<<< HEAD
-			Territoire territory = new Territoire(couleurT, id, nomT, couleurAmeriqueSud [id-18], pixel [id] ,"Amérique du Sud");
-=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Amérique du Sud", null);
->>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 22; id < (territoireAmeriqueNord.length + 22); id++) {
 			String nomT= territoireAmeriqueNord[(id-22)];
-<<<<<<< HEAD
-			Territoire territory = new Territoire(couleurT, id, nomT, couleurAmeriqueNord [id-22], pixel [id] ,"Amérique du Nord");
-=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Amérique du Nord", null);
->>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 31; id < (territoireAsie.length + 31); id++) {
 			String nomT= territoireAsie[(id-31)];
-<<<<<<< HEAD
-			Territoire territory = new Territoire(couleurT, id, nomT, couleurAsie [id-31], pixel [id] ,"Asie");
-=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Asie", null);
->>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 		return territoireArrayList;
 	}
 
+	/**_____INITIALISATION_ARMEE_LISTE___________________*/
+	
+	public ArrayList<Unit> initArmeList() {
+		Unit unitS = new Soldat();
+		armeList.add(unitS);
+		return armeList;
+	}
 	
 	/**_____FONCTION_DE_DETECTION_DE_TERRITOIRES___________________*/
 	
@@ -159,59 +125,50 @@ public class Territoire {
 	/**_____FONCTION_DE_DISTRIBUTION_DES_TERRITOIRES___________________*/
 	
 	public static void distributionTerritoire (ArrayList<Territoire> territoireList, ArrayList<Joueur>joueurList ) {
-		int terrDist = 42;
-		ArrayList<Integer> indexTerritoireUtiliser = new ArrayList<>();
-		//ArrayList<Territoire> territoireRandom = territoireList;
+		int terrDist = 43;
 		
-		while (terrDist != 0) {
-			// faire une liste de tous les indexs dispo puis les enlever un par un et prendre un nombre au hasard parmi cette list
+		ArrayList<Integer> indexTerritoire = new ArrayList<>();
+		for (int j = 0; j < 43; j++) 	{ indexTerritoire.add(j); }
+		
+		while (terrDist > 0) {
+		for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {			
 			
-			for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {
+				System.out.println("****************************************");
+				System.out.println("terrDist = "+ terrDist);
+				System.out.println("Joueur = "+joueurIndex);
 				
-				//System.out.println("terrDist = "+terrDist);
-				//System.out.println("Joueur = "+joueurIndex);
+				int index =  (int) (Math.random()*(terrDist));
+				int territoireIndex = indexTerritoire.get(index);
 				
-				int territoireIndex =  (int) (Math.random()*43);
-				
-				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
-					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
-						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42);
-					}
-				}
-				
-				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
-					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
-						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42);
-					}
-				}
-				
-				//System.out.println("Territoire index = " + territoireIndex);
+				System.out.println("Index = " + index);
+				System.out.println("Territoire index = " + territoireIndex);
 			
-				//indexTerritoireUtiliser.add(territoireIndex);
 				Territoire territoire = territoireList.get(territoireIndex);
 				joueurList.get(joueurIndex).getTerritoireList().add(territoire);
 				territoire.joueur = joueurList.get(joueurIndex);
 				
-				//System.out.println("ProprioT = " + territoireList.get(territoireIndex).getProprietaireT());
-				//System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
+				System.out.println("ProprioT = " + territoireList.get(territoireIndex).getJoueur().getNomJoueur());
+				System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
 				
+				indexTerritoire.remove(indexTerritoire.get(index));
 				terrDist = terrDist - 1;
-				//territoireRandom.remove(territoireIndex);
+				if (terrDist == 0) {
+					break;
+					}
 				if (joueurIndex == joueurList.size()) {
 					joueurIndex = 0;
 				}
 			}
+			
 		}
+		
 	}
-
 	
 	
 	/**_____FONCTION_POUR_RETOURNER_UN_TERRITOIRE_SELECTIONNE_PAR_UN_NOM____________*/
 	
-public static Territoire stringToTerritoire(String nom, Partie partie) {
+	public static Territoire stringToTerritoire(String nom, ArrayList<Territoire> territoireArrayList) {
 
-
-		ArrayList<Territoire> territoireArrayList = partie.territoireArrayList;
 		for (int i=0; i<territoireArrayList.size(); i++) {
 			Territoire territoire = territoireArrayList.get(i);
 			if(territoire.getNomT().equals(nom)) {
@@ -225,33 +182,6 @@ public static Territoire stringToTerritoire(String nom, Partie partie) {
 	
 	/*__GETTERS_&_SETTERS____________________________________________________*/
 	
-	public int getSoldatT() {
-		return soldatT;
-	}
-
-	public void setSoldatT(int soldatT) {
-		this.soldatT = soldatT;
-	}
-
-
-	public int getCavalierT() {
-		return cavalierT;
-	}
-
-	public void setCavalierT(int cavalierT) {
-		this.cavalierT = cavalierT;
-	}
-
-
-	public int getCanonT() {
-		return canonT;
-	}
-
-	public void setCanonT(int canonT) {
-		this.canonT = canonT;
-	}
-
-
 	public String getNomT() {
 		return nomT;
 	}
@@ -315,6 +245,20 @@ public static Territoire stringToTerritoire(String nom, Partie partie) {
 	public void setJoueur(Joueur joueur) {
 		this.joueur = joueur;
 	}
+
+
+	public ArrayList<Unit> getArmeList() {
+		return armeList;
+	}
+
+
+	public void setArmeList(ArrayList<Unit> armeList) {
+		this.armeList = armeList;
+	}
+
+	
+
+	
 	
 	
 

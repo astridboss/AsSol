@@ -1,39 +1,44 @@
 package jeu;
 
-import java.awt.Color;
+/**
+ * CREATION D'UNE UNITE (SOLDAT, CAVALIER, CANON)
+ *
+ */
 
 public class Unit {
 	
-
-	protected Color couleur;
-	public int unitId;
+	/*__ATTRIBUTS___________________________________________________*/
+	
 	public int cout;
-	public int desMin;
-	public int desMax;
 	public int prioAttaque;
 	public int prioDefense;
 	public int mouvement;
 	public int score;
 	public int mouventEffectif;
+	public String nom;
+
+	
+	/*__METHODES____________________________________________________*/
+	
+	
 	public Unit() {
 
 	}
-	public Unit(int mouventEffectif,int unitId,Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
-			int score) {
+	
+	public Unit(int mouventEffectif, int cout, int prioAttaque, int prioDefense, int mouvement, int score, String nom) {
 		super();
-		this.unitId=unitId;
-		this.couleur = couleur;
+
 		this.cout = cout;
-		this.desMin = desMin;
-		this.desMax = desMax;
 		this.prioAttaque = prioAttaque;
 		this.prioDefense = prioDefense;
 		this.mouvement = mouvement;
 		this.score = score;
 		this.mouventEffectif=mouventEffectif;
+		this.nom = nom;
 	}
 
 	
+	/*__GETTERS_&_SETTERS____________________________________________________*/
 
 	public int getCout() {
 		return cout;
@@ -41,22 +46,6 @@ public class Unit {
 
 	public void setCout(int cout) {
 		this.cout = cout;
-	}
-
-	public int getDesMin() {
-		return desMin;
-	}
-
-	public void setDesMin(int desMin) {
-		this.desMin = desMin;
-	}
-
-	public int getDesMax() {
-		return desMax;
-	}
-
-	public void setDesMax(int desMax) {
-		this.desMax = desMax;
 	}
 
 	public int getPrioAttaque() {
@@ -90,22 +79,24 @@ public class Unit {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public Color getCouleur() {
-		return couleur;
-	}
-	public void setCouleur(Color couleur) {
-		this.couleur = couleur;
-	}
-	public int getUnitId() {
-		return unitId;
-	}
-	public void setUnitId(int unitId) {
-		this.unitId = unitId;
-	}
+	
+
 	public int getMouventEffectif() {
 		return mouventEffectif;
 	}
+	
 	public void setMouventEffectif(int mouventEffectif) {
 		this.mouventEffectif = mouventEffectif;
 	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+	
+	
 }

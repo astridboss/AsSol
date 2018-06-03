@@ -1,27 +1,20 @@
 package jeu;
 
-import java.awt.Color;
-
-
 /**
- * Initialisation composant unité Soldat
- 
+ * DESCRIPTION SOLDAT (UNIT)
  *
  */
+
 public class Soldat extends Unit {
+
+	public Soldat() {
+
+		this.cout = 1;
+		this.prioAttaque = 2;
+		this.prioDefense = 1;
+		this.mouvement = 2;
+		this.nom = "Soldat";
 	
-
-
-	public Soldat(Color couleur) {
-		this.unitId=unitId;
-		this.couleur= couleur;
-		this.cout=1;
-		this.desMin=1;
-		this.desMax=6;
-		this.prioAttaque=2;
-		this.prioDefense=1;
-		this.mouvement=2;
-		
 	}
 	
 }
