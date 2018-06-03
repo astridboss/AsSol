@@ -4,28 +4,20 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.MouseInfo;
-import java.awt.Panel;
-import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-import javax.security.auth.x500.X500Principal;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -48,14 +40,20 @@ public class Partie {
 	private JLabel nbrSoldat;
 	private JLabel nbrCav;
 	private JLabel nbrCanon;
+	private JLabel nbrUnite;
 	
 	
 	private Color current_color;
 	private BufferedImage maps;
+	
+	private int indexJoueur; /** pour l'initialisation, le placement des unités */
+	Territoire territoireSelect; /**Represente le pays selectionner par le joueur sur la carte*/
 
 
 	/*__METHODES___________________________________________________*/
 	public Partie (int nbrJoueur, JFrame fenetre) throws IOException {
+		
+		System.out.println("ICI");
 		
 		//INIT TERRITOIRE
 		territoireArrayList = new ArrayList<Territoire>();
@@ -65,7 +63,6 @@ public class Partie {
 		ArrayList<Joueur> joueurList = new ArrayList<>();
 		joueurList = Joueur.initJoueur(nbrJoueur);
 		
-
 		//REPARTITION DES TERRITOIRES ENTRE LES JOUEURS
 		Territoire.distributionTerritoire (territoireArrayList, joueurList);
 		
@@ -81,7 +78,6 @@ public class Partie {
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
 		int width  = (int)dimension.getWidth();
-
 		fenetre.setBounds(100, 100, width, height);
 		
 		/**CREATION DU CONTENEUR PRINCIPAL*/
@@ -190,21 +186,34 @@ public class Partie {
 		panelInfoT.add(lblVariablenompays);
 		
 		lblProprio = new JLabel(" ");
-		lblProprio.setBounds(136, 27, 34, 14);
+		lblProprio.setBounds(131, 27, 82, 14);
 		panelInfoT.add(lblProprio);
 		
 		nbrSoldat = new JLabel(" ");
-		nbrSoldat.setBounds(235, 27, 12, 14);
+		nbrSoldat.setHorizontalAlignment(SwingConstants.CENTER);
+		nbrSoldat.setBounds(225, 27, 41, 14);
 		panelInfoT.add(nbrSoldat);
 		
 		nbrCav = new JLabel(" ");
-		nbrCav.setBounds(290, 27, 12, 14);
+		nbrCav.setHorizontalAlignment(SwingConstants.CENTER);
+		nbrCav.setBounds(280, 27, 52, 14);
 		panelInfoT.add(nbrCav);
 		
 		nbrCanon = new JLabel(" ");
-		nbrCanon.setBounds(366, 27, 12, 14);
+		nbrCanon.setHorizontalAlignment(SwingConstants.CENTER);
+		nbrCanon.setBounds(356, 27, 40, 14);
 		panelInfoT.add(nbrCanon);
 		
+		/**INFORMATION UNITES : DETAIL DU NOMBRE UNITE*/
+		JLabel lblUnits = new JLabel("Unit\u00E9s");
+		lblUnits.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblUnits.setBounds(1056, 73, 46, 14);
+		contentPaneJeu.add(lblUnits);
+		
+		nbrUnite = new JLabel(String.valueOf(joueurList.get(0).getUnit()));
+		nbrUnite.setFont(new Font("Stencil", Font.PLAIN, 21));
+		nbrUnite.setBounds(1067, 93, 34, 23);
+		contentPaneJeu.add(nbrUnite);
 
 		/**IMAGE : INSERTION ET AFFICHAGE*/
 		File file = new File("src/Images/carte_mondeV3.png");
@@ -217,8 +226,7 @@ public class Partie {
 		map.setIcon(new ImageIcon(maps));
 		map.setBounds(10, 0, 900, 487);
 		contentPaneJeu.add(map);
-		
-		
+	
 		
 		map.addMouseListener(new MouseAdapter() {
 			@Override
@@ -226,17 +234,44 @@ public class Partie {
 				/**INFORMATION TERRITOIRE : AU CLIC DE SOURIS*/
 				int  xPos = (int) (e.getX());
 			    int  yPos = (int) (e.getY());
-			    System.out.println("Cursor: " + xPos + ", " + yPos);
+			    //System.out.println("Cursor: " + xPos + ", " + yPos);
 			    
-			    Territoire paysSelect = Territoire.territoireDetection (xPos, yPos, territoireList);
+			    territoireSelect = Territoire.territoireDetection (xPos, yPos, territoireList);
 			    //System.out.println("ICI : " + paysSelect.getNomT());
 			    
-			    if (paysSelect != null) {
-			    	lblVariablenompays.setText(paysSelect.getNomT());
-			    	lblProprio.setText(paysSelect.getProprietaireT());
-			    	nbrSoldat.setText(String.valueOf(paysSelect.getSoldatT()));
-			    	nbrCav.setText(String.valueOf(paysSelect.getCavalierT()));
-			    	nbrCanon.setText(String.valueOf(paysSelect.getCanonT()));
+			    if (territoireSelect != null) {
+			    	lblVariablenompays.setText(territoireSelect.getNomT());
+			    	lblProprio.setText(territoireSelect.getJoueur().getNomJoueur());
+			    	nbrSoldat.setText(String.valueOf(territoireSelect.getSoldatT()));
+			    	nbrCav.setText(String.valueOf(territoireSelect.getCavalierT()));
+			    	nbrCanon.setText(String.valueOf(territoireSelect.getCanonT()));
+				
+			    /**INITIALISATION : PLACER LES UNITES*/
+		
+				indexJoueur = 0;
+		
+				//while (indexJoueur < 6) {
+					
+					PlacerUnit placement = new PlacerUnit();
+					placement.placerUnite (joueurList, indexJoueur, fenetre, contentPaneJeu, nbrUnite);
+					
+					JLabel lblJoueurAct = new JLabel("Joueur " + joueurList.get(indexJoueur).getNomJoueur() +", c'est \u00E0 vous !");
+					lblJoueurAct.setHorizontalAlignment(SwingConstants.CENTER);
+					lblJoueurAct.setFont(new Font("LeHavre", Font.PLAIN, 15));
+					lblJoueurAct.setBounds(993, 158, 264, 28);
+					contentPaneJeu.add(lblJoueurAct);
+					
+					JButton btnFinDeTour = new JButton("Joueur suivant !");
+					btnFinDeTour.setBounds(1138, 654, 143, 37);
+					contentPaneJeu.add(btnFinDeTour);
+					btnFinDeTour.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							indexJoueur = indexJoueur +1;
+							System.out.println(indexJoueur);
+						}
+					});
+			//	}	
 					
 					fenetre.revalidate();
 					fenetre.repaint();	
@@ -245,17 +280,9 @@ public class Partie {
 			} 
 		});
 		
-		/**INFORMATION UNITES : DETAIL DU NOMBRE UNITE*/
-		JLabel lblUnits = new JLabel("Unit\u00E9s");
-		lblUnits.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblUnits.setBounds(1056, 73, 46, 14);
-		contentPaneJeu.add(lblUnits);
 		
-		JLabel nbrUnite = new JLabel("35");
-		nbrUnite.setFont(new Font("Stencil", Font.PLAIN, 21));
-		nbrUnite.setBounds(1067, 93, 34, 23);
-		contentPaneJeu.add(nbrUnite);
 		
+	
 		fenetre.validate();
         fenetre.repaint();
 	}
@@ -263,12 +290,13 @@ public class Partie {
 	/*__FONCTION_CHANGEMENT_COULEUR_____________________-___________________*/
 		
 	public void chgmCouleurT (ArrayList<Territoire> territoireArrayList, ArrayList<Joueur> joueurList, BufferedImage map) {
+		
 		for (int iT = 0; iT < territoireArrayList.size(); iT++) {
 			for (int iJ = 0; iJ < joueurList.size(); iJ++) {
-				if (territoireArrayList.get(iT).getProprietaireT() == joueurList.get(iJ).getNomJoueur()) {
-					//Color pixel = joueurList.get(iJ).getCouleur();
+				if (territoireArrayList.get(iT).getJoueur() == joueurList.get(iJ)) {
 					
 					for (int indice = 0; indice < territoireArrayList.get(iT).getZoneTerritoires().size(); indice ++) {			
+
 						ArrayList<ZoneT> zoneTerritoire = territoireArrayList.get(iT).getZoneTerritoires();
 						int x = zoneTerritoire.get(indice).getPosX();
 						int y = zoneTerritoire.get(indice).getPosY();
@@ -281,8 +309,7 @@ public class Partie {
 		}		
 	}
 	
-		
-
+	
 	/*__GETTERS_&_SETTERS___________________________________________________*/
 
 	public BufferedImage getMaps() {
@@ -301,7 +328,13 @@ public class Partie {
 		this.current_color = current_color;
 	}
 
+	public JLabel getNbrUnite() {
+		return nbrUnite;
+	}
 
+	public void setNbrUnite(JLabel nbrUnite) {
+		this.nbrUnite = nbrUnite;
+	}
 
 }
 

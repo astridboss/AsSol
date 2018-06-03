@@ -2,6 +2,7 @@ package jeu;
 
 import java.awt.Button;
 import java.awt.Choice;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,12 +25,14 @@ public class PanelArme {
 		
 	}
 	
+
 	public void deplacementUnit (Joueur joueur, Partie partie)throws IOException {
 		/**CREATION DE LA FENETRE PRINCIPALE*/
 		fenetre = new JFrame ("RISK'ISEP");
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setBounds(100, 100, 634, 442);
 		fenetre.setVisible(true);
+
 		
 		/**CREATION DE LA ZONE DE CONTENUE DU MENU*/
 		contentPane = new JPanel();
@@ -214,6 +217,30 @@ public class PanelArme {
 		
 		
 	}
+	
+
+
+	public JFrame getFenetre() {
+		return fenetre;
+	}
+
+
+	public void setFenetre(JFrame fenetre) {
+		this.fenetre = fenetre;
+	}
+
+
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+
+	public void setContentPane(JPanel contentPane) {
+		this.contentPane = contentPane;
+	}
+	
+	
+	
 	
 
 }

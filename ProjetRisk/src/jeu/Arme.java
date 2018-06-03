@@ -20,12 +20,17 @@ import edu.princeton.cs.introcs.StdDraw;
 
 /**
  * 
+ *
  *Arme par Territoire
  * Classe permettant d'itialialisé un format et des caracteristiques de l'armee
+
+ * INITIALISER UN FORMAT ET LES CARACTERISTIQUES DE L'ARMEE
  */
+
 public abstract class Arme {
 
-	private Color couleur;
+	/*__ATTRIBUTS___________________________________________________*/
+	public Joueur joueur;
 	public int nbSoldat;
 	public int nbCavalier;
 	public int nbCanon;
@@ -35,82 +40,24 @@ public abstract class Arme {
 	public ArrayList<Unit> armeList= new ArrayList<>();
 
 
+	/*__METHODES____________________________________________________*/
 
-	public Arme(Color couleur, int cout, int puissanceMin, int puissanceMax, int prioriteAtt, int prioriteDef, int mouvement,int nbSoldat,int nbCavalier, int nbCanon,boolean attaquePossible,  Territoire territoire) {
-		this.couleur = couleur;
+	/**_____CONSTRUCTEUR___________________*/
 
-
-
-		this.nbSoldat= nbSoldat;
-		this.nbCavalier= nbCavalier;
-		this.nbCanon= nbCanon;
-		this.attaquePossible= attaquePossible;
-		this.territoire= territoire;
-	}
-
-
-
-	public Color getNom() {
-		return couleur;
-	}
-
-
-	public Territoire getTerritoire() {
-		return territoire;
-	}
-
-
-
-	public void setTerritoire(Territoire territoire) {
-		this.territoire = territoire;
-	}
-
-	public int getNbSoldat() {
-		return nbSoldat;
-	}
-
-
-
-	public void setNbSoldat(int nbSoldat) {
+	public Arme(Joueur joueur, int nbSoldat, int nbCavalier, int nbCanon, boolean attaquePossible,
+			Territoire territoire, ArrayList<Unit> armeList) {
+		super();
+		this.joueur = joueur;
 		this.nbSoldat = nbSoldat;
-	}
-
-
-
-	public int getNbCavalier() {
-		return nbCavalier;
-	}
-
-
-
-	public void setNbCavalier(int nbCavalier) {
 		this.nbCavalier = nbCavalier;
-	}
-
-
-
-	public int getNbCanon() {
-		return nbCanon;
-	}
-
-
-
-	public void setNbCanon(int nbCanon) {
 		this.nbCanon = nbCanon;
-	}
-
-
-
-	public boolean isAttaquePossible() {
-		return attaquePossible;
-	}
-
-
-
-	public void setAttaquePossible(boolean attaquePossible) {
 		this.attaquePossible = attaquePossible;
+		this.territoire = territoire;
+		this.armeList = armeList;
 	}
 
+
+	/**____FONCTION_ATTAQUE_POSSIBLE_________________*/
 
 	public boolean attaquePossible(int nbSoldatAttaque, int nbCavalierAttaque,int nbCanonAttaque) {
 
@@ -137,7 +84,7 @@ public abstract class Arme {
 	}
 
 
-
+	/**____FONCTION_CHOIX_ATTAQUE_INTERFACE_________________*/
 
 	public boolean attaqueChoix(Joueur joueur, Partie partie,JFrame fenetre)throws IOException {
 		JPanel panelDeplacement = new JPanel();
@@ -165,7 +112,7 @@ public abstract class Arme {
 			String nomT=territoireInit.getNomT();
 			choixTerrOrigine.add(nomT);
 		}
-		
+
 		JLabel lblTerrDest = new JLabel("Les territoires de destination possible  :");
 		lblTerrDest.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTerrDest.setBounds(28, 98, 249, 14);
@@ -189,208 +136,132 @@ public abstract class Arme {
 		boutonNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				for(joueur.)
-					JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
-						lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						lblSoldat_1.setBounds(43, 185, 74, 14);
-						panelDeplacement.add(lblSoldat_1);
 
-						JLabel lblCavalier_1 = new JLabel("Cavalier (2U)");
-						lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						lblCavalier_1.setBounds(131, 185, 80, 14);
-						panelDeplacement.add(lblCavalier_1);
+				JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
+				lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblSoldat_1.setBounds(43, 185, 74, 14);
+				panelDeplacement.add(lblSoldat_1);
 
-						JLabel lblCanon_1 = new JLabel("Canon (3U)");
-						lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						lblCanon_1.setBounds(216, 185, 72, 14);
-						panelDeplacement.add(lblCanon_1);
+				JLabel lblCavalier_1 = new JLabel("Cavalier (2U)");
+				lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblCavalier_1.setBounds(131, 185, 80, 14);
+				panelDeplacement.add(lblCavalier_1);
 
-						JSpinner spinnerSoldat = new JSpinner();
-						spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-						spinnerSoldat.setBounds(66, 209, 39, 24);
-						panelDeplacement.add(spinnerSoldat);
+				JLabel lblCanon_1 = new JLabel("Canon (3U)");
+				lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblCanon_1.setBounds(216, 185, 72, 14);
+				panelDeplacement.add(lblCanon_1);
 
-						JSpinner spinnerCavalier = new JSpinner();
-						spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-						spinnerCavalier.setBounds(158, 210, 39, 23);
-						panelDeplacement.add(spinnerCavalier);
+				JSpinner spinnerSoldat = new JSpinner();
+				spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, 60, 1));
+				spinnerSoldat.setBounds(66, 209, 39, 24);
+				panelDeplacement.add(spinnerSoldat);
 
-						JSpinner spinnerCanon = new JSpinner();
-						spinnerCanon.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-						spinnerCanon.setBounds(236, 210, 39, 23);
-						panelDeplacement.add(spinnerCanon);
+				JSpinner spinnerCavalier = new JSpinner();
+				spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, 60, 1));
+				spinnerCavalier.setBounds(158, 210, 39, 23);
+				panelDeplacement.add(spinnerCavalier);
 
-						JButton btnDeplacement = new JButton("D\u00E9placement/ Attaque");
-						btnDeplacement.setBounds(160, 258, 170, 23);
-						panelDeplacement.add(btnDeplacement);
+				JSpinner spinnerCanon = new JSpinner();
+				spinnerCanon.setModel(new SpinnerNumberModel(0, 0, 60, 1));
+				spinnerCanon.setBounds(236, 210, 39, 23);
+				panelDeplacement.add(spinnerCanon);
 
-						fenetre.validate();
-						fenetre.repaint();
+				JButton btnDeplacement = new JButton("D\u00E9placement/ Attaque");
+				btnDeplacement.setBounds(160, 258, 170, 23);
+				panelDeplacement.add(btnDeplacement);
 
-						boolean unite = false;
-						while (!unite){
-							int [] nbSoldatAttaque = new int[this.getTerritoire().getSoldatT()+1];
-							StdDraw.disableDoubleBuffering();
-							StdDraw.clear();
-							StdDraw.text(50,60,"How many soldiers do you want to attack ?");
-							StdDraw.text(40,55,"Number of soldiers : ");
-							for(int it=0;it<=this.getTerritory().getNbSoldier();it++){
-								StdDraw.text((45+it*2)+2,55, String.valueOf(it));
-								xTextSoldier[it] = (45+it*2)+2;
-							}
-							StdDraw.show();
-							boolean numberOfSoldiersChosen = false;
-							int nbSoldierAttacker = 0;
-							while (!numberOfSoldiersChosen){
-								if (StdDraw.isMousePressed()){
-									double xSoldier = StdDraw.mouseX();
-									double ySoldier = StdDraw.mouseY();
-									if((ySoldier>=53.7 && ySoldier<=56.3)){
-										for (int k=0; k<=this.getTerritory().getNbSoldier();k++){
-											if((xSoldier>=xTextSoldier[k]-1.1) && (xSoldier<=xTextSoldier[k]+1.1)){
-												nbSoldierAttacker = k;
-												numberOfSoldiersChosen = true;
-											}
-										}
-									}
-									StdDraw.pause(90);
-								}
-							}
-
-							if (this.getTerritory().getNbSoldier()<nbSoldierAttacker){
-								StdDraw.disableDoubleBuffering();
-								StdDraw.clear();
-								StdDraw.text(50,50,"Not enough soldiers");
-								StdDraw.show();
-								StdDraw.pause(1500);
-							}
-							this.setNbSoldier(nbSoldierAttacker);
-
-
-
-							int [] xTextCavalier = new int[this.getTerritory().getNbCavalery()+1];
-							StdDraw.disableDoubleBuffering();
-							StdDraw.clear();
-							StdDraw.text(50,60,"How many cavaliers do you want to attack ?");
-							StdDraw.text(40,55,"Number of cavaliers : ");
-							for(int it=0;it<=this.getTerritory().getNbCavalery();it++){
-								StdDraw.text((45+it*2)+2,55, String.valueOf(it));
-								xTextCavalier[it] = (45+it*2)+2;
-							}
-							StdDraw.show();
-							boolean numberOfCavaliersChosen = false;
-							int nbCavaleryAttacker = 0;
-							while (!numberOfCavaliersChosen){
-								if (StdDraw.isMousePressed()){
-									double xCavalery = StdDraw.mouseX();
-									double yCavalery = StdDraw.mouseY();
-									if(yCavalery>=53.7 && yCavalery<=56.3){
-										for (int k=0; k<=this.getTerritory().getNbCavalery();k++){
-											if(xCavalery>=xTextCavalier[k]-0.1 && xCavalery<=xTextCavalier[k]+0.1){
-												nbCavaleryAttacker = k;
-												numberOfCavaliersChosen = true;
-											}
-										}
-									}
-									StdDraw.pause(200);
-								}
-							}
-
-							if (this.getTerritory().getNbCavalery()<nbCavaleryAttacker){
-								StdDraw.disableDoubleBuffering();
-								StdDraw.clear();
-								StdDraw.text(50,50,"Not enough cavaliers");
-								StdDraw.show();
-								StdDraw.pause(1500);
-							}
-							this.setNbCavalery(nbCavaleryAttacker);
-
-
-
-							int [] xTextCanon = new int[this.getTerritory().getNbCanon()+1];
-							StdDraw.disableDoubleBuffering();
-							StdDraw.clear();
-							StdDraw.text(50,60,"How many canons do you want to attack ?");
-							StdDraw.text(40,55,"Number of canons : ");
-							for(int it=0;it<=this.getTerritory().getNbCanon();it++){
-								StdDraw.text((45+it*2)+2,55, String.valueOf(it));
-								xTextCanon[it] = (45+it*2)+2;
-							}
-							StdDraw.show();
-							boolean numberOfCanonChosen = false;
-							int nbCanonAttacker = 0;
-							while (!numberOfCanonChosen){
-								if (StdDraw.isMousePressed()){
-									double xCanon = StdDraw.mouseX();
-									double yCanon = StdDraw.mouseY();
-									if(yCanon>=53.7 && yCanon<=56.3){
-										for (int k=0; k<=this.getTerritory().getNbCanon();k++){
-											if(xCanon>=xTextCanon[k]-1.1 && xCanon<=xTextCanon[k]+1.1){
-												nbCanonAttacker = k;
-												numberOfCanonChosen = true;
-											}
-										}
-									}
-									StdDraw.pause(200);
-								}
-							}
-
-							if (this.getTerritory().getNbCanon()<nbCanonAttacker){
-								StdDraw.disableDoubleBuffering();
-								StdDraw.clear();
-								StdDraw.text(50,50,"Not enough canons");
-								StdDraw.show();
-								StdDraw.pause(1500);
-							}
-							this.setNbCanon(nbCanonAttacker);
-
-
-							if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) ==0){
-								StdDraw.disableDoubleBuffering();
-								StdDraw.clear();
-								StdDraw.text(50,50,"You need to at least chose one unit ");
-								StdDraw.show();
-								StdDraw.pause(1500);
-							}
-
-							else if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) > 3){
-								StdDraw.disableDoubleBuffering();
-								StdDraw.clear();
-								StdDraw.text(50,50,"You cannot choose more than three units ");
-								StdDraw.show();
-								StdDraw.pause(1500);
-							}
-
-							else if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) >= (this.getTerritory().getNbCanon()+this.getTerritory().getNbSoldier()+this.getTerritory().getNbCavalery() )){
-								StdDraw.disableDoubleBuffering();
-								StdDraw.clear();
-								StdDraw.text(50,50,"At least one unit needs to stay in the territory ");
-								StdDraw.show();
-								StdDraw.pause(1500);
-								return false;
-							}
-							else{
-								unitsChosen = true;
-								this.territory.setNbSoldier(this.territory.getNbSoldier()-nbSoldierAttacker); // on retire les troupes qui partent au combat de leur territoire de base
-								this.territory.setNbCavalery(this.territory.getNbCavalery()-nbCavaleryAttacker);
-								this.territory.setNbCanon(this.territory.getNbCanon()-nbCanonAttacker);
-							}
-
-						}
-
-						return unitsChosen;
+				fenetre.validate();
+				fenetre.repaint();
 
 
 			}
-
-
-
-
-
-
 		}
 				);
+		return true;
+
 	}
+	/*__GETTERS_&_SETTERS____________________________________________________*/
+
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+
+	public void setJoueur(Joueur joueur) {
+		this.joueur = joueur;
+	}
+
+
+	public int getNbSoldat() {
+		return nbSoldat;
+	}
+
+
+	public void setNbSoldat(int nbSoldat) {
+		this.nbSoldat = nbSoldat;
+	}
+
+
+	public int getNbCavalier() {
+		return nbCavalier;
+	}
+
+
+	public void setNbCavalier(int nbCavalier) {
+		this.nbCavalier = nbCavalier;
+	}
+
+
+	public int getNbCanon() {
+		return nbCanon;
+	}
+
+
+	public void setNbCanon(int nbCanon) {
+		this.nbCanon = nbCanon;
+	}
+
+
+	public boolean isAttaquePossible() {
+		return attaquePossible;
+	}
+
+
+	public void setAttaquePossible(boolean attaquePossible) {
+		this.attaquePossible = attaquePossible;
+	}
+
+
+	public Territoire getTerritoire() {
+		return territoire;
+	}
+
+
+	public void setTerritoire(Territoire territoire) {
+		this.territoire = territoire;
+	}
+
+
+	public ArrayList<Unit> getArmeList() {
+		return armeList;
+	}
+
+
+	public void setArmeList(ArrayList<Unit> armeList) {
+		this.armeList = armeList;
+	}
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
