@@ -4,9 +4,7 @@ public class BROUILLON {
 
 }
 /**
-
-
-
+	
 //Tableau pour afficher le nombre de soldat, cavalier et canon
 
 JLabel iconSoldat = new JLabel("");
