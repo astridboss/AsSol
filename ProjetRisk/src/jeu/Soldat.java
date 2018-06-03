@@ -4,7 +4,7 @@ import java.awt.Color;
 
 
 /**
- * Initialisation composant unité Soldat
+ * Initialisation composant unitÃ© Soldat
  
  *
  */
@@ -12,16 +12,15 @@ public class Soldat extends Unit {
 	
 
 
-	public Soldat(Color couleur) {
+	public Soldat() {
 		this.unitId=unitId;
-		this.couleur= couleur;
 		this.cout=1;
 		this.desMin=1;
 		this.desMax=6;
 		this.prioAttaque=2;
 		this.prioDefense=1;
 		this.mouvement=2;
-		
+	
 	}
 	
 }
