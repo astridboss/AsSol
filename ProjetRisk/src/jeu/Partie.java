@@ -47,7 +47,7 @@ public class Partie {
 	private BufferedImage maps;
 	
 	private int indexJoueur; /** pour l'initialisation, le placement des unités */
-	Territoire paysSelect; /**Represente le pays selectionner par le joueur sur la carte*/
+	Territoire territoireSelect; /**Represente le pays selectionner par le joueur sur la carte*/
 
 
 	/*__METHODES___________________________________________________*/
@@ -236,15 +236,15 @@ public class Partie {
 			    int  yPos = (int) (e.getY());
 			    //System.out.println("Cursor: " + xPos + ", " + yPos);
 			    
-			    paysSelect = Territoire.territoireDetection (xPos, yPos, territoireList);
+			    territoireSelect = Territoire.territoireDetection (xPos, yPos, territoireList);
 			    //System.out.println("ICI : " + paysSelect.getNomT());
 			    
-			    if (paysSelect != null) {
-			    	lblVariablenompays.setText(paysSelect.getNomT());
-			    	lblProprio.setText(paysSelect.getProprietaireT());
-			    	nbrSoldat.setText(String.valueOf(paysSelect.getSoldatT()));
-			    	nbrCav.setText(String.valueOf(paysSelect.getCavalierT()));
-			    	nbrCanon.setText(String.valueOf(paysSelect.getCanonT()));
+			    if (territoireSelect != null) {
+			    	lblVariablenompays.setText(territoireSelect.getNomT());
+			    	lblProprio.setText(territoireSelect.getJoueur().getNomJoueur());
+			    	nbrSoldat.setText(String.valueOf(territoireSelect.getSoldatT()));
+			    	nbrCav.setText(String.valueOf(territoireSelect.getCavalierT()));
+			    	nbrCanon.setText(String.valueOf(territoireSelect.getCanonT()));
 				
 			    /**INITIALISATION : PLACER LES UNITES*/
 		
@@ -290,12 +290,13 @@ public class Partie {
 	/*__FONCTION_CHANGEMENT_COULEUR_____________________-___________________*/
 		
 	public void chgmCouleurT (ArrayList<Territoire> territoireArrayList, ArrayList<Joueur> joueurList, BufferedImage map) {
+		
 		for (int iT = 0; iT < territoireArrayList.size(); iT++) {
 			for (int iJ = 0; iJ < joueurList.size(); iJ++) {
-				if (territoireArrayList.get(iT).getProprietaireT() == joueurList.get(iJ).getNomJoueur()) {
-					//Color pixel = joueurList.get(iJ).getCouleur();
+				if (territoireArrayList.get(iT).getJoueur() == joueurList.get(iJ)) {
 					
 					for (int indice = 0; indice < territoireArrayList.get(iT).getZoneTerritoires().size(); indice ++) {			
+
 						ArrayList<ZoneT> zoneTerritoire = territoireArrayList.get(iT).getZoneTerritoires();
 						int x = zoneTerritoire.get(indice).getPosX();
 						int y = zoneTerritoire.get(indice).getPosY();
@@ -308,8 +309,7 @@ public class Partie {
 		}		
 	}
 	
-		
-
+	
 	/*__GETTERS_&_SETTERS___________________________________________________*/
 
 	public BufferedImage getMaps() {
@@ -335,8 +335,6 @@ public class Partie {
 	public void setNbrUnite(JLabel nbrUnite) {
 		this.nbrUnite = nbrUnite;
 	}
-
-
 
 }
 
