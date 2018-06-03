@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Unit {
 	
 
-	protected Color couleur;
+	
 	public int unitId;
 	public int cout;
 	public int desMin;
@@ -15,14 +15,16 @@ public class Unit {
 	public int mouvement;
 	public int score;
 	public int mouventEffectif;
+
 	public Unit() {
 
 	}
-	public Unit(int mouventEffectif,int unitId,Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
+	public Unit(Joueur joueur,Territoire territoire,int mouventEffectif,int unitId,Color couleur, int cout, int desMin, int desMax, int prioAttaque, int prioDefense, int mouvement,
 			int score) {
 		super();
+		
+		
 		this.unitId=unitId;
-		this.couleur = couleur;
 		this.cout = cout;
 		this.desMin = desMin;
 		this.desMax = desMax;
@@ -90,12 +92,8 @@ public class Unit {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public Color getCouleur() {
-		return couleur;
-	}
-	public void setCouleur(Color couleur) {
-		this.couleur = couleur;
-	}
+	
+
 	public int getUnitId() {
 		return unitId;
 	}
@@ -108,4 +106,5 @@ public class Unit {
 	public void setMouventEffectif(int mouventEffectif) {
 		this.mouventEffectif = mouventEffectif;
 	}
+	
 }
