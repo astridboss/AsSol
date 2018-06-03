@@ -20,11 +20,9 @@ public class Territoire {
 	private String regionT;
 	private ArrayList<Territoire> voisinT;
 
-
 	private ArrayList<Unit> armeList= new ArrayList<>();
 	private ArrayList<ZoneT> zoneTerritoires = new ArrayList<>();
-	
-	
+
 	/*__METHODES____________________________________________________*/
 
 	/**_____CONSTRUCTEUR___________________*/
@@ -53,10 +51,10 @@ public class Territoire {
 
 		String [] territoireEurope = { "Islande", "Europe du Nord", "Europe du Sud", "Scandinavie", "Europe Occidentale", "Grande Bretagne", "Ukraine" };
 		String [] territoireAfrique = { "Afrique du Nord", "Afrique du Sud", "Afrique Orientale", "Madagascar", "Congo", "Egypte"};	
-		String [] territoireOceanie = {"Indonésie", "Australie Occidentale", "Australie orientale", "Nouvelle Guinée", "Iles Indonésie"};		
-		String [] territoireAmeriqueSud = { "Brésil", "Argentine", "Pérou", "Venezuela"};
-		String [] territoireAmeriqueNord = {"Alaska", "Alberta",  "Amérique Centrale", "Ontario", "Québec","Etat de l'Est", "Etat de l'Ouest", "Territoire du Nord Ouest", "Groenland",};
-		String [] territoireAsie = {"Afghanistan", "Inde", "Japon","Mongolie", "Kamchatka", "Moyen Orient","Chine","Sibérie", "Oural","Siam","Tchita", "Yakoutie"};
+		String [] territoireOceanie = {"Indonesie", "Australie Occidentale", "Australie orientale", "Nouvelle Guinee", "Iles Indonesie"};		
+		String [] territoireAmeriqueSud = { "Bresil", "Argentine", "Perou", "Venezuela"};
+		String [] territoireAmeriqueNord = {"Alaska", "Alberta",  "Amerique Centrale", "Ontario", "Quebec","Etat de l'Est", "Etat de l'Ouest", "Territoire du Nord Ouest", "Groenland",};
+		String [] territoireAsie = {"Afghanistan", "Inde", "Japon","Mongolie", "Kamchatka", "Moyen Orient","Chine","Siberie", "Oural","Siam","Tchita", "Yakoutie"};
 
 		for(int id = 0; id < territoireEurope.length; id++) {
 			String nomT= territoireEurope[id];
@@ -113,7 +111,7 @@ public class Territoire {
 			for (int j = 0; j < list.get(i).getZoneTerritoires().size(); j++) {
 				//System.out.println("x= " + list.get(i).getZoneT().get(j).getPosX() + " | y = " + list.get(i).getZoneT().get(j).getPosY());
 				if ( (posx == list.get(i).getZoneTerritoires().get(j).getPosX()) && (posy == list.get(i).getZoneTerritoires().get(j).getPosY())) {
-					System.out.println("Vous êtes en : " + list.get(i).getNomT());
+					System.out.println("Vous Ãªtes en : " + list.get(i).getNomT());
 					return list.get(i);
 				}
 			} 
@@ -161,13 +159,12 @@ public class Territoire {
 			}
 			
 		}
-		
 	}
 	
 	
 	/**_____FONCTION_POUR_RETOURNER_UN_TERRITOIRE_SELECTIONNE_PAR_UN_NOM____________*/
 	
-	public static Territoire stringToTerritoire(String nom, ArrayList<Territoire> territoireArrayList) {
+	public static Territoire stringToTerritoire(String nom,ArrayList<Territoire> territoireArrayList) {
 
 		for (int i=0; i<territoireArrayList.size(); i++) {
 			Territoire territoire = territoireArrayList.get(i);
@@ -177,7 +174,6 @@ public class Territoire {
 		}
 		return null;
 	}
-
 
 	
 	/*__GETTERS_&_SETTERS____________________________________________________*/
@@ -246,7 +242,6 @@ public class Territoire {
 		this.joueur = joueur;
 	}
 
-
 	public ArrayList<Unit> getArmeList() {
 		return armeList;
 	}
@@ -255,11 +250,4 @@ public class Territoire {
 	public void setArmeList(ArrayList<Unit> armeList) {
 		this.armeList = armeList;
 	}
-
-	
-
-	
-	
-	
-
 }

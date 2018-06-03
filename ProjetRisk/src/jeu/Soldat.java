@@ -2,7 +2,6 @@ package jeu;
 
 /**
  * DESCRIPTION SOLDAT (UNIT)
- *
  */
 
 public class Soldat extends Unit {

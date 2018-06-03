@@ -6,8 +6,6 @@ package jeu;
  */
 
 public class Cavalier extends Unit {
-	
-
 
 	public Cavalier() {
 		

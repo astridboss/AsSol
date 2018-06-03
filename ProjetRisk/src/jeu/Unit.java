@@ -6,9 +6,9 @@ package jeu;
  */
 
 public class Unit {
-	
+
 	/*__ATTRIBUTS___________________________________________________*/
-	
+
 	public int cout;
 	public int prioAttaque;
 	public int prioDefense;
@@ -27,13 +27,13 @@ public class Unit {
 	
 	public Unit(int mouventEffectif, int cout, int prioAttaque, int prioDefense, int mouvement, int score, String nom) {
 		super();
-
+		
 		this.cout = cout;
 		this.prioAttaque = prioAttaque;
 		this.prioDefense = prioDefense;
 		this.mouvement = mouvement;
 		this.score = score;
-		this.mouventEffectif=mouventEffectif;
+		this.mouventEffectif = mouventEffectif;
 		this.nom = nom;
 	}
 
@@ -80,7 +80,6 @@ public class Unit {
 		this.score = score;
 	}
 	
-
 	public int getMouventEffectif() {
 		return mouventEffectif;
 	}
@@ -96,7 +95,4 @@ public class Unit {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
-	
-	
 }
