@@ -1,5 +1,5 @@
 package jeu;
-
+import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Button;
 import java.awt.Choice;
 import java.awt.Color;
@@ -8,10 +8,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeMap;
 
+import javax.print.attribute.Size2DSyntax;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -22,7 +26,7 @@ import edu.princeton.cs.introcs.StdDraw;
  * 
  *
  *Arme par Territoire
- * Classe permettant d'itialialis� un format et des caracteristiques de l'armee
+ * Classe permettant d'itialialisé un format et des caracteristiques de l'armee
 
  * INITIALISER UN FORMAT ET LES CARACTERISTIQUES DE L'ARMEE
  */
@@ -31,11 +35,9 @@ public abstract class Arme {
 
 	/*__ATTRIBUTS___________________________________________________*/
 	public Joueur joueur;
-	public int nbSoldat;
-	public int nbCavalier;
-	public int nbCanon;
+
 	public boolean attaquePossible; 
-	public Territoire territoire;
+
 
 	public ArrayList<Unit> armeList= new ArrayList<>();
 
@@ -44,49 +46,21 @@ public abstract class Arme {
 
 	/**_____CONSTRUCTEUR___________________*/
 
-	public Arme(Joueur joueur, int nbSoldat, int nbCavalier, int nbCanon, boolean attaquePossible,
+	public Arme(Joueur joueur, int nbSoldat, int nbCavalier, int nbCanon, 
 			Territoire territoire, ArrayList<Unit> armeList) {
 		super();
 		this.joueur = joueur;
-		this.nbSoldat = nbSoldat;
-		this.nbCavalier = nbCavalier;
-		this.nbCanon = nbCanon;
-		this.attaquePossible = attaquePossible;
-		this.territoire = territoire;
+
+
 		this.armeList = armeList;
-	}
-
-
-	/**____FONCTION_ATTAQUE_POSSIBLE_________________*/
-
-	public boolean attaquePossible(int nbSoldatAttaque, int nbCavalierAttaque,int nbCanonAttaque) {
-
-		if(this.getTerritoire().getSoldatT()<nbSoldatAttaque) {
-			System.out.println("Il n'y a pas assez de soldat");
-			return false;
-		}
-		this.setNbSoldat(nbSoldatAttaque);
-
-		if(this.getTerritoire().getCavalierT()<nbCavalierAttaque) {
-			System.out.println("Il n'y a pas assez de cavalier");
-			return false;
-		}
-		if(this.getTerritoire().getCanonT()<nbCanonAttaque) {
-			System.out.println("Il n'y a pas assez de canon");
-			return false;
-
-		}
-		if (this.getTerritoire().getCanonT()*7+this.getTerritoire().getCavalierT()*3+this.getTerritoire().getSoldatT()-(nbSoldatAttaque+nbCavalierAttaque*3+nbCanonAttaque*7)<1) {
-			System.out.println("Il faut laisser au moins une unit�e sur le territoire");
-			return false;	
-		}
-		return true;
 	}
 
 
 	/**____FONCTION_CHOIX_ATTAQUE_INTERFACE_________________*/
 
-	public boolean attaqueChoix(Joueur joueur, Partie partie,JFrame fenetre)throws IOException {
+
+	public boolean attaqueChoix(Joueur joueur, ArrayList<Territoire> territoireArrayList ,JFrame fenetre)throws IOException {
+
 		JPanel panelDeplacement = new JPanel();
 		panelDeplacement.setBounds(922, 264, 359, 296);
 		panelDeplacement.add(panelDeplacement);
@@ -121,7 +95,7 @@ public abstract class Arme {
 		choixTerrDest.setBounds(55, 131, 200, 20);
 		panelDeplacement.add(choixTerrDest);
 		String choixTerrOrigineS=choixTerrOrigine.getSelectedItem();
-		Territoire choixTerrOrigineT =Territoire.stringToTerritoire(choixTerrOrigineS, partie);
+		Territoire choixTerrOrigineT =Territoire.stringToTerritoire(choixTerrOrigineS, territoireArrayList);
 		ArrayList<Territoire> voisinT=choixTerrOrigineT .getVoisinT();
 
 		for (int i=0; i<voisinT.size();i++) {
@@ -136,34 +110,50 @@ public abstract class Arme {
 		boutonNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ArrayList<Unit> armeList=choixTerrOrigineT.getArmeList();
+				ArrayList<Unit> soldatList= new ArrayList();
+				ArrayList<Unit> cavalierList= new ArrayList();
+				ArrayList<Unit> canonList= new ArrayList();
+				ArrayList<Unit> choixPion = new ArrayList();
+				for (int i=0; i<armeList.size();i++) {
+					if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
+						soldatList.add(armeList.get(i));
+					}
+					if(armeList.get(i).cout==3 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
+						cavalierList.add(armeList.get(i));
+					}
+					if(armeList.get(i).cout==7 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
+						canonList.add(armeList.get(i));
+					}
 
+				}
 				JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 				lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblSoldat_1.setBounds(43, 185, 74, 14);
 				panelDeplacement.add(lblSoldat_1);
 
-				JLabel lblCavalier_1 = new JLabel("Cavalier (2U)");
+				JLabel lblCavalier_1 = new JLabel("Cavalier (3U)");
 				lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblCavalier_1.setBounds(131, 185, 80, 14);
 				panelDeplacement.add(lblCavalier_1);
 
-				JLabel lblCanon_1 = new JLabel("Canon (3U)");
+				JLabel lblCanon_1 = new JLabel("Canon (7U)");
 				lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblCanon_1.setBounds(216, 185, 72, 14);
 				panelDeplacement.add(lblCanon_1);
 
 				JSpinner spinnerSoldat = new JSpinner();
-				spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, 60, 1));
+				spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, soldatList.size(), 1));
 				spinnerSoldat.setBounds(66, 209, 39, 24);
 				panelDeplacement.add(spinnerSoldat);
 
 				JSpinner spinnerCavalier = new JSpinner();
-				spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, 60, 1));
+				spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, cavalierList.size(), 1));
 				spinnerCavalier.setBounds(158, 210, 39, 23);
 				panelDeplacement.add(spinnerCavalier);
 
 				JSpinner spinnerCanon = new JSpinner();
-				spinnerCanon.setModel(new SpinnerNumberModel(0, 0, 60, 1));
+				spinnerCanon.setModel(new SpinnerNumberModel(0, 0, canonList.size(), 1));
 				spinnerCanon.setBounds(236, 210, 39, 23);
 				panelDeplacement.add(spinnerCanon);
 
@@ -171,15 +161,119 @@ public abstract class Arme {
 				btnDeplacement.setBounds(160, 258, 170, 23);
 				panelDeplacement.add(btnDeplacement);
 
-				fenetre.validate();
-				fenetre.repaint();
+				btnDeplacement.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
 
+						int nbSoldatChoix =((Integer)spinnerSoldat.getValue()).intValue();
+						int nbCavalierChoix =((Integer)spinnerCavalier.getValue()).intValue();
+						int nbCanonChoix =((Integer)spinnerCanon.getValue()).intValue();
 
+						Territoire choixTerrDestT=Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
+						String condition1 = null;
+						String condition2 = null ;
+						String condition3 = null;
+						if((nbSoldatChoix+nbCavalierChoix+nbCanonChoix)>=armeList.size()) {
+							condition1="\n Vous devez laisser un pion sur le territoire ";
+						}
+						if(nbSoldatChoix==0 && nbCavalierChoix==0 && nbCanonChoix==0 ) {
+							condition2="\n Vous n'avez selectionné aucun pion à déplacer ";
+						}
+						if (nbSoldatChoix+nbCanonChoix+nbCavalierChoix>3 && !joueur.territoireListJoueur.contains(choixTerrOrigine)) {
+							condition3="\n Vous ne devez pas avoir plus de 3 pions attaquants";
+						}
+						if (condition1.isEmpty()|| condition2.isEmpty()|| condition3.isEmpty()) {
+							JOptionPane.showMessageDialog(null, condition1 + condition2 + condition3 , "Erreur", JOptionPane.ERROR_MESSAGE);
+						}
+						if (condition1.isEmpty()&& condition2.isEmpty()&& condition3.isEmpty()) {
+
+							if(joueur.territoireListJoueur.contains(choixTerrDestT)) {
+								ArrayList<Unit> armeListMvt= new ArrayList<>();
+								armeListMvt=choixTerrDestT.getArmeList();
+								for (int i=0;i==nbSoldatChoix; i++) {
+									armeListMvt.add(soldatList.get(i));
+
+								}
+								for (int i=0;i==nbCavalierChoix; i++) {
+									armeListMvt.add(cavalierList.get(i));
+
+								}
+								for (int i=0;i==nbCanonChoix; i++) {
+									armeListMvt.add(canonList.get(i));
+
+								}
+								setArmeList(armeListMvt);
+								armeList.removeAll(armeListMvt);
+								setArmeList(armeList);
+							}
+							else {
+								attaque(nbSoldatChoix,nbCavalierChoix,nbCanonChoix,soldatList,cavalierList,canonList,choixTerrOrigineT,choixTerrDestT);
+							}
+						}
+
+					}
+				}
+						);
 			}
 		}
 				);
 		return true;
 
+	}
+	public void attaque (int nbSoldatChoix, int nbCavalierChoix, int nbCanonChoix, ArrayList<Unit> soldatList, ArrayList<Unit> cavalierList, ArrayList<Unit> canonList, Territoire choixTerrOrigineT, Territoire choixTerrDestT) {
+	
+		TreeMap<Integer, Unit> resultAttaque= new TreeMap<>();
+		for (int i=0;i==nbSoldatChoix; i++) {
+			int des=ThreadLocalRandom.current().nextInt(1, 6 + 1);
+			resultAttaque.put(des, soldatList.get(i));
+		}
+		for (int i=0;i==nbCavalierChoix; i++) {
+			int des=ThreadLocalRandom.current().nextInt(2, 7 + 1);
+			resultAttaque.put(des, cavalierList.get(i));
+
+		}
+		for (int i=0;i==nbCanonChoix; i++) {
+			int des=ThreadLocalRandom.current().nextInt(4, 9 + 1);
+			resultAttaque.put(des, canonList.get(i));
+
+		}
+
+		/*Creer l arme liste defense
+		 * */
+		TreeMap<Integer, Unit> resultDefense= new TreeMap<>();
+		while(resultDefense.size()<2) {
+			for( int i=0 ; i<choixTerrDestT.getArmeList().size();i++) {
+				if(choixTerrDestT.getArmeList().get(i).cout==1) {
+					int des=ThreadLocalRandom.current().nextInt(1, 6 + 1);
+					resultDefense.put(des, choixTerrDestT.getArmeList().get(i));
+
+				}
+			}
+			for( int i=0 ; i<choixTerrDestT.getArmeList().size();i++) {
+				if(choixTerrDestT.getArmeList().get(i).cout==7) {
+					int des=ThreadLocalRandom.current().nextInt(4, 9 + 1);
+					resultDefense.put(des, choixTerrDestT.getArmeList().get(i));
+
+				}
+			}
+			for( int i=0 ; i<choixTerrDestT.getArmeList().size();i++) {
+				if(choixTerrDestT.getArmeList().get(i).cout==3) {
+					int des=ThreadLocalRandom.current().nextInt(2, 7 + 1);
+					resultDefense.put(des, choixTerrDestT.getArmeList().get(i));
+
+				}
+			}
+			/*Calcul gagnant
+			 * 
+			 */
+			if(resultAttaque.lastKey()>resultDefense.lastKey()) {
+				Unit pionSupp =resultDefense.get(resultDefense.lastKey());
+				
+		}
+	
+		
+		}
+		
 	}
 	/*__GETTERS_&_SETTERS____________________________________________________*/
 
@@ -193,35 +287,6 @@ public abstract class Arme {
 	}
 
 
-	public int getNbSoldat() {
-		return nbSoldat;
-	}
-
-
-	public void setNbSoldat(int nbSoldat) {
-		this.nbSoldat = nbSoldat;
-	}
-
-
-	public int getNbCavalier() {
-		return nbCavalier;
-	}
-
-
-	public void setNbCavalier(int nbCavalier) {
-		this.nbCavalier = nbCavalier;
-	}
-
-
-	public int getNbCanon() {
-		return nbCanon;
-	}
-
-
-	public void setNbCanon(int nbCanon) {
-		this.nbCanon = nbCanon;
-	}
-
 
 	public boolean isAttaquePossible() {
 		return attaquePossible;
@@ -232,15 +297,6 @@ public abstract class Arme {
 		this.attaquePossible = attaquePossible;
 	}
 
-
-	public Territoire getTerritoire() {
-		return territoire;
-	}
-
-
-	public void setTerritoire(Territoire territoire) {
-		this.territoire = territoire;
-	}
 
 
 	public ArrayList<Unit> getArmeList() {
