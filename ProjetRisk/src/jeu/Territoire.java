@@ -41,6 +41,7 @@ public class Territoire {
     	this.regionT = region;   
     	this.proprietaireT = null;
     	this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
+    	this.soldatT = 1;
     }
 	
 	
@@ -136,36 +137,43 @@ public class Territoire {
 	
 	public static void distributionTerritoire (ArrayList<Territoire> territoireList, ArrayList<Joueur>joueurList ) {
 		int terrDist = 42;
-		//ArrayList<Integer> indexTerritoireUtiliser = new ArrayList<>();
-		ArrayList<Territoire> territoireRandom = territoireList;
+		ArrayList<Integer> indexTerritoireUtiliser = new ArrayList<>();
+		//ArrayList<Territoire> territoireRandom = territoireList;
 		
 		while (terrDist != 0) {
+			// faire une liste de tous les indexs dispo puis les enlever un par un et prendre un nombre au hasard parmi cette list
 			
 			for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {
 				
-				System.out.println("terrDist = "+terrDist);
-				System.out.println("Joueur = "+joueurIndex);
+				//System.out.println("terrDist = "+terrDist);
+				//System.out.println("Joueur = "+joueurIndex);
 				
-				int territoireIndex =  (int) (Math.random() * terrDist) ; //(int) (Math.random()*42);
+				int territoireIndex =  (int) (Math.random()*43);
 				
-				/*for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
-					while ( territoireIndex == indexTerritoireUtiliser.get(i)) {
+				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
+					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
 						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42);
 					}
-				}*/
+				}
 				
-				System.out.println("Territoire index = " + territoireIndex);
+				for (int i = 0; i < indexTerritoireUtiliser.size(); i++) {
+					if ( territoireIndex == indexTerritoireUtiliser.get(i)) {
+						territoireIndex =  (int) Math.floor(Math.random() * 42) + 1; //(int) (Math.random()*42);
+					}
+				}
+				
+				//System.out.println("Territoire index = " + territoireIndex);
 			
 				//indexTerritoireUtiliser.add(territoireIndex);
-				Territoire territoire = territoireRandom.get(territoireIndex);
+				Territoire territoire = territoireList.get(territoireIndex);
 				joueurList.get(joueurIndex).getTerritoireList().add(territoire);
 				territoire.setProprietaireT(joueurList.get(joueurIndex).getNomJoueur());
 				
-				System.out.println("ProprioT = " + territoireList.get(territoireIndex).getProprietaireT());
-				System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
+				//System.out.println("ProprioT = " + territoireList.get(territoireIndex).getProprietaireT());
+				//System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
 				
 				terrDist = terrDist - 1;
-				territoireRandom.remove(territoireIndex);
+				//territoireRandom.remove(territoireIndex);
 				if (joueurIndex == joueurList.size()) {
 					joueurIndex = 0;
 				}
