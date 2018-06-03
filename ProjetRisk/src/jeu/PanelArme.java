@@ -130,88 +130,99 @@ public class PanelArme {
 	}
 	
 	public void panelAttack (JPanel contentPane, JFrame fenetre) {
-		
+		// création de la Jpanel
 		JPanel panelAttack = new JPanel();
 		panelAttack.setBounds(463, 510, 397, 181);
 		contentPane.add(panelAttack);
 		panelAttack.setLayout(null);
 		
+		// TITRE
+		JLabel lblTitreAttaque = new JLabel("Attaque\r\n");
+		lblTitreAttaque.setBounds(108, 0, 162, 24);
+		panelAttack.add(lblTitreAttaque);
+		lblTitreAttaque.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitreAttaque.setFont(new Font("LeHavre", Font.PLAIN, 17));
+		
+		//Label coté Attaquant
 		JLabel lblAttaquant = new JLabel("Attaquant");
 		lblAttaquant.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAttaquant.setBounds(86, 35, 86, 14);
 		panelAttack.add(lblAttaquant);
 		
-		JLabel lblDefenseur = new JLabel("Defenseur");
-		lblDefenseur.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDefenseur.setBounds(210, 35, 86, 14);
-		panelAttack.add(lblDefenseur);
+		JLabel lblAtt1 = new JLabel("Canon");
+		lblAtt1.setBounds(59, 60, 46, 14);
+		panelAttack.add(lblAtt1);
 		
-		JLabel lblAttaque = new JLabel("Attaque\r\n");
-		lblAttaque.setBounds(108, 0, 162, 24);
-		panelAttack.add(lblAttaque);
-		lblAttaque.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAttaque.setFont(new Font("LeHavre", Font.PLAIN, 17));
+		JLabel lblAtt2 = new JLabel("Cavalier");
+		lblAtt2.setBounds(59, 85, 46, 14);
+		panelAttack.add(lblAtt2);
 		
-		JLabel lblACanon = new JLabel("Canon");
-		lblACanon.setBounds(43, 60, 46, 14);
-		panelAttack.add(lblACanon);
+		JLabel lblAtt3 = new JLabel("Soldat");
+		lblAtt3.setBounds(59, 112, 46, 14);
+		panelAttack.add(lblAtt3);
 		
-		JLabel lblACavalier = new JLabel("Cavalier");
-		lblACavalier.setBounds(43, 85, 46, 14);
-		panelAttack.add(lblACavalier);
+		JLabel Att1 = new JLabel("5");
+		Att1.setHorizontalAlignment(SwingConstants.CENTER);
+		Att1.setBounds(96, 60, 76, 14);
+		panelAttack.add(Att1);
 		
-		JLabel lblASoldat = new JLabel("Soldat");
-		lblASoldat.setBounds(43, 112, 46, 14);
-		panelAttack.add(lblASoldat);
+		JLabel Att2 = new JLabel("5");
+		Att2.setHorizontalAlignment(SwingConstants.CENTER);
+		Att2.setBounds(99, 85, 73, 14);
+		panelAttack.add(Att2);
 		
-		JLabel AttCanon = new JLabel("5");
-		AttCanon.setHorizontalAlignment(SwingConstants.CENTER);
-		AttCanon.setBounds(96, 60, 76, 14);
-		panelAttack.add(AttCanon);
+		JLabel Att3 = new JLabel("5");
+		Att3.setHorizontalAlignment(SwingConstants.CENTER);
+		Att3.setBounds(99, 112, 73, 14);
+		panelAttack.add(Att3);
 		
-		JLabel AttCavalier = new JLabel("5");
-		AttCavalier.setHorizontalAlignment(SwingConstants.CENTER);
-		AttCavalier.setBounds(99, 85, 73, 14);
-		panelAttack.add(AttCavalier);
-		
-		JLabel AttSoldat = new JLabel("5");
-		AttSoldat.setHorizontalAlignment(SwingConstants.CENTER);
-		AttSoldat.setBounds(99, 112, 73, 14);
-		panelAttack.add(AttSoldat);
-		
-		JLabel DefCanon = new JLabel("5");
-		DefCanon.setHorizontalAlignment(SwingConstants.CENTER);
-		DefCanon.setBounds(220, 60, 73, 14);
-		panelAttack.add(DefCanon);
-		
-		JLabel DefCavalier = new JLabel("5");
-		DefCavalier.setHorizontalAlignment(SwingConstants.CENTER);
-		DefCavalier.setBounds(223, 85, 73, 14);
-		panelAttack.add(DefCavalier);
-		
-		JLabel DefSoldat = new JLabel("5");
-		DefSoldat.setHorizontalAlignment(SwingConstants.CENTER);
-		DefSoldat.setBounds(223, 112, 73, 14);
-		panelAttack.add(DefSoldat);
-		
+
+		//LABEL VS
 		JLabel lblVs = new JLabel("VS\r\n");
 		lblVs.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVs.setFont(new Font("LeHavre", Font.PLAIN, 17));
 		lblVs.setBounds(172, 78, 41, 24);
 		panelAttack.add(lblVs);
 		
-		JLabel lblGagnant = new JLabel("Gagnant :\r\n");
+		
+		//Physique coté defenseur
+		JLabel lblDefenseur = new JLabel("Defenseur");
+		lblDefenseur.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDefenseur.setBounds(210, 35, 86, 14);
+		panelAttack.add(lblDefenseur);
+		
+		JLabel lblDef1 = new JLabel("Canon");
+		lblDef1.setBounds(299, 60, 46, 14);
+		panelAttack.add(lblDef1);
+		
+		JLabel lblDef2 = new JLabel("Cavalier");
+		lblDef2.setBounds(299, 85, 46, 14);
+		panelAttack.add(lblDef2);
+		
+		JLabel Def1 = new JLabel("5");
+		Def1.setHorizontalAlignment(SwingConstants.CENTER);
+		Def1.setBounds(220, 60, 73, 14);
+		panelAttack.add(Def1);
+		
+		JLabel Def2 = new JLabel("5");
+		Def2.setHorizontalAlignment(SwingConstants.CENTER);
+		Def2.setBounds(223, 85, 73, 14);
+		panelAttack.add(Def2);
+		
+		//Ecrire qui est le gagnant
+		JLabel lblGagnant = new JLabel("Gagnant :");
 		lblGagnant.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGagnant.setFont(new Font("LeHavre", Font.PLAIN, 17));
 		lblGagnant.setBounds(76, 157, 137, 24);
 		panelAttack.add(lblGagnant);
 		
-		JLabel lblJoueurGagnant = new JLabel("Joueur bleu\r\n");
+		JLabel lblJoueurGagnant = new JLabel("Joueur bleu");
 		lblJoueurGagnant.setHorizontalAlignment(SwingConstants.CENTER);
 		lblJoueurGagnant.setFont(new Font("LeHavre", Font.PLAIN, 17));
 		lblJoueurGagnant.setBounds(189, 157, 198, 24);
 		panelAttack.add(lblJoueurGagnant);
 		
+		//Mise à jour de la fenêtre
 		fenetre.validate();
 		fenetre.repaint();
 		
