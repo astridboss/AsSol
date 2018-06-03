@@ -15,6 +15,7 @@ public class Territoire {
 	/*__ATTRIBUTS___________________________________________________*/
 	private int territoireId;
 	private String nomT;
+
 	private int[] pixelT;
 	
 	private Joueur joueur;
@@ -28,6 +29,20 @@ public class Territoire {
 	private ArrayList<ZoneT> zoneTerritoires = new ArrayList<>();
 	
 	/*__METHODES____________________________________________________*/
+
+	//CONSTRUCTEUR
+
+	public Territoire ( int territoireId, String nomT, int [] pixel, String region) throws IOException {
+		this.territoireId= territoireId;
+		this.nomT=nomT;
+		
+		this.pixelT = pixel;
+		this.regionT = region;   
+	
+		this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
+	}
+
+
 
 	/**_____CONSTRUCTEUR___________________*/
     
@@ -46,6 +61,7 @@ public class Territoire {
 	/**_____FONCTION_INITIALISATION_DES_TERRITOIRES___________________*/
 	
 
+
 	public static ArrayList<Territoire> initTerritoire() throws IOException {
 
 		ArrayList<Territoire> territoireArrayList = new ArrayList<Territoire>();
@@ -61,37 +77,61 @@ public class Territoire {
 
 		for(int id = 0; id < territoireEurope.length; id++) {
 			String nomT= territoireEurope[id];
+<<<<<<< HEAD
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurEurope [id], pixel [id] ,"Europe");
+=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Europe", null);
+>>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 7; id < (territoireAfrique.length + 7); id++) {
 			String nomT= territoireAfrique[(id-7)];
+<<<<<<< HEAD
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAfrique [id-7], pixel[id] ,"Afrique");
+=======
 			Territoire territory = new Territoire(id, nomT, pixel[id] ,"Afrique", null);
+>>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 13; id < (territoireOceanie.length + 13); id++) {
 			String nomT= territoireOceanie[(id-13)];
+<<<<<<< HEAD
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurOceanie [id-13], pixel [id] ,"Océanie");
+=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Océanie", null);
+>>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 18; id < (territoireAmeriqueSud.length + 18); id++) {
 			String nomT= territoireAmeriqueSud[(id-18)];
+<<<<<<< HEAD
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAmeriqueSud [id-18], pixel [id] ,"Amérique du Sud");
+=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Amérique du Sud", null);
+>>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 22; id < (territoireAmeriqueNord.length + 22); id++) {
 			String nomT= territoireAmeriqueNord[(id-22)];
+<<<<<<< HEAD
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAmeriqueNord [id-22], pixel [id] ,"Amérique du Nord");
+=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Amérique du Nord", null);
+>>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 
 		for(int id = 31; id < (territoireAsie.length + 31); id++) {
 			String nomT= territoireAsie[(id-31)];
+<<<<<<< HEAD
+			Territoire territory = new Territoire(couleurT, id, nomT, couleurAsie [id-31], pixel [id] ,"Asie");
+=======
 			Territoire territory = new Territoire(id, nomT, pixel [id] ,"Asie", null);
+>>>>>>> 9cea9862dc479f39e4994d071800f7def006c0e4
 			territoireArrayList.add(territory);
 		}
 		return territoireArrayList;
@@ -163,11 +203,13 @@ public class Territoire {
 			}
 		}
 	}
+
 	
 	
 	/**_____FONCTION_POUR_RETOURNER_UN_TERRITOIRE_SELECTIONNE_PAR_UN_NOM____________*/
 	
-	public static Territoire nomTerritoire(String nom, Partie partie) {
+public static Territoire stringToTerritoire(String nom, Partie partie) {
+
 
 		ArrayList<Territoire> territoireArrayList = partie.territoireArrayList;
 		for (int i=0; i<territoireArrayList.size(); i++) {

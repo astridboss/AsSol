@@ -124,9 +124,208 @@ import javax.swing.JFrame; import javax.swing.JPanel;
 
 
 
+/*Merdouille Astrid;
+
+boolean unite = false;
+						while (!unite){
+							int [] nbSoldatAttaque = new int[this.getTerritoire().getSoldatT()+1];
+							StdDraw.disableDoubleBuffering();
+							StdDraw.clear();
+							StdDraw.text(50,60,"How many soldiers do you want to attack ?");
+							StdDraw.text(40,55,"Number of soldiers : ");
+							for(int it=0;it<=this.getTerritory().getNbSoldier();it++){
+								StdDraw.text((45+it*2)+2,55, String.valueOf(it));
+								xTextSoldier[it] = (45+it*2)+2;
+							}
+							StdDraw.show();
+							boolean numberOfSoldiersChosen = false;
+							int nbSoldierAttacker = 0;
+							while (!numberOfSoldiersChosen){
+								if (StdDraw.isMousePressed()){
+									double xSoldier = StdDraw.mouseX();
+									double ySoldier = StdDraw.mouseY();
+									if((ySoldier>=53.7 && ySoldier<=56.3)){
+										for (int k=0; k<=this.getTerritory().getNbSoldier();k++){
+											if((xSoldier>=xTextSoldier[k]-1.1) && (xSoldier<=xTextSoldier[k]+1.1)){
+												nbSoldierAttacker = k;
+												numberOfSoldiersChosen = true;
+											}
+										}
+									}
+									StdDraw.pause(90);
+								}
+							}
+
+							if (this.getTerritory().getNbSoldier()<nbSoldierAttacker){
+								StdDraw.disableDoubleBuffering();
+								StdDraw.clear();
+								StdDraw.text(50,50,"Not enough soldiers");
+								StdDraw.show();
+								StdDraw.pause(1500);
+							}
+							this.setNbSoldier(nbSoldierAttacker);
 
 
 
+							int [] xTextCavalier = new int[this.getTerritory().getNbCavalery()+1];
+							StdDraw.disableDoubleBuffering();
+							StdDraw.clear();
+							StdDraw.text(50,60,"How many cavaliers do you want to attack ?");
+							StdDraw.text(40,55,"Number of cavaliers : ");
+							for(int it=0;it<=this.getTerritory().getNbCavalery();it++){
+								StdDraw.text((45+it*2)+2,55, String.valueOf(it));
+								xTextCavalier[it] = (45+it*2)+2;
+							}
+							StdDraw.show();
+							boolean numberOfCavaliersChosen = false;
+							int nbCavaleryAttacker = 0;
+							while (!numberOfCavaliersChosen){
+								if (StdDraw.isMousePressed()){
+									double xCavalery = StdDraw.mouseX();
+									double yCavalery = StdDraw.mouseY();
+									if(yCavalery>=53.7 && yCavalery<=56.3){
+										for (int k=0; k<=this.getTerritory().getNbCavalery();k++){
+											if(xCavalery>=xTextCavalier[k]-0.1 && xCavalery<=xTextCavalier[k]+0.1){
+												nbCavaleryAttacker = k;
+												numberOfCavaliersChosen = true;
+											}
+										}
+									}
+									StdDraw.pause(200);
+								}
+							}
+
+							if (this.getTerritory().getNbCavalery()<nbCavaleryAttacker){
+								StdDraw.disableDoubleBuffering();
+								StdDraw.clear();
+								StdDraw.text(50,50,"Not enough cavaliers");
+								StdDraw.show();
+								StdDraw.pause(1500);
+							}
+							this.setNbCavalery(nbCavaleryAttacker);
+
+
+
+							int [] xTextCanon = new int[this.getTerritory().getNbCanon()+1];
+							StdDraw.disableDoubleBuffering();
+							StdDraw.clear();
+							StdDraw.text(50,60,"How many canons do you want to attack ?");
+							StdDraw.text(40,55,"Number of canons : ");
+							for(int it=0;it<=this.getTerritory().getNbCanon();it++){
+								StdDraw.text((45+it*2)+2,55, String.valueOf(it));
+								xTextCanon[it] = (45+it*2)+2;
+							}
+							StdDraw.show();
+							boolean numberOfCanonChosen = false;
+							int nbCanonAttacker = 0;
+							while (!numberOfCanonChosen){
+								if (StdDraw.isMousePressed()){
+									double xCanon = StdDraw.mouseX();
+									double yCanon = StdDraw.mouseY();
+									if(yCanon>=53.7 && yCanon<=56.3){
+										for (int k=0; k<=this.getTerritory().getNbCanon();k++){
+											if(xCanon>=xTextCanon[k]-1.1 && xCanon<=xTextCanon[k]+1.1){
+												nbCanonAttacker = k;
+												numberOfCanonChosen = true;
+											}
+										}
+									}
+									StdDraw.pause(200);
+								}
+							}
+
+							if (this.getTerritory().getNbCanon()<nbCanonAttacker){
+								StdDraw.disableDoubleBuffering();
+								StdDraw.clear();
+								StdDraw.text(50,50,"Not enough canons");
+								StdDraw.show();
+								StdDraw.pause(1500);
+							}
+							this.setNbCanon(nbCanonAttacker);
+
+
+							if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) ==0){
+								StdDraw.disableDoubleBuffering();
+								StdDraw.clear();
+								StdDraw.text(50,50,"You need to at least chose one unit ");
+								StdDraw.show();
+								StdDraw.pause(1500);
+							}
+
+							else if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) > 3){
+								StdDraw.disableDoubleBuffering();
+								StdDraw.clear();
+								StdDraw.text(50,50,"You cannot choose more than three units ");
+								StdDraw.show();
+								StdDraw.pause(1500);
+							}
+
+							else if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) >= (this.getTerritory().getNbCanon()+this.getTerritory().getNbSoldier()+this.getTerritory().getNbCavalery() )){
+								StdDraw.disableDoubleBuffering();
+								StdDraw.clear();
+								StdDraw.text(50,50,"At least one unit needs to stay in the territory ");
+								StdDraw.show();
+								StdDraw.pause(1500);
+								return false;
+							}
+							else{
+								unitsChosen = true;
+								this.territory.setNbSoldier(this.territory.getNbSoldier()-nbSoldierAttacker); // on retire les troupes qui partent au combat de leur territoire de base
+								this.territory.setNbCavalery(this.territory.getNbCavalery()-nbCavaleryAttacker);
+								this.territory.setNbCanon(this.territory.getNbCanon()-nbCanonAttacker);
+							}
+
+						}
+
+						return unitsChosen;
+
+			}
+
+			if (this.getTerritory().getNbCanon()<nbCanonAttacker){
+				StdDraw.disableDoubleBuffering();
+				StdDraw.clear();
+				StdDraw.text(50,50,"Not enough canons");
+				StdDraw.show();
+				StdDraw.pause(1500);
+			}
+			this.setNbCanon(nbCanonAttacker);
+
+
+			if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) ==0){
+				StdDraw.disableDoubleBuffering();
+				StdDraw.clear();
+				StdDraw.text(50,50,"You need to at least chose one unit ");
+				StdDraw.show();
+				StdDraw.pause(1500);
+			}
+
+			else if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) > 3){
+				StdDraw.disableDoubleBuffering();
+				StdDraw.clear();
+				StdDraw.text(50,50,"You cannot choose more than three units ");
+				StdDraw.show();
+				StdDraw.pause(1500);
+			}
+
+			else if ((this.getNbSoldier() + this.getNbCavalery() + this.getNbCanon()) >= (this.getTerritory().getNbCanon()+this.getTerritory().getNbSoldier()+this.getTerritory().getNbCavalery() )){
+				StdDraw.disableDoubleBuffering();
+				StdDraw.clear();
+				StdDraw.text(50,50,"At least one unit needs to stay in the territory ");
+				StdDraw.show();
+				StdDraw.pause(1500);
+				return false;
+			}
+			else{
+				unitsChosen = true;
+				this.territory.setNbSoldier(this.territory.getNbSoldier()-nbSoldierAttacker); // on retire les troupes qui partent au combat de leur territoire de base
+				this.territory.setNbCavalery(this.territory.getNbCavalery()-nbCavaleryAttacker);
+				this.territory.setNbCanon(this.territory.getNbCanon()-nbCanonAttacker);
+			}
+
+		}
+
+		return unitsChosen;
+		*/
 
 
 

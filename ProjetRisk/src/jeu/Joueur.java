@@ -23,6 +23,11 @@ public class Joueur {
 	
 	/*__METHODES____________________________________________________*/
 	
+
+	
+
+
+
 	/**_____CONSTRUCTEUR___________________*/
 	
 	public Joueur(Color color, int unitDebut, String nom) {
@@ -34,6 +39,7 @@ public class Joueur {
 	
 	/**____INITIALISATION_DES_JOUEURS_________________*/
 	
+
 	public static ArrayList<Joueur> initJoueur (int nbrJoueur) {
 		
 		//Color couleurList [] = {new Color(38, 146, 204), new Color(198, 41, 41), new Color(57, 154, 71), new Color(231, 112, 35), new Color(115, 88, 23,5), new Color(242, 227, 79)};
@@ -109,13 +115,6 @@ public class Joueur {
 		this.renfortTGagnes = renfortTGagnes;
 	}
 
-	public String getNomJoueur() {
-		return nomJoueur;
-	}
-
-	public void setNomJoueur(String nomJoueur) {
-		this.nomJoueur = nomJoueur;
-	}
 	
 	
 
