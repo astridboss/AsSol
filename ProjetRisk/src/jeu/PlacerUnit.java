@@ -50,7 +50,15 @@ public class PlacerUnit {
 		for ( int i = 0; i < joueurList.get(idJoueur).getTerritoireList().size(); i++) {
 			choixTerr.add (joueurList.get(idJoueur).getTerritoireList().get(i).getNomT());
 		}
-
+		
+		/*JLabel choixTerr = new JLabel(" ");
+		choixTerr.setBounds(55, 55, 200, 20);
+		panelPlacerUnit.add(choixTerr);
+		for ( int i = 0; i < joueurList.get(idJoueur).getTerritoireList().size(); i++) {
+			choixTerr.add (joueurList.get(idJoueur).getTerritoireList().get(i).getNomT());
+		}*/
+		
+		
 		JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 		lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSoldat_1.setBounds(38, 123, 74, 14);
@@ -132,6 +140,8 @@ public class PlacerUnit {
 		fenetre.repaint();			
 	}
 
+	
+	
 
 	public JPanel getPanelPlacerUnit() {
 		return panelPlacerUnit;

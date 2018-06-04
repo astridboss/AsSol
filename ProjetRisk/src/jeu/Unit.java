@@ -8,7 +8,7 @@ package jeu;
 public class Unit {
 
 	/*__ATTRIBUTS___________________________________________________*/
-
+	
 	public int cout;
 	public int prioAttaque;
 	public int prioDefense;

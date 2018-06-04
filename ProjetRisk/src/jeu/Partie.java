@@ -55,11 +55,11 @@ public class Partie {
 	//
 	public Partie (int nbrJoueur, JFrame fenetre) throws IOException {
 		
-		System.out.println("ICI");
-		
 		//INIT TERRITOIRE
 		territoireArrayList = new ArrayList<Territoire>();
 		territoireArrayList = Territoire.initTerritoire();
+		
+		Territoire.determinerVoisin (territoireArrayList);
 				
 		//INIT JOUEUR
 		ArrayList<Joueur> joueurList = new ArrayList<>();
@@ -310,7 +310,15 @@ public class Partie {
 						nbrUnite.setText(String.valueOf(joueurList.get(indexJoueur).getUnit()));
 						
 					} else {
-						// PASSER AU JEU !!!!
+						Arme jeu = new Arme ();
+						try {
+							jeu.attaqueChoix( joueurList.get(1), territoireArrayList, fenetre,contentPaneJeu);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Il vous reste des unités à placer avant de finir votre tours !", "Erreur", JOptionPane.ERROR_MESSAGE);

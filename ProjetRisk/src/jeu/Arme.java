@@ -1,17 +1,16 @@
 package jeu;
+
+
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Button;
 import java.awt.Choice;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
-import javax.print.attribute.Size2DSyntax;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import edu.princeton.cs.introcs.StdDraw;
 
 /**
  * 
@@ -31,7 +29,7 @@ import edu.princeton.cs.introcs.StdDraw;
  * INITIALISER UN FORMAT ET LES CARACTERISTIQUES DE L'ARMEE
  */
 
-public abstract class Arme {
+public class Arme {
 
 	/*__ATTRIBUTS___________________________________________________*/
 	public Joueur joueur;
@@ -46,24 +44,26 @@ public abstract class Arme {
 
 	/**_____CONSTRUCTEUR___________________*/
 
-	public Arme(Joueur joueur, int nbSoldat, int nbCavalier, int nbCanon, 
+	public Arme () {
+		
+	}
+	
+	/*public Arme(Joueur joueur, int nbSoldat, int nbCavalier, int nbCanon, 
 			Territoire territoire, ArrayList<Unit> armeList) {
 		super();
 		this.joueur = joueur;
-
-
 		this.armeList = armeList;
-	}
+	}*/
 
 
 	/**____FONCTION_CHOIX_ATTAQUE_INTERFACE_________________*/
 
 
-	public boolean attaqueChoix(Joueur joueur, ArrayList<Territoire> territoireArrayList ,JFrame fenetre)throws IOException {
+	public void attaqueChoix(Joueur joueur, ArrayList<Territoire> territoireArrayList ,JFrame fenetre, JPanel contentPaneJeu)throws IOException {
 
 		JPanel panelDeplacement = new JPanel();
 		panelDeplacement.setBounds(922, 264, 359, 296);
-		panelDeplacement.add(panelDeplacement);
+		contentPaneJeu.add(panelDeplacement);
 		panelDeplacement.setLayout(null);
 
 		JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
@@ -216,10 +216,21 @@ public abstract class Arme {
 						);
 			}
 		}
-				);
-		return true;
+		);
+		
+		fenetre.validate();
+	    fenetre.repaint();
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void attaque (int nbSoldatChoix, int nbCavalierChoix, int nbCanonChoix, ArrayList<Unit> soldatList, ArrayList<Unit> cavalierList, ArrayList<Unit> canonList, Territoire choixTerrOrigineT, Territoire choixTerrDestT) {
 	
 		TreeMap<Integer, Unit> resultAttaque= new TreeMap<>();
