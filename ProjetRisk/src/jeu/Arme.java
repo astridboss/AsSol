@@ -4,13 +4,13 @@ import java.awt.Button;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
-
 import javax.print.attribute.Size2DSyntax;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.Painter;
 import javax.swing.SpinnerNumberModel;
 
 import edu.princeton.cs.introcs.StdDraw;
@@ -221,20 +222,26 @@ public abstract class Arme {
 
 	}
 	public void attaque (int nbSoldatChoix, int nbCavalierChoix, int nbCanonChoix, ArrayList<Unit> soldatList, ArrayList<Unit> cavalierList, ArrayList<Unit> canonList, Territoire choixTerrOrigineT, Territoire choixTerrDestT) {
-	
-		TreeMap<Integer, Unit> resultAttaque= new TreeMap<>();
+		
+		TreeMap<HashMap<Integer,Integer>, Unit> resultAttaque= new TreeMap<>();
 		for (int i=0;i==nbSoldatChoix; i++) {
 			int des=ThreadLocalRandom.current().nextInt(1, 6 + 1);
-			resultAttaque.put(des, soldatList.get(i));
+			HashMap<Integer, Integer> key =new HashMap<>();
+			key.put(des, 2);
+			resultAttaque.put(key, soldatList.get(i));
 		}
 		for (int i=0;i==nbCavalierChoix; i++) {
 			int des=ThreadLocalRandom.current().nextInt(2, 7 + 1);
-			resultAttaque.put(des, cavalierList.get(i));
+			HashMap<Integer, Integer> key =new HashMap<>();
+			key.put(des, 1);
+			resultAttaque.put(key, cavalierList.get(i));
 
 		}
 		for (int i=0;i==nbCanonChoix; i++) {
 			int des=ThreadLocalRandom.current().nextInt(4, 9 + 1);
-			resultAttaque.put(des, canonList.get(i));
+			HashMap<Integer, Integer> key =new HashMap<>();
+			key.put(des, 3);
+			resultAttaque.put(key, canonList.get(i));
 
 		}
 
@@ -265,15 +272,21 @@ public abstract class Arme {
 			}
 			/*Calcul gagnant
 			 * 
-			 */
-			if(resultAttaque.lastKey()>resultDefense.lastKey()) {
-				Unit pionSupp =resultDefense.get(resultDefense.lastKey());
-				
+			 */*
+			resultAttaque.lastKey()=key HashMap<K, V>;
+			while(resultDefense.size()>0) {
+				if(resultAttaque.get(resultAttaque.lastKey())>resultDefense.get(resultAttaque.lastKey()) {
+					Unit pionSupp =resultDefense.get(resultDefense.lastKey());
+					choixTerrDestT.getArmeList().remove(pionSupp);
+				}
+				if(resultAttaque.lastKey()<=resultDefense.lastKey()) {
+					Unit pionSupp =resultDefense.get(resultDefense.lastKey());
+					choixTerrOrigineT.getArmeList().remove(pionSupp);
+				}
+			}
+			
 		}
-	
-		
-		}
-		
+
 	}
 	/*__GETTERS_&_SETTERS____________________________________________________*/
 
