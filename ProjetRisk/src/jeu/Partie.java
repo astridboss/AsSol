@@ -357,6 +357,7 @@ public class Partie {
 	}
 	
 	
+	
 	/*__GETTERS_&_SETTERS___________________________________________________*/
 
 	public BufferedImage getMaps() {

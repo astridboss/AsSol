@@ -123,6 +123,7 @@ public class Territoire {
 	
 	
 	
+	
 	/**_____INITIALISATION_ARMEE_LISTE___________________*/
 	
 	public ArrayList<Unit> initArmeList() {
