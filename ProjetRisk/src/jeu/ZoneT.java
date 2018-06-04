@@ -28,6 +28,7 @@ public class ZoneT {
 		this.posX = x;
 		this.posY = y;
 	}	
+	
 
 	
 	/**_____CALCUL_LA_ZONE_DU_TERRITOIRE_CORRESPONDANT_AU_PIXEL___________________*/

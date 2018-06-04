@@ -44,6 +44,7 @@ public class PlacerUnit {
 		lblArmee.setBounds(28, 98, 272, 14);
 		panelPlacerUnit.add(lblArmee);
 		
+		
 		Choice choixTerr = new Choice();
 		choixTerr.setBounds(55, 55, 200, 20);
 		panelPlacerUnit.add(choixTerr);
