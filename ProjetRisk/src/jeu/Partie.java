@@ -38,9 +38,9 @@ public class Partie  {
 	private JPanel contentPaneJeu;
 	
 	//MENU
-	public JFrame fenetre;
+	private JFrame fenetre;
 	private JPanel contentPaneMenu;
-	public int nbrJoueur;
+	private int nbrJoueur;
 	//private int nbrIA;
 	
 	
@@ -64,8 +64,8 @@ public class Partie  {
 	private JLabel lblJoueurAct;
 	
 	//JEU
-	int indexJoueurJeu;
-	JLabel LabelTerritoireOrigine;
+	private int indexJoueurJeu;
+	private JLabel LabelTerritoireOrigine;
 
 	
 	/*_____________________________________________________________*/
@@ -109,7 +109,7 @@ public class Partie  {
 		
 		//IMAGE DE L'ACCUEIL
 		JLabel imageAcceuil = new JLabel("");
-		imageAcceuil.setIcon(new ImageIcon(MenuJeu.class.getResource("/Images/Image_accueil.jpg")));
+		imageAcceuil.setIcon(new ImageIcon("/Images/Image_accueil.jpg"));
 		imageAcceuil.setBounds(16, 138, 230, 151);
 		contentPaneMenu.add(imageAcceuil);
 		
@@ -504,10 +504,10 @@ public class Partie  {
 					fenetre.validate();
 				    fenetre.repaint();
 				    
-					Arme jeu = new Arme ();
+					Unit deplacement = new Unit ();
 					System.out.println(territoireSelect.getNomT());
 					try {
-						jeu.attaqueChoix( joueurList.get(indexJoueurJeu), territoireSelect, territoireArrayList, fenetre, contentPaneJeu);
+						deplacement.attaqueChoix( joueurList.get(indexJoueurJeu), territoireSelect, territoireArrayList, fenetre, contentPaneJeu);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}	
