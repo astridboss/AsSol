@@ -9,9 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-//import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.event.*;
-import java.io.IOException;
 
 /**
  * MENU DU JEU
@@ -97,14 +95,7 @@ public class MenuJeu {
 				fenetre.validate();
 		        fenetre.repaint();
 
-		        
-		        /**DIRECTION LE FICHIER PRINCIPAL DU JEU : PARTIE*/
-		        try {
-					new Partie(nbrJoueur, fenetre);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		        new Partie(nbrJoueur,fenetre);
 			}
 		});
 		

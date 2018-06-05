@@ -8,7 +8,6 @@ import java.util.ArrayList;
  *
  */
 
-
 public class Joueur {
 	
 	/*__ATTRIBUTS___________________________________________________*/
@@ -19,7 +18,7 @@ public class Joueur {
 	private int renfortTControles;
 	private int renfortTGagnes;
 	
-	public ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
+	private ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
 	
 	
 	/*__METHODES____________________________________________________*/
@@ -39,7 +38,6 @@ public class Joueur {
 
 	public static ArrayList<Joueur> initJoueur (int nbrJoueur) {
 		
-		//Color couleurList [] = {new Color(38, 146, 204), new Color(198, 41, 41), new Color(57, 154, 71), new Color(231, 112, 35), new Color(115, 88, 23,5), new Color(242, 227, 79)};
 		Color couleurList [] = {Color.BLUE, Color.RED, Color.GREEN, Color.ORANGE, Color.MAGENTA, Color.YELLOW};
 		
 		ArrayList<Joueur> joueurList = new ArrayList<>();
@@ -65,7 +63,6 @@ public class Joueur {
 			Joueur player = new Joueur (couleur,unit, name);
 			joueurList.add(player);
 		}
-		
 		return joueurList;			
 	}
 
@@ -122,8 +119,4 @@ public class Joueur {
 		this.nomJoueur = nomJoueur;
 	}
 
-	
-	
-
-	
 }

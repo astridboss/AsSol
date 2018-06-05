@@ -42,7 +42,6 @@ public class ZoneT {
 		//TAILLE IMAGE
 		int w = maps.getWidth();
 		int h = maps.getHeight();
-		//System.out.println("h : " + h + "w: " + w);
 		
 		//ARRAYLIST ZONE
 		ArrayList<ZoneT> zoneT = new ArrayList<>();

@@ -11,11 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
-<<<<<<< HEAD
-
-=======
 import javax.print.attribute.Size2DSyntax;
->>>>>>> 6d99ecf60430aae429b5efbfd3c65f8e06a75b67
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,25 +21,22 @@ import javax.swing.JSpinner;
 import javax.swing.Painter;
 import javax.swing.SpinnerNumberModel;
 
-
 /**
- * 
- *
- *Arme par Territoire
- * Classe permettant d'itialialisé un format et des caracteristiques de l'armee
-
+ * CLASSE ARME
+ * UNE ARMEE PAR TERRITOIRE
  * INITIALISER UN FORMAT ET LES CARACTERISTIQUES DE L'ARMEE
  */
+
 
 public class Arme {
 
 	/*__ATTRIBUTS___________________________________________________*/
 	public Joueur joueur;
-
 	public boolean attaquePossible; 
 
-
 	public ArrayList<Unit> armeList= new ArrayList<>();
+	
+	JPanel panelDeplacement;
 
 
 	/*__METHODES____________________________________________________*/
@@ -53,81 +46,72 @@ public class Arme {
 	public Arme () {
 		
 	}
-	
-	/*public Arme(Joueur joueur, int nbSoldat, int nbCavalier, int nbCanon, 
-			Territoire territoire, ArrayList<Unit> armeList) {
-		super();
-		this.joueur = joueur;
-		this.armeList = armeList;
-	}*/
 
+	/**____FONCTION_DEPLACEMENT_INTERFACE_________________*/
 
-	/**____FONCTION_CHOIX_ATTAQUE_INTERFACE_________________*/
-
-
-	public void attaqueChoix(Joueur joueur, ArrayList<Territoire> territoireArrayList ,JFrame fenetre, JPanel contentPaneJeu)throws IOException {
-
-		JPanel panelDeplacement = new JPanel();
-		panelDeplacement.setBounds(922, 264, 359, 296);
+	public void attaqueChoix(Joueur joueur, Territoire territoireSelect, ArrayList<Territoire> territoireArrayList ,JFrame fenetre, JPanel contentPaneJeu) throws IOException {
+		
+		//JPANEL SPECIFIQUE AU DEPLACEMENT
+		panelDeplacement = new JPanel();
+		panelDeplacement.setBounds(929, 264, 359, 296);
 		contentPaneJeu.add(panelDeplacement);
 		panelDeplacement.setLayout(null);
-
+		
+		//TITRE
 		JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
 		titreDeplacement.setFont(new Font("LeHavre", Font.PLAIN, 17));
 		titreDeplacement.setBounds(120, 0, 134, 24);
 		panelDeplacement.add(titreDeplacement);
-
-		JLabel lblTerrOrigine = new JLabel("Choisir votre territoire d'origine :");
+		
+		//CHOIX PAYS ORIGINE
+		JLabel lblTerrOrigine = new JLabel("Pays d'origine choisi :" + territoireSelect.getNomT());
 		lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTerrOrigine.setBounds(28, 35, 212, 14);
+		lblTerrOrigine.setBounds(28, 49, 302, 14);
 		panelDeplacement.add(lblTerrOrigine);
 
-		Choice choixTerrOrigine = new Choice();
-		choixTerrOrigine.setBounds(55, 55, 200, 20);
-		panelDeplacement.add(choixTerrOrigine);
-		ArrayList<Territoire> territoireListJoueur= joueur.getTerritoireList();
-
-		for (int i=0; i<territoireListJoueur.size();i++) {
-			Territoire territoireInit=territoireListJoueur.get(i);
-			String nomT=territoireInit.getNomT();
-			choixTerrOrigine.add(nomT);
-		}
-
-		JLabel lblTerrDest = new JLabel("Les territoires de destination possible  :");
+		
+		//CHOIX DU PAYS DE DESTINATION EN FONCTION DES TERRITOIRES VOISINS
+		JLabel lblTerrDest = new JLabel("2. Les territoires de destination possible  :");
 		lblTerrDest.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTerrDest.setBounds(28, 98, 249, 14);
 		panelDeplacement.add(lblTerrDest);
+		
 		Choice choixTerrDest = new Choice();
 		choixTerrDest.setBounds(55, 131, 200, 20);
 		panelDeplacement.add(choixTerrDest);
-		String choixTerrOrigineS=choixTerrOrigine.getSelectedItem();
-		Territoire choixTerrOrigineT =Territoire.stringToTerritoire(choixTerrOrigineS, territoireArrayList);
-		ArrayList<Territoire> voisinT=choixTerrOrigineT .getVoisinT();
-
-		for (int i=0; i<voisinT.size();i++) {
-			Territoire territoireVoisin=territoireListJoueur.get(i);
-			String nomT=territoireVoisin.getNomT();
+		
+		ArrayList<Territoire> voisinT = territoireSelect.getVoisinT();
+		for (int i = 0; i < voisinT.size(); i++) {
+			Territoire territoireVoisin = voisinT.get(i);
+			String nomT = territoireVoisin.getNomT();
 			choixTerrDest.add(nomT);
 		}
-
+		
+		//BOUTON NEXT -> CHOISIR LES ARMEES A DEPLACER
 		Button boutonNext = new Button("Next");
 		boutonNext.setBounds(279, 131, 51, 22);
 		panelDeplacement.add(boutonNext);
+		
 		boutonNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ArrayList<Unit> armeList=choixTerrOrigineT.getArmeList();
-				ArrayList<Unit> soldatList= new ArrayList();
-				ArrayList<Unit> cavalierList= new ArrayList();
-				ArrayList<Unit> canonList= new ArrayList();
-				ArrayList<Unit> choixPion = new ArrayList();
+				
+				ArrayList<Unit> armeList = territoireSelect.getArmeList();
+				ArrayList<Unit> soldatList= new ArrayList<>();
+				ArrayList<Unit> cavalierList= new ArrayList<>();
+				ArrayList<Unit> canonList= new ArrayList<>();
+				//ArrayList<Unit> choixPion = new ArrayList<>();
+				
 				for (int i=0; i<armeList.size();i++) {
+					
 					if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
 						soldatList.add(armeList.get(i));
 					}
+					
 					if(armeList.get(i).cout==3 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
 						cavalierList.add(armeList.get(i));
 					}
+					
 					if(armeList.get(i).cout==7 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
 						canonList.add(armeList.get(i));
 					}
@@ -233,7 +217,7 @@ public class Arme {
 	
 	
 	
-	
+	/**____FONCTION_ATTAQUE__________________________*/
 	
 	
 	
@@ -286,9 +270,11 @@ public class Arme {
 
 				}
 			}
+			
 			/*Calcul gagnant
 			 * 
-			 */*
+			 */
+			 
 			resultAttaque.lastKey()=key HashMap<K, V>;
 			while(resultDefense.size()>0) {
 				if(resultAttaque.get(resultAttaque.lastKey())>resultDefense.get(resultAttaque.lastKey()) {
@@ -304,6 +290,9 @@ public class Arme {
 		}
 
 	}
+	
+	
+	
 	/*__GETTERS_&_SETTERS____________________________________________________*/
 
 	public Joueur getJoueur() {
@@ -337,8 +326,16 @@ public class Arme {
 		this.armeList = armeList;
 	}
 
+	public JPanel getPanelDeplacement() {
+		return panelDeplacement;
+	}
+
+	public void setPanelDeplacement(JPanel panelDeplacement) {
+		this.panelDeplacement = panelDeplacement;
+	}
 
 
+	
 
 
 

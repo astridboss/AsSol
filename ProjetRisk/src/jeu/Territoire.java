@@ -35,7 +35,7 @@ public class Territoire {
     	this.joueur = joueur;
     	this.regionT = region;   
    
-    	    	this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
+    	this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
     	this.armeList = initArmeList(); 
     }
 	
@@ -102,27 +102,21 @@ public class Territoire {
 		int [] [] voisin = {{30, 5, 3}, {3, 5, 4, 2, 6}, {1, 4, 6, 7, 12, 36}, {0, 1, 5, 6}, {5, 1, 2}, {0, 1, 3, 4}, {3, 1, 2, 39, 31, 36}, 
 				{12, 9,11,2,18}, {11,9,10}, {7, 8,10,11,12,2,36}, {9, 8}, {7,8,9,12}, {7,9,36,2}, 
 				{17, 40, 16, 15}, {16, 15 }, {13, 17, 16, 14 }, {13, 14, 15, 17, 40 }, {13, 15},
-				{7, 19, 20, 21},{20, 18},{18, 19, 21},{20, 18, 24},
-				{35, 29, 23},{29, 22, 25, 28},{21, 27, 28},{30, 23, 29, 27, 28, 26},{25, 27, 30},{26, 25, 28, 24},{27, 24, 25, 23},{30, 22, 23, 25},{29, 25, 26, 0},
-				{6, 39, 36, 32, 37},{31, 36, 40, 37 },{34, 35},{37, 38, 41, 35, 33},{22, 42, 41, 34, 33},{31, 32, 2, 6, 9},{34, 38, 39, 31, 32, 40},{39, 37, 34, 41, 42},{6, 31, 37, 38},{37, 32, 13, 17},{34, 38, 42, 35 }, {38, 41, 35} };
+				{7, 19, 20, 21}, {20, 18}, {18, 19, 21}, {20, 18, 24},
+				{35, 29, 23}, {29, 22, 25, 28}, {21, 27, 28}, {30, 23, 29, 27, 28, 26}, {25, 27, 30},{26, 25, 28, 24},{27, 24, 25, 23},{30, 22, 23, 25},{29, 25, 26, 0},
+				{6, 39, 36, 32, 37}, {31, 36, 40, 37 }, {34, 35}, {37, 38, 41, 35, 33}, {22, 42, 41, 34, 33},{31, 32, 2, 6, 9},{34, 38, 39, 31, 32, 40},{39, 37, 34, 41, 42},{6, 31, 37, 38},{37, 32, 13, 17},{34, 38, 42, 35 }, {38, 41, 35} };
 		
-		ArrayList<Territoire> voisinList = new ArrayList<>();
 		
-		for (int idT = 0; idT < territoireList.size(); idT++) { 
+		
+		for (int idT = 0; idT < territoireList.size(); idT++) {
+			//voisinList.removeAll(voisinList);
+			ArrayList<Territoire> voisinList = new ArrayList<>();
 			for (int i = 0; i < voisin[idT].length ; i++) { 
-				
 				voisinList.add(territoireList.get(voisin[idT][i]));
-			}
-		territoireList.get(idT).setVoisinT(voisinList);
+				}
+			territoireList.get(idT).setVoisinT(voisinList);
 		}
-		
-		
 	}
-	
-	
-	
-	
-	
 	
 	
 	/**_____INITIALISATION_ARMEE_LISTE___________________*/
@@ -138,11 +132,8 @@ public class Territoire {
 	public static Territoire territoireDetection (int posx, int posy, ArrayList<Territoire> list) {
 
 		for (int i = 0 ; i < list.size() ; i++) {
-			//	System.out.println(list.get(i).getNomT());
 			for (int j = 0; j < list.get(i).getZoneTerritoires().size(); j++) {
-				//System.out.println("x= " + list.get(i).getZoneT().get(j).getPosX() + " | y = " + list.get(i).getZoneT().get(j).getPosY());
 				if ( (posx == list.get(i).getZoneTerritoires().get(j).getPosX()) && (posy == list.get(i).getZoneTerritoires().get(j).getPosY())) {
-					System.out.println("Vous êtes en : " + list.get(i).getNomT());
 					return list.get(i);
 				}
 			} 
@@ -162,22 +153,12 @@ public class Territoire {
 		while (terrDist > 0) {
 		for (int joueurIndex=0; joueurIndex < joueurList.size();joueurIndex++) {			
 			
-				System.out.println("****************************************");
-				System.out.println("terrDist = "+ terrDist);
-				System.out.println("Joueur = "+joueurIndex);
-				
 				int index =  (int) (Math.random()*(terrDist));
 				int territoireIndex = indexTerritoire.get(index);
 				
-				System.out.println("Index = " + index);
-				System.out.println("Territoire index = " + territoireIndex);
-			
 				Territoire territoire = territoireList.get(territoireIndex);
 				joueurList.get(joueurIndex).getTerritoireList().add(territoire);
 				territoire.joueur = joueurList.get(joueurIndex);
-				
-				System.out.println("ProprioT = " + territoireList.get(territoireIndex).getJoueur().getNomJoueur());
-				System.out.println("Joueur list T = " + joueurList.get(joueurIndex).getTerritoireList());
 				
 				indexTerritoire.remove(indexTerritoire.get(index));
 				terrDist = terrDist - 1;
@@ -195,7 +176,7 @@ public class Territoire {
 	
 	/**_____FONCTION_POUR_RETOURNER_UN_TERRITOIRE_SELECTIONNE_PAR_UN_NOM____________*/
 	
-	public static Territoire stringToTerritoire(String nom,ArrayList<Territoire> territoireArrayList) {
+	public static Territoire stringToTerritoire(String nom, ArrayList<Territoire> territoireArrayList) {
 
 		for (int i=0; i<territoireArrayList.size(); i++) {
 			Territoire territoire = territoireArrayList.get(i);

@@ -10,9 +10,8 @@ public class Main{
 
 	public static void main(String[] args) throws IOException {
 
-		//AFFICHAGE MENU
-			MenuJeu menu = new MenuJeu();
-			menu.Menu ();
+			new Partie ();
+	
 	}
 	
 	
