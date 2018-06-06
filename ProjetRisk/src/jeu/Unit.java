@@ -188,7 +188,7 @@ public class Unit {
 				nbrUnite.setText (String.valueOf(joueurList.get(idJoueur).getUnit()));
 				
 				}else {
-					JOptionPane.showMessageDialog(null, "Hum ... On dirait que vous n'avez plus assez d'unit� ... Pas d'unit�, pas d'arm�e ! Veuillez recommencer.", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Hum ... On dirait que vous n'avez plus assez d'unité ... Pas d'unité, pas d'armée ! Veuillez recommencer.", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -372,7 +372,71 @@ public class Unit {
 
 	}
 	
-	
+	public void attaque(ArrayList<Unit> mvtAttaque, Territoire choixTerrOrigineT, Territoire choixTerrDestT ) {
+		TreeMap<Integer,Unit> resultAttaque =new TreeMap<>();
+		/*Creer l arme liste defense
+		 * */
+		TreeMap<Integer, Unit> resultDefense= new TreeMap<>();
+		if(choixTerrDestT.getArmeList().size()<2) {
+			int des=ThreadLocalRandom.current().nextInt(1, 6 + 1);
+			resultDefense.put(des, choixTerrDestT.getArmeList().get(0));
+		}
+		else{
+			while(resultDefense.size()<2) {
+
+				for( int i=0 ; i<choixTerrDestT.getArmeList().size();i++) {
+					if(choixTerrDestT.getArmeList().get(i).cout==1) {
+						int des=ThreadLocalRandom.current().nextInt(1, 6 + 1);
+						resultDefense.put(des, choixTerrDestT.getArmeList().get(i));
+
+					}
+				}
+				for( int i=0 ; i<choixTerrDestT.getArmeList().size();i++) {
+					if(choixTerrDestT.getArmeList().get(i).cout==7) {
+						int des=ThreadLocalRandom.current().nextInt(4, 9 + 1);
+						resultDefense.put(des, choixTerrDestT.getArmeList().get(i));
+
+					}
+				}
+				for( int i=0 ; i<choixTerrDestT.getArmeList().size();i++) {
+					if(choixTerrDestT.getArmeList().get(i).cout==3) {
+						int des=ThreadLocalRandom.current().nextInt(2, 7 + 1);
+						resultDefense.put(des, choixTerrDestT.getArmeList().get(i));
+
+					}
+				}
+
+			}
+
+		}
+		for(int i=0; i<mvtAttaque.size();i++) {
+			int des=ThreadLocalRandom.current().nextInt(mvtAttaque.get(i).desMin,mvtAttaque.get(i).desMax + 1);
+			mvtAttaque.get(i).setScore(des);
+			resultAttaque.put((des*10+mvtAttaque.get(i).prioAttaque),mvtAttaque.get(i));
+		}
+		int attaqueTour=0;
+		while(attaqueTour<2) {
+			if(resultAttaque.get(resultAttaque.lastKey()).getScore()>resultDefense.get(resultDefense.lastKey()).getScore()) {
+				//TODO Récupérer ID last element resultDefense et supprimer dans la liste ArmeList
+				resultDefense.remove(resultAttaque.lastKey());
+				resultAttaque.remove(resultAttaque.lastKey());
+				attaqueTour=attaqueTour+1;
+				if(resultDefense.isEmpty()) {
+					//TODO Récuper tous les pions attaque et les déplacer
+					//TODO territoire posséder!
+					break;
+				}
+			}
+			if(resultAttaque.get(resultAttaque.lastKey()).getScore()<=resultDefense.get(resultDefense.lastKey()).getScore()) {
+				//TODO Récupérer ID last element resultAttaque et supprimer dans la liste ArmeList
+				resultDefense.remove(resultAttaque.lastKey());
+				resultAttaque.remove(resultAttaque.lastKey());
+				attaqueTour=attaqueTour+1;
+			}
+			
+		}
+		
+	}
 	
 	
 	
