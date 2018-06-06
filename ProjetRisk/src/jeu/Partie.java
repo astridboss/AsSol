@@ -1,6 +1,8 @@
 package jeu;
 
+import java.awt.Button;
 import java.awt.Canvas;
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -66,6 +68,10 @@ public class Partie  {
 	//JEU
 	private int indexJoueurJeu;
 	private JLabel LabelTerritoireOrigine;
+	private boolean victoire;
+	
+	//DEPLACEMENT
+	private JPanel panelDeplacement;
 	
 
 	
@@ -390,7 +396,9 @@ public class Partie  {
 			    	nbrCav.setText(Integer.toString(cavalierNombre));
 			    	nbrCanon.setText(Integer.toString(canonNombre));
 			    	
+			    
 			    	LabelTerritoireOrigine.setText(territoireSelect.getNomT());
+			    	
 
 					fenetre.revalidate();
 					fenetre.repaint();
@@ -460,12 +468,13 @@ public class Partie  {
 	
 	}
 
-	/*__FONCTION_JEU________________________________________*/
+	/*___________________________________________________________________________________________*/
+	/*__FONCTION_JEU____________________________________________________________________________*/
 	
 	public void jeu () {
 		
-		boolean victoire = true; //Determine if there is a victory
-		indexJoueurJeu = 0;
+		victoire = false; //Determine if there is a victory
+		indexJoueurJeu = 0; 
 		
 		/**______ETAPE_1:_RENFORT____________________________________________________*/
 		
@@ -476,7 +485,47 @@ public class Partie  {
 		nbrUnite.setText(String.valueOf(joueurList.get(0).getUnit()));
 		
 		
-		/**______ETAPE_2:_DEPLACEMENT____________________________________________________*/
+		/**______ETAPE_2:_DEPLACEMENT_&_ATTAQUES_________________________________________*/
+		
+		attaqueChoix();
+		
+		
+		
+		
+		/**______FIN_DE_TOUR____________________________________________________________*/
+		
+		JButton btnFinTour = new JButton("Fin du tour !");
+		btnFinTour.setBounds(1138, 654, 143, 37);
+		contentPaneJeu.add(btnFinTour);
+		btnFinTour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (territoireArrayList == joueurList.get(indexJoueurJeu).getTerritoireList()) {
+					victoire = true;
+				}
+				
+				if (victoire == true) {
+					JOptionPane.showMessageDialog(null, "La victoire reviens au joueur " + " !! Félicitation !!" , "VICTOIRE", JOptionPane.INFORMATION_MESSAGE);
+					fenetre.dispose();
+					
+				} else if (indexJoueurJeu < joueurList.size()) {
+					indexJoueurJeu = indexJoueurJeu + 1;
+					jeu ();
+				}
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**____FONCTION_DEPLACEMENT_INTERFACE________________________*/
+
+	public void attaqueChoix () {
 		
 		JPanel panelChoixOrigine = new JPanel();
 		panelChoixOrigine.setBounds(968, 275, 293, 175);
@@ -512,38 +561,232 @@ public class Partie  {
 					fenetre.validate();
 				    fenetre.repaint();
 				    
-					Unit deplacement = new Unit ();
 					System.out.println(territoireSelect.getNomT());
-					try {
-						deplacement.attaqueChoix( joueurList.get(indexJoueurJeu), territoireSelect, territoireArrayList, fenetre, contentPaneJeu);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}	
-				} else {
+					
+					//JPANEL SPECIFIQUE AU DEPLACEMENT
+					panelDeplacement = new JPanel();
+					panelDeplacement.setBounds(929, 264, 359, 296);
+					contentPaneJeu.add(panelDeplacement);
+					panelDeplacement.setLayout(null);
+					
+					//TITRE
+					JLabel titreDeplacement = new JLabel("D\u00E9placement\r\n");
+					titreDeplacement.setFont(new Font("LeHavre", Font.PLAIN, 17));
+					titreDeplacement.setBounds(120, 0, 134, 24);
+					panelDeplacement.add(titreDeplacement);
+					
+					//CHOIX PAYS ORIGINE
+					JLabel lblTerrOrigine = new JLabel("Pays d'origine choisi :" + territoireSelect.getNomT());
+					lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
+					lblTerrOrigine.setBounds(28, 49, 302, 14);
+					panelDeplacement.add(lblTerrOrigine);
+
+					
+					//CHOIX DU PAYS DE DESTINATION EN FONCTION DES TERRITOIRES VOISINS
+					JLabel lblTerrDest = new JLabel("2. Les territoires de destination possible  :");
+					lblTerrDest.setFont(new Font("Tahoma", Font.PLAIN, 12));
+					lblTerrDest.setBounds(28, 98, 400, 14);
+					panelDeplacement.add(lblTerrDest);
+					
+					Choice choixTerrDest = new Choice();
+					choixTerrDest.setBounds(55, 131, 200, 20);
+					panelDeplacement.add(choixTerrDest);
+					
+					ArrayList<Territoire> voisinT = territoireSelect.getVoisinT();
+					for (int i = 0; i < voisinT.size(); i++) {
+						Territoire territoireVoisin = voisinT.get(i);
+						String nomT = territoireVoisin.getNomT();
+						choixTerrDest.add(nomT);
+					}
+					
+					//BOUTON NEXT -> CHOISIR LES ARMEES A DEPLACER
+					Button boutonNext = new Button("Next");
+					boutonNext.setBounds(279, 131, 51, 22);
+					panelDeplacement.add(boutonNext);
+					
+					boutonNext.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							
+							Territoire choixTerrDestT = Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
+							lblTerrDest.setText("Votre pays de destination est : " + choixTerrDestT.getNomT());
+							panelDeplacement.remove(choixTerrDest);
+							
+							fenetre.validate();
+						    fenetre.repaint();
+						    
+							ArrayList<Unit> armeList = territoireSelect.getArmeList();
+							ArrayList<Unit> soldatList= new ArrayList<>();
+							ArrayList<Unit> cavalierList= new ArrayList<>();
+							ArrayList<Unit> canonList= new ArrayList<>();
+							
+							for (int i=0; i<armeList.size();i++) {
+								
+								if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
+									soldatList.add(armeList.get(i));
+								}
+								
+								if(armeList.get(i).cout==3 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
+									cavalierList.add(armeList.get(i));
+								}
+								
+								if(armeList.get(i).cout==7 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
+									canonList.add(armeList.get(i));
+								}
+							}
+							
+							
+						    
+							JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
+							lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+							lblSoldat_1.setBounds(43, 185, 74, 14);
+							panelDeplacement.add(lblSoldat_1);
+
+							JLabel lblCavalier_1 = new JLabel("Cavalier (3U)");
+							lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+							lblCavalier_1.setBounds(131, 185, 80, 14);
+							panelDeplacement.add(lblCavalier_1);
+
+							JLabel lblCanon_1 = new JLabel("Canon (7U)");
+							lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+							lblCanon_1.setBounds(216, 185, 72, 14);
+							panelDeplacement.add(lblCanon_1);
+
+							JSpinner spinnerSoldat = new JSpinner();
+							spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, soldatList.size(), 1));
+							spinnerSoldat.setBounds(66, 209, 39, 24);
+							panelDeplacement.add(spinnerSoldat);
+
+							JSpinner spinnerCavalier = new JSpinner();
+							spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, cavalierList.size(), 1));
+							spinnerCavalier.setBounds(158, 210, 39, 23);
+							panelDeplacement.add(spinnerCavalier);
+
+							JSpinner spinnerCanon = new JSpinner();
+							spinnerCanon.setModel(new SpinnerNumberModel(0, 0, canonList.size(), 1));
+							spinnerCanon.setBounds(236, 210, 39, 23);
+							panelDeplacement.add(spinnerCanon);
+
+							JButton btnDeplacement = new JButton("Deplacement/ Attaque");
+							btnDeplacement.setBounds(160, 258, 170, 23);
+							panelDeplacement.add(btnDeplacement);
+							
+							fenetre.validate();
+						    fenetre.repaint();
+
+							btnDeplacement.addMouseListener(new MouseAdapter() {
+								@Override
+								public void mouseClicked(MouseEvent e) {
+									
+									int nbSoldatChoix =((Integer)spinnerSoldat.getValue()).intValue();
+									int nbCavalierChoix =((Integer)spinnerCavalier.getValue()).intValue();
+									int nbCanonChoix =((Integer)spinnerCanon.getValue()).intValue();
+									
+									String condition1 = "";
+									String condition2 = "";
+									String condition3 = "";
+									
+									if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= armeList.size()) {
+										condition1 = "\n Vous devez laisser un pion sur le territoire ";
+									}
+									if(nbSoldatChoix == 0 && nbCavalierChoix == 0 && nbCanonChoix == 0 ) {
+										condition2 = "\n Vous n'avez selectionne aucun pion a deplacer ";
+									}
+									if (nbSoldatChoix + nbCanonChoix + nbCavalierChoix >3 && !joueurList.get(indexJoueurJeu).getTerritoireList().contains(choixTerrDestT)) {
+										condition3 = "\n Vous ne devez pas avoir plus de 3 pions attaquants";
+									}
+									if ( !condition1.isEmpty()|| !condition2.isEmpty() || !condition3.isEmpty()) {
+										JOptionPane.showMessageDialog(null, condition1 + condition2 + condition3 , "Erreur", JOptionPane.ERROR_MESSAGE);
+									}
+									
+									if (condition1.isEmpty() && condition2.isEmpty() && condition3.isEmpty()) {
+										
+										System.out.println("On se déplace !!");
+								
+										ArrayList<Unit> armeDeplacerList = new ArrayList<>();
+										
+										for (int i=0; i < nbSoldatChoix; i++) {
+											armeDeplacerList.add(soldatList.get(i));
+										}
+										
+										for (int i=0;i < nbCavalierChoix; i++) {
+											armeDeplacerList.add(cavalierList.get(i));
+										}
+										
+										for (int i=0 ; i < nbCanonChoix; i++) {
+											armeDeplacerList.add(canonList.get(i));
+										}
+
+										if(joueurList.get(indexJoueurJeu).getTerritoireList().contains(choixTerrDestT)) {
+											System.out.println("Nous avons le même propriétaire");
+											
+											for (int i = 0; i < armeDeplacerList.size(); i++) {
+												armeDeplacerList.get(i).setMouventEffectif(armeDeplacerList.get(i).getMouventEffectif() + 1 );
+												choixTerrDestT.getArmeList().add(armeDeplacerList.get(i));
+											}
+											
+											for (int i = 0 ; i < choixTerrDestT.getArmeList().size(); i++) {
+												System.out.println("******************************");
+												System.out.println(choixTerrDestT.getNomT());
+												System.out.println("Mouvement effectif : " + choixTerrDestT.getArmeList().get(i).getMouventEffectif());
+												System.out.println("ID : " + choixTerrDestT.getArmeList().get(i).getIdUnit());
+											}
+				
+											armeList.removeAll(armeDeplacerList);
+											territoireSelect.setArmeList(armeList);
+											
+											fenetre.remove(panelDeplacement);
+											fenetre.validate();
+										    fenetre.repaint();
+										    
+										    // BOUCLE SUR LA FONCTION ATTAQUECHOIX JUSQU'A LA FIN DU TOURS
+											attaqueChoix();
+								
+										//SI ON CHOISI D'ATTAQUER UN TERRITOIRE
+										} else {
+											
+											fenetre.remove (panelDeplacement);
+											
+											
+											JOptionPane.showMessageDialog(null, "A L'ATTAQUE !!!!" , "ON ATTAQUE !!!!!", JOptionPane.INFORMATION_MESSAGE);
+											//attaque(armeDeplacerList,territoireOrigine,choixTerrDestT);
+										}
+										
+										fenetre.validate();
+									    fenetre.repaint();
+									}
+
+								}
+							}
+							);
+						}
+					}
+					);
+					
+					fenetre.validate();
+				    fenetre.repaint();
+
+					
+				} else {	//SI TERRITOIRESELECT NE VOUS APPARTIENT PAS
 					JOptionPane.showMessageDialog(null, "Veuillez choisir l'un de vos pays !!" , "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		
-		
-		JButton btnFinTour = new JButton("Fin du tour !");
-		btnFinTour.setBounds(1138, 654, 143, 37);
-		contentPaneJeu.add(btnFinTour);
-		btnFinTour.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				if (victoire == true) {
-					JOptionPane.showMessageDialog(null, "La victoire reviens au joueur Bleu !! Félicitation !!" , "VICTOIRE", JOptionPane.INFORMATION_MESSAGE);
-					fenetre.dispose();
-					
-				} else if (indexJoueurJeu < joueurList.size()) {
-					indexJoueurJeu = indexJoueurJeu + 1;
-					jeu ();
-				}
-			}
-		});
 	}
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
 	
 	/*__FONCTION_CHANGEMENT_COULEUR________________________________________*/
 		
