@@ -204,6 +204,39 @@ public class Unit {
 	
 	
 	public void attaque(ArrayList<Unit> mvtAttaque, Territoire choixTerrOrigineT, Territoire choixTerrDestT ) {
+		// crÃ©ation de la Jpanel
+				JPanel panelAttack = new JPanel();
+				panelAttack.setBounds(463, 510, 397, 181);
+				contentPane.add(panelAttack);
+				panelAttack.setLayout(null);
+				
+				// TITRE
+				JLabel lblTitreAttaque = new JLabel("Attaque\r\n");
+				lblTitreAttaque.setBounds(108, 0, 162, 24);
+				panelAttack.add(lblTitreAttaque);
+				lblTitreAttaque.setHorizontalAlignment(SwingConstants.CENTER);
+				lblTitreAttaque.setFont(new Font("LeHavre", Font.PLAIN, 17));
+				
+				//Label cotÃ© Attaquant
+				JLabel lblAttaquant = new JLabel("Attaquant");
+				lblAttaquant.setHorizontalAlignment(SwingConstants.CENTER);
+				lblAttaquant.setBounds(86, 35, 86, 14);
+				panelAttack.add(lblAttaquant);
+				
+				//LABEL VS
+				JLabel lblVs = new JLabel("VS\r\n");
+				lblVs.setHorizontalAlignment(SwingConstants.CENTER);
+				lblVs.setFont(new Font("LeHavre", Font.PLAIN, 17));
+				lblVs.setBounds(172, 78, 41, 24);
+				panelAttack.add(lblVs);
+				
+				
+				//Physique cotÃ© defenseur
+				JLabel lblDefenseur = new JLabel("Defenseur");
+				lblDefenseur.setHorizontalAlignment(SwingConstants.CENTER);
+				lblDefenseur.setBounds(210, 35, 86, 14);
+				panelAttack.add(lblDefenseur);
+				
 		TreeMap<Integer,Unit> resultAttaque =new TreeMap<>();
 		/*Creer l arme liste defense
 		 * */
@@ -245,30 +278,139 @@ public class Unit {
 			mvtAttaque.get(i).setScore(des);
 			resultAttaque.put((des*10+mvtAttaque.get(i).prioAttaque),mvtAttaque.get(i));
 		}
+		
+
+		
+		
+		
+		ArrayList<Unit> attaqueUnitTrie= new ArrayList<>();
+		Set<Integer> set=resultAttaque.keySet();
+		Iterator<Integer> iterator =set.iterator();
+		while(iterator.hasNext()) {
+			int cles =((int) iterator.next());
+			attaqueUnitTrie.add(resultAttaque.get(cles));
+		}
+		
+		
+		ArrayList<Unit> defenseUnitTrie= new ArrayList<>();
+		Set<Integer> setbis=resultAttaque.keySet();
+		Iterator<Integer> iteratorbis =setbis.iterator();
+		while(iteratorbis.hasNext()) {
+			int cles =((int) iteratorbis.next());
+			defenseUnitTrie.add(resultAttaque.get(cles));
+		}
+		
+		JLabel lblAtt1 = new JLabel(attaqueUnitTrie.get(attaqueUnitTrie.size()).getNom());
+		lblAtt1.setBounds(59, 60, 46, 14);
+		panelAttack.add(lblAtt1);
+		
+		JLabel Att1 = new JLabel(String.valueOf(attaqueUnitTrie.get(attaqueUnitTrie.size()).getScore()));
+		Att1.setHorizontalAlignment(SwingConstants.CENTER);
+		Att1.setBounds(96, 60, 76, 14);
+		panelAttack.add(Att1);
+		
+		JLabel lblDef1 = new JLabel(defenseUnitTrie.get(defenseUnitTrie.size()).getNom());
+		lblDef1.setBounds(299, 60, 46, 14);
+		panelAttack.add(lblDef1);
+		
+		JLabel Def1 = new JLabel(String.valueOf(attaqueUnitTrie.get(defenseUnitTrie.size())));
+		Def1.setHorizontalAlignment(SwingConstants.CENTER);
+		Def1.setBounds(220, 60, 73, 14);
+		panelAttack.add(Def1);
+		
+		if(attaqueUnitTrie.size()==2) {
+			JLabel lblAtt2 = new JLabel(attaqueUnitTrie.get(0).getNom());
+			lblAtt2.setBounds(59, 85, 46, 14);
+			panelAttack.add(lblAtt2);
+			
+			JLabel Att2 = new JLabel(String.valueOf(attaqueUnitTrie.get(0).getScore()));
+			Att2.setHorizontalAlignment(SwingConstants.CENTER);
+			Att2.setBounds(99, 85, 73, 14);
+			panelAttack.add(Att2);
+		}
+		
+		if(attaqueUnitTrie.size()==3) {
+			JLabel lblAtt2 = new JLabel(attaqueUnitTrie.get(1).getNom());
+			lblAtt2.setBounds(59, 85, 46, 14);
+			panelAttack.add(lblAtt2);
+			
+			JLabel Att2 = new JLabel(String.valueOf(attaqueUnitTrie.get(1).getScore()));
+			Att2.setHorizontalAlignment(SwingConstants.CENTER);
+			Att2.setBounds(99, 85, 73, 14);
+			panelAttack.add(Att2);
+			
+			JLabel lblAtt3 = new JLabel(attaqueUnitTrie.get(0).getNom());
+			lblAtt3.setBounds(59, 110, 46, 14);
+			panelAttack.add(lblAtt3);
+			
+			JLabel Att3 = new JLabel(String.valueOf(attaqueUnitTrie.get(0).getScore()));
+			Att3.setHorizontalAlignment(SwingConstants.CENTER);
+			Att3.setBounds(99, 112, 73, 14);
+			panelAttack.add(Att3);
+			
+		}
+		if(defenseUnitTrie.size()==2) {
+			JLabel lblDef2 = new JLabel(defenseUnitTrie.get(0).getNom());
+			lblDef2.setBounds(299, 85, 46, 14);
+			panelAttack.add(lblDef2);
+			
+			JLabel Def2 = new JLabel(String.valueOf(defenseUnitTrie.get(0).getScore()));
+			Def2.setHorizontalAlignment(SwingConstants.CENTER);
+			Def2.setBounds(223, 85, 73, 14);
+			panelAttack.add(Def2);
+		}
 		int attaqueTour=0;
 		while(attaqueTour<2) {
 			if(resultAttaque.get(resultAttaque.lastKey()).getScore()>resultDefense.get(resultDefense.lastKey()).getScore()) {
-				//TODO Récupérer ID last element resultDefense et supprimer dans la liste ArmeList
+				
+			
+				int unitIDDefenseSupp =resultDefense.get(resultDefense.lastKey()).getIdUnit();
+				for (int i=0; i< choixTerrDestT.getArmeList().size();i++) {
+					if(choixTerrDestT.getArmeList().get(i).getIdUnit()== unitIDDefenseSupp) {
+						choixTerrDestT.getArmeList().remove(i);
+						break;
+					}
+				}
+
 				resultDefense.remove(resultAttaque.lastKey());
-				resultAttaque.remove(resultAttaque.lastKey());
-				attaqueTour=attaqueTour+1;
+
 				if(resultDefense.isEmpty()) {
-					//TODO Récuper tous les pions attaque et les déplacer
-					//TODO territoire posséder!
+					/*Terrioire possede par attaquant */
+					while(!resultAttaque.isEmpty()) {
+						int unitIDAttaqueMoove=resultAttaque.get(resultAttaque.lastKey()).getIdUnit();
+						for (int j=0; j< choixTerrDestT.getArmeList().size();j++) {
+							if(choixTerrOrigineT.getArmeList().get(j).getIdUnit()== unitIDAttaqueMoove) {
+								choixTerrDestT.getArmeList().add(choixTerrOrigineT.getArmeList().get(j));
+								choixTerrOrigineT.getArmeList().remove(j);
+
+								break;
+							}
+						}
+						resultAttaque.remove(resultAttaque.lastKey());
+					}
 					break;
 				}
+				resultAttaque.remove(resultAttaque.lastKey());
+				attaqueTour=attaqueTour+1;
 			}
 			if(resultAttaque.get(resultAttaque.lastKey()).getScore()<=resultDefense.get(resultDefense.lastKey()).getScore()) {
-				//TODO Récupérer ID last element resultAttaque et supprimer dans la liste ArmeList
+				int unitIDAttaqueSupp =resultDefense.get(resultAttaque.lastKey()).getIdUnit();
+
+				for (int i=0; i< choixTerrDestT.getArmeList().size();i++) {
+					if(choixTerrOrigineT.getArmeList().get(i).getIdUnit()== unitIDAttaqueSupp) {
+						choixTerrOrigineT.getArmeList().remove(i);
+						break;
+					}
+				}
 				resultDefense.remove(resultAttaque.lastKey());
 				resultAttaque.remove(resultAttaque.lastKey());
 				attaqueTour=attaqueTour+1;
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	
 	
 	
