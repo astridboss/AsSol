@@ -26,6 +26,7 @@ public class Unit {
 
 	/*__ATTRIBUTS___________________________________________________*/
 	
+	protected int idUnit;
 	protected int cout;
 	protected int prioAttaque;
 	protected int prioDefense;
@@ -33,6 +34,8 @@ public class Unit {
 	protected int score;
 	protected int mouventEffectif;
 	protected String nom;
+	protected int desMin;
+	protected int desMax;
 
 	private JPanel panelPlacerUnit;
 	private JPanel panelDeplacement;
@@ -44,9 +47,10 @@ public class Unit {
 
 	}
 	
-	public Unit(int mouventEffectif, int cout, int prioAttaque, int prioDefense, int mouvement, int score, String nom, JPanel panelPlacerUnit) {
+	public Unit(int idUnit, int mouventEffectif, int cout, int prioAttaque, int prioDefense, int mouvement, int score, String nom, JPanel panelPlacerUnit,int desMin, int desMax) {
 		super();
 		
+		this.idUnit = idUnit;
 		this.cout = cout;
 		this.prioAttaque = prioAttaque;
 		this.prioDefense = prioDefense;
@@ -54,6 +58,8 @@ public class Unit {
 		this.score = score;
 		this.mouventEffectif = mouventEffectif;
 		this.nom = nom;
+		this.desMin = desMin;
+		this.desMax = desMax;
 		
 		this.panelPlacerUnit = panelPlacerUnit;
 	}
@@ -153,15 +159,24 @@ public class Unit {
 							ArrayList<Unit> armeeL = joueurList.get(idJoueur).getTerritoireList().get(i).getArmeList();
 									
 							for (int s = 0; s < nbrSoldat; s++) {
-								Unit unitS = new Soldat();
+								int idUnit =  joueurList.get(idJoueur).getIdUnit();
+								Unit unitS = new Soldat(idUnit);
+								idUnit = idUnit + 1;
+								joueurList.get(idJoueur).setIdUnit(idUnit);
 								armeeL.add(unitS);
 							}
 							for (int c = 0; c < nbrCavalier; c++) {
-								Unit unitC = new Cavalier();
+								int idSoldat =  joueurList.get(idJoueur).getIdUnit();
+								Unit unitC = new Cavalier(idSoldat);
+								idSoldat = idSoldat + 1;
+								joueurList.get(idJoueur).setIdUnit(idSoldat);
 								armeeL.add(unitC);
 							}
 							for (int ca = 0; ca < nbrCanon; ca++) {
-								Unit unitCa = new Canon();
+								int idUnit =  joueurList.get(idJoueur).getIdUnit();
+								Unit unitCa = new Canon(idUnit);
+								idUnit = idUnit + 1;
+								joueurList.get(idJoueur).setIdUnit(idUnit);
 								armeeL.add(unitCa);
 							}
 
@@ -184,9 +199,9 @@ public class Unit {
 	
 	
 	
-	/**____FONCTION_DEPLACEMENT_INTERFACE_________________*/
+	/**____FONCTION_DEPLACEMENT_INTERFACE________________________*/
 
-	public void attaqueChoix(Joueur joueur, Territoire territoireSelect, ArrayList<Territoire> territoireArrayList ,JFrame fenetre, JPanel contentPaneJeu) throws IOException {
+	public void attaqueChoix(Joueur joueur, Territoire territoireOrigine, ArrayList<Territoire> territoireArrayList ,JFrame fenetre, JPanel contentPaneJeu) throws IOException {
 		
 		//JPANEL SPECIFIQUE AU DEPLACEMENT
 		panelDeplacement = new JPanel();
@@ -201,7 +216,7 @@ public class Unit {
 		panelDeplacement.add(titreDeplacement);
 		
 		//CHOIX PAYS ORIGINE
-		JLabel lblTerrOrigine = new JLabel("Pays d'origine choisi :" + territoireSelect.getNomT());
+		JLabel lblTerrOrigine = new JLabel("Pays d'origine choisi :" + territoireOrigine.getNomT());
 		lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTerrOrigine.setBounds(28, 49, 302, 14);
 		panelDeplacement.add(lblTerrOrigine);
@@ -217,7 +232,7 @@ public class Unit {
 		choixTerrDest.setBounds(55, 131, 200, 20);
 		panelDeplacement.add(choixTerrDest);
 		
-		ArrayList<Territoire> voisinT = territoireSelect.getVoisinT();
+		ArrayList<Territoire> voisinT = territoireOrigine.getVoisinT();
 		for (int i = 0; i < voisinT.size(); i++) {
 			Territoire territoireVoisin = voisinT.get(i);
 			String nomT = territoireVoisin.getNomT();
@@ -233,7 +248,7 @@ public class Unit {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				ArrayList<Unit> armeList = territoireSelect.getArmeList();
+				ArrayList<Unit> armeList = territoireOrigine.getArmeList();
 				ArrayList<Unit> soldatList= new ArrayList<>();
 				ArrayList<Unit> cavalierList= new ArrayList<>();
 				ArrayList<Unit> canonList= new ArrayList<>();
@@ -241,19 +256,19 @@ public class Unit {
 				
 				for (int i=0; i<armeList.size();i++) {
 					
-					if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
+					if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 						soldatList.add(armeList.get(i));
 					}
 					
-					if(armeList.get(i).cout==3 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
+					if(armeList.get(i).cout==3 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 						cavalierList.add(armeList.get(i));
 					}
 					
-					if(armeList.get(i).cout==7 && armeList.get(i).mouventEffectif<armeList.get(i).mouventEffectif) {
+					if(armeList.get(i).cout==7 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 						canonList.add(armeList.get(i));
 					}
-
 				}
+				
 				JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 				lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblSoldat_1.setBounds(43, 185, 74, 14);
@@ -296,45 +311,52 @@ public class Unit {
 						int nbCavalierChoix =((Integer)spinnerCavalier.getValue()).intValue();
 						int nbCanonChoix =((Integer)spinnerCanon.getValue()).intValue();
 
-						Territoire choixTerrDestT=Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
+						Territoire choixTerrDestT = Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
+						
 						String condition1 = null;
-						String condition2 = null ;
+						String condition2 = null;
 						String condition3 = null;
-						if((nbSoldatChoix+nbCavalierChoix+nbCanonChoix)>=armeList.size()) {
+						
+						if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= armeList.size()) {
 							condition1="\n Vous devez laisser un pion sur le territoire ";
 						}
-						if(nbSoldatChoix==0 && nbCavalierChoix==0 && nbCanonChoix==0 ) {
-							condition2="\n Vous n'avez selectionné aucun pion à déplacer ";
+						if(nbSoldatChoix == 0 && nbCavalierChoix == 0 && nbCanonChoix == 0 ) {
+							condition2="\n Vous n'avez selectionne aucun pion a deplacer ";
 						}
-						if (nbSoldatChoix+nbCanonChoix+nbCavalierChoix>3 && !joueur.territoireListJoueur.contains(choixTerrOrigine)) {
+						if (nbSoldatChoix + nbCanonChoix + nbCavalierChoix >3 && !joueur.getTerritoireList().contains(choixTerrDestT)) {
 							condition3="\n Vous ne devez pas avoir plus de 3 pions attaquants";
 						}
-						if (condition1.isEmpty()|| condition2.isEmpty()|| condition3.isEmpty()) {
+						if ( !condition1.isEmpty()|| !condition2.isEmpty() || !condition3.isEmpty()) {
 							JOptionPane.showMessageDialog(null, condition1 + condition2 + condition3 , "Erreur", JOptionPane.ERROR_MESSAGE);
 						}
-						if (condition1.isEmpty()&& condition2.isEmpty()&& condition3.isEmpty()) {
+						if (condition1.isEmpty() && condition2.isEmpty() && condition3.isEmpty()) {
+							
+							ArrayList<Unit> armeDeplacerList = new ArrayList<>();
+							
 
-							if(joueur.territoireListJoueur.contains(choixTerrDestT)) {
+							if(joueur.getTerritoireList().contains(choixTerrDestT)) {
+								
 								ArrayList<Unit> armeListMvt= new ArrayList<>();
-								armeListMvt=choixTerrDestT.getArmeList();
-								for (int i=0;i==nbSoldatChoix; i++) {
+								armeListMvt = choixTerrDestT.getArmeList();
+								for (int i=0; i==nbSoldatChoix; i++) {
 									armeListMvt.add(soldatList.get(i));
-
 								}
+								
 								for (int i=0;i==nbCavalierChoix; i++) {
 									armeListMvt.add(cavalierList.get(i));
-
 								}
+								
 								for (int i=0;i==nbCanonChoix; i++) {
 									armeListMvt.add(canonList.get(i));
-
 								}
-								setArmeList(armeListMvt);
+								
+								choixTerrDestT.setArmeList(armeListMvt);
 								armeList.removeAll(armeListMvt);
-								setArmeList(armeList);
+								territoireOrigine.setArmeList(armeList);
 							}
 							else {
-								attaque(nbSoldatChoix,nbCavalierChoix,nbCanonChoix,soldatList,cavalierList,canonList,choixTerrOrigineT,choixTerrDestT);
+								
+								//attaque(armeDeplacerList,territoireOrigine,choixTerrDestT);
 							}
 						}
 
@@ -423,5 +445,15 @@ public class Unit {
 	public void setPanelPlacerUnit(JPanel panelPlacerUnit) {
 		this.panelPlacerUnit = panelPlacerUnit;
 	}
+
+	public int getIdUnit() {
+		return idUnit;
+	}
+
+	public void setIdUnit(int idUnit) {
+		this.idUnit = idUnit;
+	}
+	
+	
 	
 }

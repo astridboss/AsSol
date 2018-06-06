@@ -18,6 +18,8 @@ public class Joueur {
 	private int renfortTControles;
 	private int renfortTGagnes;
 	
+	private int idUnit;
+	
 	private ArrayList<Territoire> territoireListJoueur = new ArrayList<>();
 	
 	
@@ -30,6 +32,8 @@ public class Joueur {
 		this.nomJoueur = nom;
 		this.couleur = color;
 		this.unit = unitDebut;
+		
+		this.idUnit = 0;
 	}
 	
 	
@@ -118,5 +122,17 @@ public class Joueur {
 	public void setNomJoueur(String nomJoueur) {
 		this.nomJoueur = nomJoueur;
 	}
+
+
+	public int getIdUnit() {
+		return idUnit;
+	}
+
+
+	public void setIdUnit(int idUnit) {
+		this.idUnit = idUnit;
+	}
+	
+	
 
 }

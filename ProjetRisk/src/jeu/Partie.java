@@ -66,13 +66,14 @@ public class Partie  {
 	//JEU
 	private int indexJoueurJeu;
 	private JLabel LabelTerritoireOrigine;
+	
 
 	
 	/*_____________________________________________________________*/
 	/*__METHODES___________________________________________________*/
 	
 	/**INITIALISATION DE LA PARTIE */
-	 
+
 	public Partie () {
 		
 		//DIMENTIONNEMENT DE LA FENETRE PRINCIPAL
@@ -178,6 +179,13 @@ public class Partie  {
 		
 		//REPARTITION DES TERRITOIRES ENTRE LES JOUEURS
 		Territoire.distributionTerritoire (territoireArrayList, joueurList);
+		
+		//INITIALISE ARMEE DANS TERRITOIRE
+		for (int i = 0; i < territoireArrayList.size() ; i++) {
+			territoireArrayList.get(i).setArmeList(Territoire.initArmeList(territoireArrayList.get(i).getJoueur()));
+		}
+				
+		//INITIALISATION DU TERRITOIRE SELECT
 		territoireSelect = territoireArrayList.get(0);
 		
 		//CHANGEMENT DE LA VALEUR DE UNIT DANS JOUEUR
@@ -416,7 +424,7 @@ public class Partie  {
 		btnJoueurSuivant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+								
 				if (joueurList.get(indexJoueurInit).getUnit() == 0) {
 					
 					fenetre.remove(placeU.getPanelPlacerUnit());
@@ -579,5 +587,5 @@ public class Partie  {
 	public void setNbrUnite(JLabel nbrUnite) {
 		this.nbrUnite = nbrUnite;
 	}
-	
+
 }

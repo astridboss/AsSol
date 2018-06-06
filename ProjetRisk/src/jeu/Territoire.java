@@ -36,7 +36,6 @@ public class Territoire {
     	this.regionT = region;   
    
     	this.zoneTerritoires = ZoneT.zoneTerritoireCalcul(pixel);
-    	this.armeList = initArmeList(); 
     }
 	
 	
@@ -121,10 +120,15 @@ public class Territoire {
 	
 	/**_____INITIALISATION_ARMEE_LISTE___________________*/
 	
-	public ArrayList<Unit> initArmeList() {
-		Unit unitS = new Soldat();
-		armeList.add(unitS);
-		return armeList;
+	public static ArrayList<Unit> initArmeList(Joueur joueur) {
+		
+		int id =  joueur.getIdUnit();
+		Unit unitS = new Soldat (id);
+		ArrayList<Unit> armeL = new ArrayList<>();
+		armeL.add(unitS);
+		id = id +1;
+		joueur.setIdUnit(id);
+		return armeL;
 	}
 	
 	/**_____FONCTION_DE_DETECTION_DE_TERRITOIRES___________________*/
