@@ -1,21 +1,16 @@
 package jeu;
 
-
-import java.awt.Choice;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 /**
@@ -67,135 +62,7 @@ public class Unit {
 	
 	/*_____FONCTION_PLACER_LES_UNITES______________________________________*/
 	
-	public void placerUnit (ArrayList<Joueur> joueurList, int idJoueur,JFrame fenetre, JPanel contentPaneJeu, JLabel nbrUnite) {
-		
-		/**CREATION D'UN JPANEL DEDIE AU PLACEMENT DES UNITES - INTERFACE GRAPHIQUE*/
-		panelPlacerUnit = new JPanel();
-		panelPlacerUnit.setBounds(922, 264, 359, 296);
-		contentPaneJeu.add(panelPlacerUnit);
-		panelPlacerUnit.setLayout(null);
-		
-		JLabel titrePlacerUnit = new JLabel("Placement des unit\u00E9s");
-		titrePlacerUnit.setHorizontalAlignment(SwingConstants.CENTER);
-		titrePlacerUnit.setFont(new Font("LeHavre", Font.PLAIN, 17));
-		titrePlacerUnit.setBounds(10, 0, 339, 24);
-		panelPlacerUnit.add(titrePlacerUnit);
-		
-		JLabel lblTerritoire = new JLabel("1. Choisir un de vos territoires:");
-		lblTerritoire.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTerritoire.setBounds(28, 35, 212, 14);
-		panelPlacerUnit.add(lblTerritoire);
-		
-		JLabel lblArmee = new JLabel("2. Choisir l'arm\u00E9e que vous souhaitez placer :");
-		lblArmee.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblArmee.setBounds(28, 98, 272, 14);
-		panelPlacerUnit.add(lblArmee);
-		
-		
-		Choice choixTerr = new Choice();
-		choixTerr.setBounds(55, 55, 200, 20);
-		panelPlacerUnit.add(choixTerr);
-		for ( int i = 0; i < joueurList.get(idJoueur).getTerritoireList().size(); i++) {
-			choixTerr.add (joueurList.get(idJoueur).getTerritoireList().get(i).getNomT());
-		}
-		
-		/*JLabel choixTerr = new JLabel(" ");
-		choixTerr.setBounds(55, 55, 200, 20);
-		panelPlacerUnit.add(choixTerr);
-		for ( int i = 0; i < joueurList.get(idJoueur).getTerritoireList().size(); i++) {
-			choixTerr.add (joueurList.get(idJoueur).getTerritoireList().get(i).getNomT());
-		}*/
-		
-		
-		JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
-		lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblSoldat_1.setBounds(38, 123, 74, 14);
-		panelPlacerUnit.add(lblSoldat_1);
-		
-		JLabel lblCavalier_1 = new JLabel("Cavalier (3U)");
-		lblCavalier_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblCavalier_1.setBounds(126, 123, 80, 14);
-		panelPlacerUnit.add(lblCavalier_1);
-		
-		JLabel lblCanon_1 = new JLabel("Canon (7U)");
-		lblCanon_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblCanon_1.setBounds(211, 123, 72, 14);
-		panelPlacerUnit.add(lblCanon_1);
-		
-		JSpinner spinnerSoldat = new JSpinner();
-		spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-		spinnerSoldat.setBounds(61, 147, 39, 24);
-		panelPlacerUnit.add(spinnerSoldat);
-		
-		JSpinner spinnerCavalier = new JSpinner();
-		spinnerCavalier.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-		spinnerCavalier.setBounds(153, 148, 39, 23);
-		panelPlacerUnit.add(spinnerCavalier);
-		
-		JSpinner spinnerCanon = new JSpinner();
-		spinnerCanon.setModel(new SpinnerNumberModel(0, 0, 60, 1));
-		spinnerCanon.setBounds(231, 148, 39, 23);
-		panelPlacerUnit.add(spinnerCanon);
-		
-		
-		JButton btnPlacerUnites = new JButton("Placer");
-		btnPlacerUnites.setBounds(126, 196, 80, 23);
-		panelPlacerUnit.add(btnPlacerUnites);
-		btnPlacerUnites.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				int nbrSoldat = ((Integer)spinnerSoldat.getValue()).intValue();
-				int nbrCavalier = ((Integer)spinnerCavalier.getValue()).intValue();
-				int nbrCanon = ((Integer)spinnerCanon.getValue()).intValue();
-				
-				int unitUtiliser = nbrSoldat + 3* nbrCavalier + 7*nbrCanon;
-				
-				if (unitUtiliser <= joueurList.get(idJoueur).getUnit()) {
-					
-					for ( int i = 0; i < joueurList.get(idJoueur).getTerritoireList().size(); i++) {
-						if (choixTerr.getSelectedItem() == joueurList.get(idJoueur).getTerritoireList().get(i).getNomT()) {
-							
-							ArrayList<Unit> armeeL = joueurList.get(idJoueur).getTerritoireList().get(i).getArmeList();
-									
-							for (int s = 0; s < nbrSoldat; s++) {
-								int idUnit =  joueurList.get(idJoueur).getIdUnit();
-								Unit unitS = new Soldat(idUnit);
-								idUnit = idUnit + 1;
-								joueurList.get(idJoueur).setIdUnit(idUnit);
-								armeeL.add(unitS);
-							}
-							for (int c = 0; c < nbrCavalier; c++) {
-								int idSoldat =  joueurList.get(idJoueur).getIdUnit();
-								Unit unitC = new Cavalier(idSoldat);
-								idSoldat = idSoldat + 1;
-								joueurList.get(idJoueur).setIdUnit(idSoldat);
-								armeeL.add(unitC);
-							}
-							for (int ca = 0; ca < nbrCanon; ca++) {
-								int idUnit =  joueurList.get(idJoueur).getIdUnit();
-								Unit unitCa = new Canon(idUnit);
-								idUnit = idUnit + 1;
-								joueurList.get(idJoueur).setIdUnit(idUnit);
-								armeeL.add(unitCa);
-							}
 
-							joueurList.get(idJoueur).getTerritoireList().get(i).setArmeList(armeeL);
-						}
-					}
-							
-				joueurList.get(idJoueur).setUnit(joueurList.get(idJoueur).getUnit() - unitUtiliser);
-				nbrUnite.setText (String.valueOf(joueurList.get(idJoueur).getUnit()));
-				
-				}else {
-					JOptionPane.showMessageDialog(null, "Hum ... On dirait que vous n'avez plus assez d'unite ... Pas d'unite, pas d'armee ! Veuillez recommencer.", "Erreur", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-		fenetre.validate();
-		fenetre.repaint();			
-	}
 	
 	
 	
@@ -203,11 +70,11 @@ public class Unit {
 	/**____FONCTION_ATTAQUE_________________________________*/
 	
 	
-	public void attaque(ArrayList<Unit> mvtAttaque, Territoire choixTerrOrigineT, Territoire choixTerrDestT ) {
-		// crÃ©ation de la Jpanel
+	public void attaque(ArrayList<Unit> mvtAttaque, Territoire choixTerrOrigineT, Territoire choixTerrDestT, JFrame fenetre, JPanel contentPaneJeu) {
+		// creation de la Jpanel
 				JPanel panelAttack = new JPanel();
 				panelAttack.setBounds(463, 510, 397, 181);
-				contentPane.add(panelAttack);
+				contentPaneJeu.add(panelAttack);
 				panelAttack.setLayout(null);
 				
 				// TITRE
@@ -300,20 +167,20 @@ public class Unit {
 			defenseUnitTrie.add(resultAttaque.get(cles));
 		}
 		
-		JLabel lblAtt1 = new JLabel(attaqueUnitTrie.get(attaqueUnitTrie.size()).getNom());
+		JLabel lblAtt1 = new JLabel(attaqueUnitTrie.get(attaqueUnitTrie.size()-1).getNom());
 		lblAtt1.setBounds(59, 60, 46, 14);
 		panelAttack.add(lblAtt1);
 		
-		JLabel Att1 = new JLabel(String.valueOf(attaqueUnitTrie.get(attaqueUnitTrie.size()).getScore()));
+		JLabel Att1 = new JLabel(String.valueOf(attaqueUnitTrie.get(attaqueUnitTrie.size()-1).getScore()));
 		Att1.setHorizontalAlignment(SwingConstants.CENTER);
 		Att1.setBounds(96, 60, 76, 14);
 		panelAttack.add(Att1);
 		
-		JLabel lblDef1 = new JLabel(defenseUnitTrie.get(defenseUnitTrie.size()).getNom());
+		JLabel lblDef1 = new JLabel(defenseUnitTrie.get(defenseUnitTrie.size()-1).getNom());
 		lblDef1.setBounds(299, 60, 46, 14);
 		panelAttack.add(lblDef1);
 		
-		JLabel Def1 = new JLabel(String.valueOf(attaqueUnitTrie.get(defenseUnitTrie.size())));
+		JLabel Def1 = new JLabel(String.valueOf(attaqueUnitTrie.get(defenseUnitTrie.size()-1)));
 		Def1.setHorizontalAlignment(SwingConstants.CENTER);
 		Def1.setBounds(220, 60, 73, 14);
 		panelAttack.add(Def1);
