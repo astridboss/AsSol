@@ -719,11 +719,14 @@ public class Partie  {
 					fenetre.validate();
 				    fenetre.repaint();
 				    
-					System.out.println(territoireSelect.getNomT());
+				    Territoire terrSelect = territoireSelect;
+				    ArrayList<Unit> armeList = terrSelect.getArmeList();
+				    
+					System.out.println(terrSelect.getNomT());
 					
 					//JPANEL SPECIFIQUE AU DEPLACEMENT
 					panelDeplacement = new JPanel();
-					panelDeplacement.setBounds(929, 264, 359, 296);
+					panelDeplacement.setBounds(929, 264, 359, 341);
 					contentPaneJeu.add(panelDeplacement);
 					panelDeplacement.setLayout(null);
 					
@@ -734,7 +737,7 @@ public class Partie  {
 					panelDeplacement.add(titreDeplacement);
 					
 					//CHOIX PAYS ORIGINE
-					JLabel lblTerrOrigine = new JLabel("Pays d'origine choisi :" + territoireSelect.getNomT());
+					JLabel lblTerrOrigine = new JLabel("Pays d'origine choisi :" + terrSelect.getNomT());
 					lblTerrOrigine.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					lblTerrOrigine.setBounds(28, 49, 302, 14);
 					panelDeplacement.add(lblTerrOrigine);
@@ -750,7 +753,7 @@ public class Partie  {
 					choixTerrDest.setBounds(55, 131, 200, 20);
 					panelDeplacement.add(choixTerrDest);
 					
-					ArrayList<Territoire> voisinT = territoireSelect.getVoisinT();
+					ArrayList<Territoire> voisinT = terrSelect.getVoisinT();
 					for (int i = 0; i < voisinT.size(); i++) {
 						Territoire territoireVoisin = voisinT.get(i);
 						String nomT = territoireVoisin.getNomT();
@@ -765,22 +768,14 @@ public class Partie  {
 					boutonNext.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							
-							Territoire choixTerrDestT = Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
-							lblTerrDest.setText("Votre pays de destination est : " + choixTerrDestT.getNomT());
-							panelDeplacement.remove(choixTerrDest);
-							
-							fenetre.validate();
-						    fenetre.repaint();
-						    
-							ArrayList<Unit> armeList = territoireSelect.getArmeList();
+
 							ArrayList<Unit> soldatList= new ArrayList<>();
 							ArrayList<Unit> cavalierList= new ArrayList<>();
 							ArrayList<Unit> canonList= new ArrayList<>();
 							
-							for (int i=0; i<territoireSelect.getArmeList().size();i++) {
+							for (int i=0; i< armeList.size();i++) {
 								
-								if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
+								if(armeList.get(i).cout == 1 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 									soldatList.add(armeList.get(i));
 								}
 								
@@ -793,7 +788,13 @@ public class Partie  {
 								}
 							}
 							
+							Territoire choixTerrDestT = Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
+							lblTerrDest.setText("Votre pays de destination est : " + choixTerrDestT.getNomT());
+							panelDeplacement.remove(choixTerrDest);
+							panelDeplacement.remove(boutonNext);
 							
+							fenetre.validate();
+						    fenetre.repaint();
 						    
 							JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 							lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
