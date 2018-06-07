@@ -180,7 +180,7 @@ public class Unit {
 		lblDef1.setBounds(299, 60, 46, 14);
 		panelAttack.add(lblDef1);
 		
-		JLabel Def1 = new JLabel(String.valueOf(attaqueUnitTrie.get(defenseUnitTrie.size()-1)));
+		JLabel Def1 = new JLabel(String.valueOf(attaqueUnitTrie.get(defenseUnitTrie.size()-1).getScore()));
 		Def1.setHorizontalAlignment(SwingConstants.CENTER);
 		Def1.setBounds(220, 60, 73, 14);
 		panelAttack.add(Def1);
