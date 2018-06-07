@@ -778,21 +778,18 @@ public class Partie  {
 							ArrayList<Unit> cavalierList= new ArrayList<>();
 							ArrayList<Unit> canonList= new ArrayList<>();
 							
-							for (int i=0; i<armeList.size();i++) {
+							for (int i=0; i<territoireSelect.getArmeList().size();i++) {
 								
 								if(armeList.get(i).cout==1 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 									soldatList.add(armeList.get(i));
-									System.out.println(soldatList.get(i).getNom() + " - " + soldatList.get(i).getIdUnit());
 								}
 								
 								if(armeList.get(i).cout==3 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 									cavalierList.add(armeList.get(i));
-									System.out.println(cavalierList.get(i).getNom() + " - " + cavalierList.get(i).getIdUnit());
 								}
 								
 								if(armeList.get(i).cout==7 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
 									canonList.add(armeList.get(i));
-									System.out.println(canonList.get(i).getNom() + " - " + canonList.get(i).getIdUnit());
 								}
 							}
 							
@@ -849,7 +846,7 @@ public class Partie  {
 									String condition2 = "";
 									String condition3 = "";
 									
-									if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= armeList.size()) {
+									if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= territoireSelect.getArmeList().size()) {
 										condition1 = "\n Vous devez laisser un pion sur le territoire ";
 									}
 									if(nbSoldatChoix == 0 && nbCavalierChoix == 0 && nbCanonChoix == 0 ) {
