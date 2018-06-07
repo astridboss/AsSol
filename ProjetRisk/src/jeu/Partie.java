@@ -919,6 +919,22 @@ public class Partie  {
 								}
 							}
 							);
+							
+							JButton btnAnnuler = new JButton("Annuler");
+							btnAnnuler.setBounds(160, 307, 170, 23);
+							panelDeplacement.add(btnAnnuler);
+							
+							btnAnnuler.addMouseListener(new MouseAdapter() {
+								@Override
+								public void mouseClicked(MouseEvent e) {
+									
+									fenetre.remove(panelDeplacement);
+									fenetre.validate();
+								    fenetre.repaint();
+								    
+								    attaqueChoix();
+								}
+							});
 						}
 					}
 					);
@@ -933,19 +949,6 @@ public class Partie  {
 			}
 		});
 	}
-		
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
-	
 	
 	
 	/*__FONCTION_CHANGEMENT_COULEUR________________________________________*/
