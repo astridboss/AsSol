@@ -3,6 +3,9 @@ package jeu;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 /**
  * GESTION DES JOUEURS
  *
@@ -71,6 +74,11 @@ public class Joueur {
 	}
 
 	
+	/**____FONCTION_DE_CALCUL_DES_RENFORTS_________________*/
+	
+	
+	
+	
 	/*__GETTERS_&_SETTERS____________________________________________________*/
 	
 	public Color getCouleur() {
@@ -136,3 +144,15 @@ public class Joueur {
 	
 
 }
+
+
+/*
+JLabel lblTerrAttaquant = new JLabel("Europe du Nord");
+lblTerrAttaquant.setBounds(59, 137, 113, 14);
+panelAttack.add(lblTerrAttaquant);
+
+JLabel lblTerrDef = new JLabel("Europe du Sud");
+lblTerrDef.setHorizontalAlignment(SwingConstants.RIGHT);
+lblTerrDef.setBounds(232, 137, 113, 14);
+panelAttack.add(lblTerrDef);
+*/
