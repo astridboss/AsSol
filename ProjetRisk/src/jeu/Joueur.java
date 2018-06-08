@@ -37,9 +37,11 @@ public class Joueur {
 	}
 	
 	
-	/**____INITIALISATION_DES_JOUEURS_________________*/
-	
-
+	/**
+	 * Initialisation des joueurs 
+	 * @param nbrJoueur
+	 * @return ArrayList<Joueur>
+	 */
 	public static ArrayList<Joueur> initJoueur (int nbrJoueur) {
 		
 		Color couleurList [] = {Color.BLUE, Color.RED, Color.GREEN, Color.ORANGE, Color.MAGENTA, Color.YELLOW};
@@ -71,7 +73,10 @@ public class Joueur {
 	}
 
 	
-	/**____FONCTION_DE_CALCUL_DES_RENFORTS_________________*/
+	/**
+	 * Calcule les renforts par Territoire et par Region
+	 * @param joueur
+	 */
 	public static void calculRenfort (Joueur joueur) {
 		
 		//RENFORT DES TERRITOIRES POSSEDES

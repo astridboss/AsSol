@@ -30,9 +30,13 @@ public class ZoneT {
 	}	
 	
 
-	
-	/**_____CALCUL_LA_ZONE_DU_TERRITOIRE_CORRESPONDANT_AU_PIXEL___________________*/
-	
+
+	/**
+	 * CALCUL LA ZONE DU TERRITOIRE CORRESPONDANT AU PIXEL
+	 * @param pixelT
+	 * @return
+	 * @throws IOException
+	 */
 	public static ArrayList<ZoneT> zoneTerritoireCalcul (int [] pixelT) throws IOException {
 	
 		//INSERT IMAGE
