@@ -39,7 +39,7 @@ public class Partie  {
 	private ArrayList<Territoire> territoireArrayList;
 	private ArrayList<Joueur> joueurList;
 	private JPanel contentPaneJeu;
-	private JFrame fenetre;
+	private static JFrame fenetre;
 	int height;
 	int width;
 	
@@ -902,10 +902,6 @@ public class Partie  {
 											
 											fenetre.remove (panelDeplacement);
 											
-											
-											Unit unit = new Unit();
-											unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,terrSelect,choixTerrDestT, fenetre, contentPaneJeu);
-											
 											JButton btnNvDep = new JButton("Nouveau d\u00E9placement");
 											btnNvDep.addMouseListener(new MouseAdapter() {
 												@Override
@@ -923,6 +919,11 @@ public class Partie  {
 											
 											fenetre.validate();
 										    fenetre.repaint();
+											
+											Unit unit = new Unit();
+											unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,terrSelect,choixTerrDestT, fenetre, contentPaneJeu);
+											
+											
 											
 										}
 										
@@ -997,6 +998,9 @@ public class Partie  {
 			Color joueurCouleur = joueur.getCouleur();
 			int newColor = joueurCouleur.getRGB();
 			maps.setRGB(x, y, newColor);
+			fenetre.validate();
+		    fenetre.repaint();
+			
 		}
 	}
 

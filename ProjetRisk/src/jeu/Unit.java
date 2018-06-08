@@ -267,25 +267,28 @@ public class Unit {
 
 
 		ArrayList<Unit> attaqueMooveIDUnit =new ArrayList<>();
-		for(int i=attaqueUnitTrie.size()-1; i>=0;i--) {
-			if(defenseUnitTrie.size()<i+1) {
-				attaqueMooveIDUnit.add(attaqueUnitTrie.get(0));
-				break;
-			}
-			else {
-				if(defenseUnitTrie.get(i).getScore()<attaqueUnitTrie.get(i+1).getScore()) {
+		for(int j=attaqueUnitTrie.size()-1; j>=0;j--) {
+			for(int i=attaqueUnitTrie.size()-1; i>=0;i--) {
+
+
+
+				if(defenseUnitTrie.get(j).getScore()<attaqueUnitTrie.get(i).getScore()) {
 					choixTerrDestT.getArmeList().remove(defenseUnitTrie.get(i));
-					attaqueMooveIDUnit.add(attaqueUnitTrie.get(i+1));
-					break;
+					attaqueMooveIDUnit.add(attaqueUnitTrie.get(i));
+					
 
 				}
-				if(defenseUnitTrie.get(i).getScore()>=attaqueUnitTrie.get(i+1).getScore()) {
-					choixTerrOrigineT.getArmeList().remove(attaqueUnitTrie.get(i+1));
-					break;
+				if(defenseUnitTrie.get(j).getScore()>=attaqueUnitTrie.get(i).getScore()) {
+					choixTerrOrigineT.getArmeList().remove(attaqueUnitTrie.get(i));
+					
 				}
 			}
 
 
+			if(attaqueUnitTrie.size()==3) {
+				attaqueMooveIDUnit.add(attaqueUnitTrie.get(0));
+				
+			}
 		}
 		/*
 		 * ajout du troisième attaquand si il y a
@@ -295,8 +298,8 @@ public class Unit {
 
 			int renfort=ThreadLocalRandom.current().nextInt(0, 2);
 			joueur.setRenfortTGagnes(joueur.getRenfortTGagnes() + (renfort));
-			choixTerrOrigineT.setJoueur(joueur);
-			Partie.chgmCouleurT(joueur, choixTerrOrigineT);
+			choixTerrDestT.setJoueur(joueur);
+			Partie.chgmCouleurT(joueur, choixTerrDestT);
 			for(int i=0; i<attaqueMooveIDUnit.size();i++) {
 				choixTerrDestT.getArmeList().addAll(attaqueMooveIDUnit);
 				choixTerrOrigineT.getArmeList().removeAll(attaqueMooveIDUnit);
