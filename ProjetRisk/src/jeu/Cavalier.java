@@ -11,7 +11,7 @@ public class Cavalier extends Unit {
 		
 		this.idUnit = index;
 		this.cout = 3;
-		this.prioAttaque = 1;
+		this.prioAttaque = 3; //BESOIN TRI TRIMAP CLE MAX
 		this.prioDefense = 3;
 		this.mouvement = 3;
 		this.nom = "Cavalier";

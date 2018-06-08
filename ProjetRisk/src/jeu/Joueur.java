@@ -3,9 +3,6 @@ package jeu;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 /**
  * GESTION DES JOUEURS
  *
@@ -75,7 +72,52 @@ public class Joueur {
 
 	
 	/**____FONCTION_DE_CALCUL_DES_RENFORTS_________________*/
+	public static void calculRenfort (Joueur joueur) {
+		
+		//RENFORT DES TERRITOIRES POSSEDES
+		int renfortTerritoire = 0;
+		renfortTerritoire = (int) Math.floor((joueur.getTerritoireList().size() / 3));
+		
+		//RENFORT SI UNE REGION EST POSSEDEE
+		int renfortRegion = 0;
+		
+		int renfortEurope = 0, renfortAfrique = 0, renfortOceanie = 0, renfortAmSud = 0, renfortAmNord = 0, renfortAsie = 0;
+		int europeT = 0, afriqueT = 0, oceanieT = 0, amSudT = 0, amNordT = 0, asieT = 0;
+		
+		
+		for (int i = 0; i< joueur.getTerritoireList().size(); i++) {
+			if (joueur.getTerritoireList().get(i).getRegionT() == "Europe") { europeT = europeT + 1 ; }
+			if (joueur.getTerritoireList().get(i).getRegionT() == "Afrique") { afriqueT = afriqueT + 1 ; }
+			if (joueur.getTerritoireList().get(i).getRegionT() == "Océanie") { oceanieT = oceanieT + 1 ; }
+			if (joueur.getTerritoireList().get(i).getRegionT() == "Amérique du Sud") { amSudT = amSudT + 1 ; }
+			if (joueur.getTerritoireList().get(i).getRegionT() == "Amérique du Nord") { amNordT = amNordT + 1 ; }
+			if (joueur.getTerritoireList().get(i).getRegionT() == "Asie") { asieT = asieT + 1 ; }
+		}
+		
+		if (europeT == 7) { renfortEurope = (int) Math.floor(( europeT / 2));  };
+		if (afriqueT == 6) { renfortAfrique = (int) Math.floor(( afriqueT / 2));  };
+		if (oceanieT == 5) { renfortOceanie = (int) Math.floor(( oceanieT / 2));  };
+		if (amSudT == 4) { renfortAmSud = (int) Math.floor(( amSudT / 2));  };
+		if (amNordT == 9) { renfortAmNord = (int) Math.floor(( amNordT / 2));  };
+		if (asieT == 12) { renfortAsie = (int) Math.floor(( asieT / 2));  };
+		
+		renfortRegion = renfortEurope + renfortAfrique + renfortOceanie + renfortAmSud + renfortAmNord + renfortAsie;
+		
+		//RENFORT DES TERRITOIRES ACQUIS AU TOURS PRECEDENT
+		int renfortTConquis = 0;
+		renfortTConquis = (int) Math.floor(joueur.getRenfortTGagnes() * 0.5);		
+		
+		//CALCUL RENFORT TOTAL = NOUVELLE VALEUR DE UNIT
+		int unitRenfort = renfortTerritoire + renfortRegion + renfortTConquis;
 	
+		if (unitRenfort < 2) {
+			joueur.setUnit(2);
+		} else {
+			joueur.setUnit(unitRenfort);
+		}
+		
+		
+	}
 	
 	
 	
@@ -140,19 +182,5 @@ public class Joueur {
 	public void setIdUnit(int idUnit) {
 		this.idUnit = idUnit;
 	}
-	
-	
 
 }
-
-
-/*
-JLabel lblTerrAttaquant = new JLabel("Europe du Nord");
-lblTerrAttaquant.setBounds(59, 137, 113, 14);
-panelAttack.add(lblTerrAttaquant);
-
-JLabel lblTerrDef = new JLabel("Europe du Sud");
-lblTerrDef.setHorizontalAlignment(SwingConstants.RIGHT);
-lblTerrDef.setBounds(232, 137, 113, 14);
-panelAttack.add(lblTerrDef);
-*/

@@ -10,7 +10,7 @@ public class Soldat extends Unit {
 		
 		this.idUnit = index;
 		this.cout = 1;
-		this.prioAttaque = 2;
+		this.prioAttaque = 2; 
 		this.prioDefense = 1;
 		this.mouvement = 2;
 		this.nom = "Soldat";

@@ -10,7 +10,7 @@ public class Canon extends Unit {
 		
 		this.idUnit = index;
 		this.cout = 7;
-		this.prioAttaque = 3;
+		this.prioAttaque = 1; //BESOIN TRI TRIMAP CLE MAX
 		this.prioDefense = 2;
 		this.mouvement = 1;
 		this.nom = "Canon";
