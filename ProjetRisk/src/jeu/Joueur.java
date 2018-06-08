@@ -33,7 +33,7 @@ public class Joueur {
 		this.couleur = color;
 		this.unit = unitDebut;
 		
-		this.idUnit = 0;
+		this.idUnit = 1;
 	}
 	
 	

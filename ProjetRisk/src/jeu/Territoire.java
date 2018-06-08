@@ -128,6 +128,7 @@ public class Territoire {
 		armeL.add(unitS);
 		id = id +1;
 		joueur.setIdUnit(id);
+		
 		return armeL;
 	}
 	

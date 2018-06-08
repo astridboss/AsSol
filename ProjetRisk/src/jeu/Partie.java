@@ -57,7 +57,7 @@ public class Partie  {
 	
 	//IMAGE
 	private JLabel map;
-	private BufferedImage maps;
+	private static BufferedImage maps;
 	
 	//INITIALISATION
 	private int indexJoueurInit;
@@ -987,7 +987,7 @@ public class Partie  {
 	
 	/*__FONCTION_CHANGEMENT_COULEUR_INDIVIDUEL_________________________________*/
 	
-	public void chgmCouleurT (Joueur joueur, Territoire territoire) {
+	public static void chgmCouleurT (Joueur joueur, Territoire territoire) {
 
 		for (int indice = 0; indice < territoire.getZoneTerritoires().size(); indice ++) {			
 

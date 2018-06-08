@@ -1,5 +1,5 @@
 package jeu;
-
+import jeu.Partie;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -270,17 +270,18 @@ public class Unit {
 		for(int i=attaqueUnitTrie.size()-1; i>=0;i--) {
 			if(defenseUnitTrie.size()<i+1) {
 				attaqueMooveIDUnit.add(attaqueUnitTrie.get(0));
+				break;
 			}
 			else {
 				if(defenseUnitTrie.get(i).getScore()<attaqueUnitTrie.get(i+1).getScore()) {
 					choixTerrDestT.getArmeList().remove(defenseUnitTrie.get(i));
 					attaqueMooveIDUnit.add(attaqueUnitTrie.get(i+1));
-
+					break;
 
 				}
 				if(defenseUnitTrie.get(i).getScore()>=attaqueUnitTrie.get(i+1).getScore()) {
 					choixTerrOrigineT.getArmeList().remove(attaqueUnitTrie.get(i+1));
-
+					break;
 				}
 			}
 
@@ -294,101 +295,102 @@ public class Unit {
 
 			int renfort=ThreadLocalRandom.current().nextInt(0, 2);
 			joueur.setRenfortTGagnes(joueur.getRenfortTGagnes() + (renfort));
-
+			choixTerrOrigineT.setJoueur(joueur);
+			Partie.chgmCouleurT(joueur, choixTerrOrigineT);
 			for(int i=0; i<attaqueMooveIDUnit.size();i++) {
 				choixTerrDestT.getArmeList().addAll(attaqueMooveIDUnit);
 				choixTerrOrigineT.getArmeList().removeAll(attaqueMooveIDUnit);
-				choixTerrOrigineT.setJoueur(joueur);
+
 
 			}
 		}
-	
-}
+
+	}
 
 
 
 
-/*__GETTERS_&_SETTERS____________________________________________________*/
+	/*__GETTERS_&_SETTERS____________________________________________________*/
 
-public int getCout() {
-	return cout;
-}
+	public int getCout() {
+		return cout;
+	}
 
-public void setCout(int cout) {
-	this.cout = cout;
-}
+	public void setCout(int cout) {
+		this.cout = cout;
+	}
 
-public int getPrioAttaque() {
-	return prioAttaque;
-}
+	public int getPrioAttaque() {
+		return prioAttaque;
+	}
 
-public void setPrioAttaque(int prioAttaque) {
-	this.prioAttaque = prioAttaque;
-}
+	public void setPrioAttaque(int prioAttaque) {
+		this.prioAttaque = prioAttaque;
+	}
 
-public int getPrioDefense() {
-	return prioDefense;
-}
+	public int getPrioDefense() {
+		return prioDefense;
+	}
 
-public void setPrioDefense(int prioDefense) {
-	this.prioDefense = prioDefense;
-}
+	public void setPrioDefense(int prioDefense) {
+		this.prioDefense = prioDefense;
+	}
 
-public int getMouvement() {
-	return mouvement;
-}
+	public int getMouvement() {
+		return mouvement;
+	}
 
-public void setMouvement(int mouvement) {
-	this.mouvement = mouvement;
-}
+	public void setMouvement(int mouvement) {
+		this.mouvement = mouvement;
+	}
 
-public int getScore() {
-	return score;
-}
+	public int getScore() {
+		return score;
+	}
 
-public void setScore(int score) {
-	this.score = score;
-}
+	public void setScore(int score) {
+		this.score = score;
+	}
 
-public int getMouventEffectif() {
-	return mouventEffectif;
-}
+	public int getMouventEffectif() {
+		return mouventEffectif;
+	}
 
-public void setMouventEffectif(int mouventEffectif) {
-	this.mouventEffectif = mouventEffectif;
-}
+	public void setMouventEffectif(int mouventEffectif) {
+		this.mouventEffectif = mouventEffectif;
+	}
 
-public String getNom() {
-	return nom;
-}
+	public String getNom() {
+		return nom;
+	}
 
-public void setNom(String nom) {
-	this.nom = nom;
-}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-public JPanel getPanelPlacerUnit() {
-	return panelPlacerUnit;
-}
+	public JPanel getPanelPlacerUnit() {
+		return panelPlacerUnit;
+	}
 
-public void setPanelPlacerUnit(JPanel panelPlacerUnit) {
-	this.panelPlacerUnit = panelPlacerUnit;
-}
+	public void setPanelPlacerUnit(JPanel panelPlacerUnit) {
+		this.panelPlacerUnit = panelPlacerUnit;
+	}
 
-public int getIdUnit() {
-	return idUnit;
-}
+	public int getIdUnit() {
+		return idUnit;
+	}
 
-public void setIdUnit(int idUnit) {
-	this.idUnit = idUnit;
-}
+	public void setIdUnit(int idUnit) {
+		this.idUnit = idUnit;
+	}
 
-public static JPanel getPanelAttack() {
-	return panelAttack;
-}
+	public static JPanel getPanelAttack() {
+		return panelAttack;
+	}
 
-public void setPanelAttack(JPanel panelAttack) {
-	this.panelAttack = panelAttack;
-}
+	public void setPanelAttack(JPanel panelAttack) {
+		this.panelAttack = panelAttack;
+	}
 
 
 
