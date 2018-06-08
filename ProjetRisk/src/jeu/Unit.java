@@ -265,15 +265,15 @@ public class Unit {
 
 
 
-
+		int a= 0;
 		ArrayList<Unit> attaqueMooveIDUnit =new ArrayList<>();
-		for(int j=attaqueUnitTrie.size()-1; j>=0;j--) {
+		for(int j=defenseUnitTrie.size()-1; j>=0;j--) {
 			for(int i=attaqueUnitTrie.size()-1; i>=0;i--) {
 
 
 
 				if(defenseUnitTrie.get(j).getScore()<attaqueUnitTrie.get(i).getScore()) {
-					choixTerrDestT.getArmeList().remove(defenseUnitTrie.get(i));
+					choixTerrDestT.getArmeList().remove(defenseUnitTrie.get(j));
 					attaqueMooveIDUnit.add(attaqueUnitTrie.get(i));
 					
 
@@ -295,17 +295,17 @@ public class Unit {
 		 */
 
 		if(choixTerrDestT.getArmeList().isEmpty()) {
-
-			int renfort=ThreadLocalRandom.current().nextInt(0, 2);
-			joueur.setRenfortTGagnes(joueur.getRenfortTGagnes() + (renfort));
-			choixTerrDestT.setJoueur(joueur);
-			Partie.chgmCouleurT(joueur, choixTerrDestT);
 			for(int i=0; i<attaqueMooveIDUnit.size();i++) {
 				choixTerrDestT.getArmeList().addAll(attaqueMooveIDUnit);
 				choixTerrOrigineT.getArmeList().removeAll(attaqueMooveIDUnit);
 
 
 			}
+			int renfort=ThreadLocalRandom.current().nextInt(0, 2);
+			joueur.setRenfortTGagnes(joueur.getRenfortTGagnes() + (renfort));
+			choixTerrDestT.setJoueur(joueur);
+			Partie.chgmCouleurT(joueur, choixTerrDestT);
+			
 		}
 
 	}
