@@ -39,9 +39,11 @@ public class Territoire {
     }
 	
 	
-	/**_____FONCTION_INITIALISATION_DES_TERRITOIRES___________________*/
-	
-
+	/**
+	 * FONCTION INITIALISATION DES TERRITOIRES
+	 * @return
+	 * @throws IOException
+	 */
 	public static ArrayList<Territoire> initTerritoire() throws IOException {
 
 		ArrayList<Territoire> territoireArrayList = new ArrayList<Territoire>();
@@ -93,9 +95,10 @@ public class Territoire {
 		return territoireArrayList;
 	}
 
-	
-	/**_____INITIALISATION_ARMEE_LISTE___________________*/
-	
+	/**
+	 * INITIALISATION ARMEE LISTE
+	 * @param territoireList
+	 */
 	public static void determinerVoisin (ArrayList<Territoire> territoireList) {
 		
 		int [] [] voisin = {{30, 5, 3}, {3, 5, 4, 2, 6}, {1, 4, 6, 7, 12, 36}, {0, 1, 5, 6}, {5, 1, 2}, {0, 1, 3, 4}, {3, 1, 2, 39, 31, 36}, 
@@ -118,8 +121,11 @@ public class Territoire {
 	}
 	
 	
-	/**_____INITIALISATION_ARMEE_LISTE___________________*/
-	
+	/**
+	 * INITIALISATION ARMEE LISTE
+	 * @param joueur
+	 * @return
+	 */
 	public static ArrayList<Unit> initArmeList(Joueur joueur) {
 		
 		int id =  joueur.getIdUnit();
@@ -132,8 +138,15 @@ public class Territoire {
 		return armeL;
 	}
 	
-	/**_____FONCTION_DE_DETECTION_DE_TERRITOIRES___________________*/
 	
+	
+	/**
+	 * FONCTION DE DETECTION DE TERRITOIRES
+	 * @param posx
+	 * @param posy
+	 * @param list
+	 * @return Territoire
+	 */
 	public static Territoire territoireDetection (int posx, int posy, ArrayList<Territoire> list) {
 
 		for (int i = 0 ; i < list.size() ; i++) {
@@ -145,10 +158,13 @@ public class Territoire {
 		} 
 		return null;
 	}
+
 	
-	
-	/**_____FONCTION_DE_DISTRIBUTION_DES_TERRITOIRES___________________*/
-	
+	/**
+	 * FONCTION DE DISTRIBUTION DES TERRITOIRES
+	 * @param territoireList
+	 * @param joueurList
+	 */
 	public static void distributionTerritoire (ArrayList<Territoire> territoireList, ArrayList<Joueur>joueurList ) {
 		int terrDist = 43;
 		
@@ -179,7 +195,13 @@ public class Territoire {
 	}
 	
 	
-	/**_____FONCTION_POUR_RETOURNER_UN_TERRITOIRE_SELECTIONNE_PAR_UN_NOM____________*/
+	/**
+	 * FONCTION POUR RETOURNER UN TERRITOIRE SELECTIONNE PAR UN NOM
+	 * @param nom
+	 * @param territoireArrayList
+	 * @return territoire
+	 */
+
 	
 	public static Territoire stringToTerritoire(String nom, ArrayList<Territoire> territoireArrayList) {
 

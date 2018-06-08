@@ -66,9 +66,15 @@ public class Unit {
 
 
 
-	/**____FONCTION_ATTAQUE_________________________________*/
-
-
+/**
+ * FONCTION ATTAQUE
+ * @param joueur
+ * @param mvtAttaque
+ * @param choixTerrOrigineT
+ * @param choixTerrDestT
+ * @param fenetre
+ * @param contentPaneJeu
+ */
 	public void attaque(Joueur joueur ,ArrayList<Unit> mvtAttaque, Territoire choixTerrOrigineT, Territoire choixTerrDestT, JFrame fenetre, JPanel contentPaneJeu) {
 		// creation de la Jpanel
 		panelAttack = new JPanel();
@@ -85,7 +91,7 @@ public class Unit {
 		lblTitreAttaque.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitreAttaque.setFont(new Font("LeHavre", Font.PLAIN, 17));
 
-		//Label cotÃƒÂ© Attaquant
+		//Label coef Attaquant
 		JLabel lblAttaquant = new JLabel("Attaquant");
 		lblAttaquant.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAttaquant.setBounds(86, 35, 86, 14);
@@ -160,7 +166,7 @@ public class Unit {
 
 
 		}
-		/*On met dans une TreeMap en clés le lancé de dés la priorité d'attaque si la clés existe déja on rajoute +1 à la clés et on met en object l'unité
+		/*On met dans une TreeMap en cles le lance de des la prioritie d'attaque si la cles existe deja on rajoute +1 a� la cless et on met en object l'unitee
 		 * On set le des dans le pion
 		 */
 		for(int i=0; i<mvtAttaque.size();i++) {
@@ -263,9 +269,6 @@ public class Unit {
 			panelAttack.add(Def2);
 		}
 
-
-
-		int a= 0;
 		ArrayList<Unit> attaqueMooveIDUnit =new ArrayList<>();
 		for(int j=defenseUnitTrie.size()-1; j>=0;j--) {
 			for(int i=attaqueUnitTrie.size()-1; i>=0;i--) {
@@ -291,7 +294,7 @@ public class Unit {
 			}
 		}
 		/*
-		 * ajout du troisième attaquand si il y a
+		 * ajout du 3eme attaquand si il y a
 		 */
 
 		if(choixTerrDestT.getArmeList().isEmpty()) {
