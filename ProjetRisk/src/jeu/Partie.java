@@ -105,8 +105,10 @@ public class Partie  {
 	}
 
 	
-	/**_____________ MENU PRINCIPAL _________*/
-	
+	/**
+	 * MENU PRINCIPAL
+	 * permet de recuperer le nombre de joueur
+	 */
 	public void Menu () {
 		
 		//CREATION DE LA ZONE DE CONTENU DU MENU
@@ -170,9 +172,10 @@ public class Partie  {
 	}
 	
 
-
-	/** ____INITIALISATION DU JEU : AFFICHAGE DU JEU + PLACER LES ARMEES ____*/
 	
+	/**
+	 * INITIALISATION DU JEU : AFFICHAGE DU JEU + PLACER LES ARMEES
+	 */
 	public void initialisation () {
 		
 		//INITIALISATION PARAMETRE
@@ -219,12 +222,13 @@ public class Partie  {
 		fenetre.setContentPane(contentPaneJeu);
 		contentPaneJeu.setLayout(null);
 
-		//INFORMATION BONUS CONQUETE ET NBR JOUEUR
-		JLabel lblBonusConqute = new JLabel("Joueurs :");
-		lblBonusConqute.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblBonusConqute.setBounds(925, 5, 104, 14);
-		contentPaneJeu.add(lblBonusConqute);
+		//INFORMATION NBR JOUEUR
+		JLabel lblJoueuer = new JLabel("Joueurs :");
+		lblJoueuer.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblJoueuer.setBounds(925, 5, 104, 14);
+		contentPaneJeu.add(lblJoueuer);
 		
+		//AFFICHE DES CARRES DE COULEUR REPRESENTANT CHAQUE JOUEUR ACTIF
 		Canvas bleuJ = new Canvas();
 		bleuJ.setBackground(Color.BLUE);
 		bleuJ.setBounds(925, 25, 26, 28);
@@ -295,6 +299,7 @@ public class Partie  {
 		TabInfo_Canon.setBounds(356, 5, 40, 16);
 		panelInfoT.add(TabInfo_Canon);
 		
+		//INFORMATION REMPLI LORS DU CLIC SUR LA CARTE
 		lblVariablenompays = new JLabel(" ");
 		lblVariablenompays.setBounds(10, 27, 116, 14);
 		panelInfoT.add(lblVariablenompays);
@@ -421,12 +426,13 @@ public class Partie  {
 		btnFinInit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (joueurList.get(indexJoueurInit).getUnit() == 0) {
 					//INCREMENTE POUR PASSER AU JOUEUR AU SUIVANT
 					indexJoueurInit = indexJoueurInit +1;
 					
 					//INITIALISATION DE TOUS LES JOUEURS
 					if (indexJoueurInit < joueurList.size()) {
-						
+						//RELANCE L'INITIALISATION POUR LE JOUEUR SUIVANT
 						lblJoueurAct.setText("Joueur " + joueurList.get(indexJoueurInit).getNomJoueur() +", c'est a vous !");
 						nbrUnite.setText(String.valueOf(joueurList.get(indexJoueurInit).getUnit()));
 						placerUnit (indexJoueurInit);
@@ -442,6 +448,7 @@ public class Partie  {
 						victoire = false; //Determine if there is a victory
 					    jeu ();
 					}
+				}
 			}
 		});
 		
@@ -455,6 +462,9 @@ public class Partie  {
 	/*___________________________________________________________________________________________*/
 	/*__FONCTION_JEU____________________________________________________________________________*/
 	
+	/**
+	 *  FONCTION JEU PRINCIPAL - permet de faire des tours de jeu
+	 */
 	public void jeu () {
 		
 		/**______ETAPE_1:_RENFORT____________________________________________________*/
@@ -462,7 +472,7 @@ public class Partie  {
 		lblJoueurAct.setText("Joueur " + joueurList.get(indexJoueurJeu).getNomJoueur() +", c'est a vous !");
 		
 		//SI C'EST LE TOUR 0 PAS BESOINS DE PLACER DES UNITES
-		if (tour == 0) {
+		if (tour == 0) { // permet d'eviter de calculer les renfort au 1er tour (tour = 0)
 			
 		} else {
 			
@@ -479,10 +489,7 @@ public class Partie  {
 		/**______ETAPE_2:_DEPLACEMENT_&_ATTAQUES_________________________________________*/
 
 		attaqueChoix();
-		
-		
-		
-		
+
 		/**______FIN_DE_TOUR____________________________________________________________*/
 		
 		JButton btnFinTour = new JButton("Fin du tour !");
@@ -522,7 +529,7 @@ public class Partie  {
 				} else {
 					//ON REMET LE COMPTEUR DE JOUEUR A ZERO ET ON RELANCE LE JEU
 					indexJoueurJeu = 0;
-					tour = tour +1;
+					tour = tour +1; 
 					fenetre.remove(panelDeplacement);
 					fenetre.remove(panelChoixOrigine);
 					
@@ -538,22 +545,26 @@ public class Partie  {
 	/*_________________________________________________________________________________________________________*/
 	/*__FONCTION_UTILISER_DANS_JEU____________________________________________________________________________*/
 	
-	/**____FONCTION_PLACEMENT_UNITES________________________*/
-	
+	/**
+	 * FONCTION PLACEMENT DES UNITES
+	 * @param indexJoueur
+	 */
 	public void placerUnit (int indexJoueur) {
 		
-		/**CREATION D'UN JPANEL DEDIE AU PLACEMENT DES UNITES - INTERFACE GRAPHIQUE*/
+		//CREATION D'UN JPANEL DEDIE AU PLACEMENT DES UNITES - INTERFACE GRAPHIQUE
 		panelPlacerUnit = new JPanel();
 		panelPlacerUnit.setBounds(922, 264, 359, 296);
 		contentPaneJeu.add(panelPlacerUnit);
 		panelPlacerUnit.setLayout(null);
 		
+		//TITRE
 		JLabel titrePlacerUnit = new JLabel("Placement des unites");
 		titrePlacerUnit.setHorizontalAlignment(SwingConstants.CENTER);
 		titrePlacerUnit.setFont(new Font("LeHavre", Font.PLAIN, 17));
 		titrePlacerUnit.setBounds(10, 0, 339, 24);
 		panelPlacerUnit.add(titrePlacerUnit);
 		
+		//CHOIX DU PAYS PAR CLIC DE SOURIS
 		JLabel lblTerritoire = new JLabel("1. Cliquez sur un de vos territoires:");
 		lblTerritoire.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTerritoire.setBounds(28, 35, 212, 14);
@@ -568,6 +579,7 @@ public class Partie  {
 		choixTerr.setBounds(55, 55, 200, 20);
 		panelPlacerUnit.add(choixTerr);
 		
+		//AFFICHAGE DU CHOIX DES ARMEES
 		JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 		lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSoldat_1.setBounds(38, 123, 74, 14);
@@ -598,7 +610,7 @@ public class Partie  {
 		spinnerCanon.setBounds(231, 148, 39, 23);
 		panelPlacerUnit.add(spinnerCanon);
 		
-		
+		// POUR LANCER L'ACTION DE PLACER LES UNITES
 		JButton btnPlacerUnites = new JButton("Placer");
 		btnPlacerUnites.setBounds(126, 196, 80, 23);
 		panelPlacerUnit.add(btnPlacerUnites);
@@ -607,20 +619,24 @@ public class Partie  {
 			public void mouseClicked(MouseEvent e) {
 				
 				Territoire choixTerritoire = territoireSelect;
-				
+				//SI CE N'EST PAS UN TERRITOIRE DU JOUEUR -> ERREUR
 				if (joueurList.get(indexJoueur).getTerritoireList().contains(territoireSelect)) {
 					
+					//ON RECUPERE LE NOMBRE DE SOLDAT
 					int nbrSoldat = ((Integer)spinnerSoldat.getValue()).intValue();
 					int nbrCavalier = ((Integer)spinnerCavalier.getValue()).intValue();
 					int nbrCanon = ((Integer)spinnerCanon.getValue()).intValue();
 					
+					//CALCUL DES UNITES UTILISE
 					int unitUtiliser = nbrSoldat + 3* nbrCavalier + 7*nbrCanon;
 					
+					//SI ON A PAS ASSEZ D'UNITES -> ERREUR
 					if (unitUtiliser <= joueurList.get(indexJoueur).getUnit()) {
 						
 						for ( int i = 0; i < joueurList.get(indexJoueur).getTerritoireList().size(); i++) {
 							if (choixTerritoire == joueurList.get(indexJoueur).getTerritoireList().get(i)) {
 								
+								//CREATION DE LA NOUVELLE ARMEE (SOLDAT CAVALIER OU CANON)
 								ArrayList<Unit> armeeL = joueurList.get(indexJoueur).getTerritoireList().get(i).getArmeList();
 										
 								for (int s = 0; s < nbrSoldat; s++) {
@@ -648,10 +664,12 @@ public class Partie  {
 								joueurList.get(indexJoueur).getTerritoireList().get(i).setArmeList(armeeL);
 							}
 						}
-								
+					
+					// MISE A JOUR DES UNITES
 					joueurList.get(indexJoueur).setUnit(joueurList.get(indexJoueur).getUnit() - unitUtiliser);
 					nbrUnite.setText (String.valueOf(joueurList.get(indexJoueur).getUnit()));
 					
+					//SI UNITE = 0 -> ON EFFACE LA PANEL
 					if (joueurList.get(indexJoueur).getUnit() == 0) { 
 						
 						fenetre.remove(panelPlacerUnit);
@@ -674,8 +692,9 @@ public class Partie  {
 	}
 
 	
-	/**____FONCTION_DEPLACEMENT_INTERFACE________________________*/
-
+	/**
+	 * FONCTION DE DEPLACEMENT (INTERFACE + BAC)
+	 */
 	public void attaqueChoix () {
 		//CREATION PANEL DEDIE AU CHOIX DU TERRITOIRE D'ORIGINE
 		panelChoixOrigine = new JPanel();
@@ -683,6 +702,7 @@ public class Partie  {
 		contentPaneJeu.add(panelChoixOrigine);
 		panelChoixOrigine.setLayout(null);
 		
+		//TITRE
 		JLabel lblTitre = new JLabel("D\u00E9placement");
 		lblTitre.setBounds(79, 11, 134, 24);
 		panelChoixOrigine.add(lblTitre);
@@ -693,13 +713,14 @@ public class Partie  {
 		lblEtape1.setBounds(10, 46, 257, 20);
 		panelChoixOrigine.add(lblEtape1);
 		
-		//MIS A JOUR EN FONCTION DU CLIC DE SOURIS
+		//MIS A JOUR EN FONCTION DU CLIC DE SOURIS DU TERRITOIRE D'ORIGINE
 		LabelTerritoireOrigine = new JLabel("");
 		LabelTerritoireOrigine.setHorizontalAlignment(SwingConstants.CENTER);
 		LabelTerritoireOrigine.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		LabelTerritoireOrigine.setBounds(46, 77, 207, 28);
 		panelChoixOrigine.add(LabelTerritoireOrigine);
 		
+		//CHOIX DES ARMEES A DEPLACER
 		JButton btnNextVersEtape2 = new JButton("Next");
 		btnNextVersEtape2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnNextVersEtape2.setBounds(114, 129, 69, 23);
@@ -708,6 +729,7 @@ public class Partie  {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				//LE TERRITOIRE SELECTIONNER DONC D'ORIGINE DOIT APPARTENIR AU JOUEUR EN COURS -> SINON ERREUR (JOPION PANEL)
 				if (territoireSelect.getJoueur() == joueurList.get(indexJoueurJeu)) {	
 					fenetre.remove(panelChoixOrigine);
 					fenetre.validate();
@@ -766,6 +788,7 @@ public class Partie  {
 							ArrayList<Unit> cavalierList= new ArrayList<>();
 							ArrayList<Unit> canonList= new ArrayList<>();
 							
+							//CONDITION DE DEPLACEMENT DES ARMES
 							for (int i=0; i< armeList.size();i++) {
 								
 								if(armeList.get(i).cout == 1 && armeList.get(i).mouventEffectif < armeList.get(i).mouvement) {
@@ -781,6 +804,7 @@ public class Partie  {
 								}
 							}
 							
+							//DEFINITION DU TERRITOIRE DE DESTINATION
 							Territoire choixTerrDestT = Territoire.stringToTerritoire(choixTerrDest.getSelectedItem(), territoireArrayList);
 							lblTerrDest.setText("Votre pays de destination est : " + choixTerrDestT.getNomT());
 							panelDeplacement.remove(choixTerrDest);
@@ -789,6 +813,7 @@ public class Partie  {
 							fenetre.validate();
 						    fenetre.repaint();
 						    
+						    // INTERFACE POUR CHOISIR LES UNITES A DEPLACE
 							JLabel lblSoldat_1 = new JLabel("Soldat (1U)");
 							lblSoldat_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 							lblSoldat_1.setBounds(43, 185, 74, 14);
@@ -805,7 +830,7 @@ public class Partie  {
 							panelDeplacement.add(lblCanon_1);
 
 							JSpinner spinnerSoldat = new JSpinner();
-							spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, soldatList.size(), 1));
+							spinnerSoldat.setModel(new SpinnerNumberModel(0, 0, soldatList.size(), 1)); //SPINNER LIMITE SELON LES CONDITIONS VU CI-DESSUS
 							spinnerSoldat.setBounds(66, 209, 39, 24);
 							panelDeplacement.add(spinnerSoldat);
 
@@ -820,7 +845,7 @@ public class Partie  {
 							panelDeplacement.add(spinnerCanon);
 							
 							
-
+							// VALIDE LE DEPLACEMENT
 							JButton btnDeplacement = new JButton("Deplacement/ Attaque");
 							btnDeplacement.setBounds(160, 258, 170, 23);
 							panelDeplacement.add(btnDeplacement);
@@ -841,7 +866,7 @@ public class Partie  {
 									String condition1 = "";
 									String condition2 = "";
 									String condition3 = "";
-									
+									// CONDITION DE DEPLACEMENT QUE CE SOIT UNE ATTAQUE OU NON -> CREATION D'UNE ERREUR SI CONDITION NON RESPECTE
 									if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= terrSelect.getArmeList().size()) {
 										condition1 = "\n Vous devez laisser un pion sur le territoire ";
 									}
@@ -855,10 +880,12 @@ public class Partie  {
 										JOptionPane.showMessageDialog(null, condition1 + condition2 + condition3 , "Erreur", JOptionPane.ERROR_MESSAGE);
 									}
 									
+									//CONDITION RESPECTER
 									if (condition1.isEmpty() && condition2.isEmpty() && condition3.isEmpty()) {
 										
 										System.out.println("On se déplace !!");
-								
+										
+										//CREATION D'UNE LISTE CONTENANT TOUTE L'ARME QUI SE DEPLACE
 										ArrayList<Unit> armeDeplacerList = new ArrayList<>();
 										
 										for (int i=0; i < nbSoldatChoix; i++) {
@@ -872,42 +899,38 @@ public class Partie  {
 										for (int i=0 ; i < nbCanonChoix; i++) {
 											armeDeplacerList.add(canonList.get(i));
 										}
-
+										// CAS OU LES TERRITOIRES APPARTIENNENT AU MEME JOUEUR
 										if(joueurList.get(indexJoueurJeu).getTerritoireList().contains(choixTerrDestT)) {
 											System.out.println("Nous avons le même propriétaire");
-											
+											//INCREMENTE LE MOUVEMENT EFFECTIF DES ARMES (correspond au nombre de deplacement déjà effectue par une unit)
 											for (int i = 0; i < armeDeplacerList.size(); i++) {
 												armeDeplacerList.get(i).setMouventEffectif(armeDeplacerList.get(i).getMouventEffectif() + 1 );
 												choixTerrDestT.getArmeList().add(armeDeplacerList.get(i));
 											}
-											
-											for (int i = 0 ; i < choixTerrDestT.getArmeList().size(); i++) {
-												System.out.println("******************************");
-												System.out.println(choixTerrDestT.getNomT());
-												System.out.println("Mouvement effectif : " + choixTerrDestT.getArmeList().get(i).getMouventEffectif());
-												System.out.println("ID : " + choixTerrDestT.getArmeList().get(i).getIdUnit());
-											}
-				
+										
+											//SUPPRIME LES UNIT DEPLACER DE L'ARME DU TERRITOIRE D'ORIGINE
 											armeList.removeAll(armeDeplacerList);
 											territoireSelect.setArmeList(armeList);
 											
+											//RETIRE L'INTERFACE DE DEPLACEMENT
 											fenetre.remove(panelDeplacement);
 											fenetre.validate();
 										    fenetre.repaint();
 										    
-										    // BOUCLE SUR LA FONCTION ATTAQUECHOIX JUSQU'A LA FIN DU TOURS
+										    // BOUCLE SUR LA FONCTION DE DEPLACEMENT JUSQU'A LA FIN DU TOURS
 											attaqueChoix();
 								
 										//SI ON CHOISI D'ATTAQUER UN TERRITOIRE
 										} else {
-											
+											//retire l'interface de deplacement
 											fenetre.remove (panelDeplacement);
 											
+											//creation d'un nouveau bouton pour refaire un deplacement a la fin d'une attaque
 											JButton btnNvDep = new JButton("Nouveau d\u00E9placement");
 											btnNvDep.addMouseListener(new MouseAdapter() {
 												@Override
 												public void mouseClicked(MouseEvent e) {
-													
+													//retire l'interface de l'attaque et on relance la fonction de déplacement
 													fenetre.remove(Unit.getPanelAttack());
 													fenetre.validate();
 													fenetre.repaint();
@@ -915,12 +938,13 @@ public class Partie  {
 													
 												}
 											});
-											btnNvDep.setBounds(957, 654, 145, 37);
+											btnNvDep.setBounds(957, 754, 145, 37);
 											contentPaneJeu.add(btnNvDep);
 											
 											fenetre.validate();
 										    fenetre.repaint();
 											
+										    //LANCE ATTAQUE POUR TENTER DE POSSEDER UN NOUVEAU TERRITOIRE
 											Unit unit = new Unit();
 											unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,terrSelect,choixTerrDestT, fenetre, contentPaneJeu);
 											
@@ -933,7 +957,7 @@ public class Partie  {
 								}
 							}
 							);
-							
+							//DANS LE CAS OU ON SOUHAITE ANNULER UN DEPLACEMENT
 							JButton btnAnnuler = new JButton("Annuler");
 							btnAnnuler.setBounds(160, 307, 170, 23);
 							panelDeplacement.add(btnAnnuler);
@@ -945,7 +969,7 @@ public class Partie  {
 									fenetre.remove(panelDeplacement);
 									fenetre.validate();
 								    fenetre.repaint();
-								    
+								    // RELANCE LA FONCTION DE
 								    attaqueChoix();
 								}
 							});
@@ -965,8 +989,12 @@ public class Partie  {
 	}
 	
 	
-	/*__FONCTION_CHANGEMENT_COULEUR________________________________________*/
-		
+	/**
+	 * FONCTION_CHANGEMENT_COULEUR : POUR L'INITIALISATION
+	 * @param territoireArrayList
+	 * @param joueurList
+	 * @param map
+	 */
 	public void chgmCouleurT (ArrayList<Territoire> territoireArrayList, ArrayList<Joueur> joueurList, BufferedImage map) {
 		
 		for (int iT = 0; iT < territoireArrayList.size(); iT++) {
@@ -987,8 +1015,12 @@ public class Partie  {
 		}		
 	}
 	
-	/*__FONCTION_CHANGEMENT_COULEUR_INDIVIDUEL_________________________________*/
-	
+
+	/**
+	 * FONCTION_CHANGEMENT_COULEUR_INDIVIDUEL
+	 * @param joueur
+	 * @param territoire
+	 */
 	public static void chgmCouleurT (Joueur joueur, Territoire territoire) {
 
 		for (int indice = 0; indice < territoire.getZoneTerritoires().size(); indice ++) {			
@@ -1007,7 +1039,7 @@ public class Partie  {
 
 		
 	
-	
+	/*_______________________________________________________________________*/
 	/*__GETTERS_&_SETTERS___________________________________________________*/
 
 
