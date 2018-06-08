@@ -904,7 +904,7 @@ public class Partie  {
 											
 											
 											Unit unit = new Unit();
-											unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,territoireSelect,choixTerrDestT, fenetre, contentPaneJeu);
+											unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,terrSelect,choixTerrDestT, fenetre, contentPaneJeu);
 											
 											JButton btnNvDep = new JButton("Nouveau d\u00E9placement");
 											btnNvDep.addMouseListener(new MouseAdapter() {
