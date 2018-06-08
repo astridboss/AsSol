@@ -38,7 +38,6 @@ public class Partie  {
 	//GENERAL
 	private ArrayList<Territoire> territoireArrayList;
 	private ArrayList<Joueur> joueurList;
-	private JPanel contentPaneJeu;
 	private static JFrame fenetre;
 	int height;
 	int width;
@@ -70,6 +69,7 @@ public class Partie  {
 	private JLabel LabelTerritoireOrigine;
 	private boolean victoire;
 	private int tour;
+	private JPanel contentPaneJeu;
 	
 	//PLACER LES UNITES
 	private JPanel panelPlacerUnit;
@@ -84,8 +84,9 @@ public class Partie  {
 	/*__METHODES___________________________________________________*/
 	
 	
-	/**_______INITIALISATION DE LA PARTIE __________*/
-
+	/**
+	 * INITIALISATION DE LA PARTIE
+	 */
 	public Partie () {
 		
 		//DIMENTIONNEMENT DE LA FENETRE PRINCIPAL
