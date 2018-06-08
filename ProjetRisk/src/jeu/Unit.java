@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import jeu.Partie;
 
 /**
  * CREATION D'UNE UNITE (SOLDAT, CAVALIER, CANON)
@@ -34,7 +35,7 @@ public class Unit {
 	protected int desMax;
 
 	private JPanel panelPlacerUnit;
-	private JPanel panelAttack;
+	private static JPanel panelAttack;
 
 	/*__METHODES____________________________________________________*/
 
@@ -60,13 +61,9 @@ public class Unit {
 		this.panelPlacerUnit = panelPlacerUnit;
 
 	}
-
-
-	/*_____FONCTION_PLACER_LES_UNITES______________________________________*/
-
-
-
-
+	
+	
+	
 
 
 	/**____FONCTION_ATTAQUE_________________________________*/
@@ -78,6 +75,8 @@ public class Unit {
 		panelAttack.setBounds(463, 510, 397, 181);
 		contentPaneJeu.add(panelAttack);
 		panelAttack.setLayout(null);
+		
+		
 
 		// TITRE
 		JLabel lblTitreAttaque = new JLabel("Attaque\r\n");
@@ -281,16 +280,18 @@ public class Unit {
 			/*
 			 * ajout du troisième attaquand si il y a
 			 */
-			if(attaqueUnitTrie.size()==3) {
-				int a=0;
-			}
+			
 			if(choixTerrDestT.getArmeList().isEmpty()) {
+				
+				int renfort=ThreadLocalRandom.current().nextInt(0, 2);
+				joueur.setRenfortTGagnes(joueur.getRenfortTGagnes() + (renfort));
+				
 				for(int i=0; i<attaqueMooveIDUnit.size();i++) {
 					choixTerrDestT.getArmeList().addAll(attaqueMooveIDUnit);
 					choixTerrOrigineT.getArmeList().removeAll(attaqueMooveIDUnit);
 					choixTerrOrigineT.setJoueur(joueur);
+					
 				}
-				
 			}
 		}
 	}
@@ -372,6 +373,15 @@ public class Unit {
 		this.idUnit = idUnit;
 	}
 
+	public static JPanel getPanelAttack() {
+		return panelAttack;
+	}
+
+	public void setPanelAttack(JPanel panelAttack) {
+		this.panelAttack = panelAttack;
+	}
+
+	
 
 
 }

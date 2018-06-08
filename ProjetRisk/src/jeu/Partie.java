@@ -480,6 +480,8 @@ public class Partie  {
 		attaqueChoix();
 		
 		
+		
+		
 		/**______FIN_DE_TOUR____________________________________________________________*/
 		
 		JButton btnFinTour = new JButton("Fin du tour !");
@@ -520,7 +522,6 @@ public class Partie  {
 					//ON REMET LE COMPTEUR DE JOUEUR A ZERO ET ON RELANCE LE JEU
 					indexJoueurJeu = 0;
 					tour = tour +1;
-					System.out.println("ICIICICICIICICICIICIICICICICICI");
 					fenetre.remove(panelDeplacement);
 					fenetre.remove(panelChoixOrigine);
 					
@@ -712,10 +713,9 @@ public class Partie  {
 				    fenetre.repaint();
 				    
 				    Territoire terrSelect = territoireSelect;
-				    ArrayList<Unit> armeList = terrSelect.getArmeList();
 				    
-					System.out.println(terrSelect.getNomT());
-					
+				    ArrayList<Unit> armeList = terrSelect.getArmeList();
+				    					
 					//JPANEL SPECIFIQUE AU DEPLACEMENT
 					panelDeplacement = new JPanel();
 					panelDeplacement.setBounds(929, 264, 359, 341);
@@ -817,6 +817,8 @@ public class Partie  {
 							spinnerCanon.setModel(new SpinnerNumberModel(0, 0, canonList.size(), 1));
 							spinnerCanon.setBounds(236, 210, 39, 23);
 							panelDeplacement.add(spinnerCanon);
+							
+							
 
 							JButton btnDeplacement = new JButton("Deplacement/ Attaque");
 							btnDeplacement.setBounds(160, 258, 170, 23);
@@ -829,7 +831,7 @@ public class Partie  {
 
 							btnDeplacement.addMouseListener(new MouseAdapter() {
 								@Override
-								public void mouseClicked(MouseEvent e) {
+								public void mouseClicked(MouseEvent e) {									
 									
 									int nbSoldatChoix =((Integer)spinnerSoldat.getValue()).intValue();
 									int nbCavalierChoix =((Integer)spinnerCavalier.getValue()).intValue();
@@ -839,7 +841,7 @@ public class Partie  {
 									String condition2 = "";
 									String condition3 = "";
 									
-									if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= territoireSelect.getArmeList().size()) {
+									if((nbSoldatChoix + nbCavalierChoix + nbCanonChoix) >= terrSelect.getArmeList().size()) {
 										condition1 = "\n Vous devez laisser un pion sur le territoire ";
 									}
 									if(nbSoldatChoix == 0 && nbCavalierChoix == 0 && nbCanonChoix == 0 ) {
@@ -899,11 +901,29 @@ public class Partie  {
 										} else {
 											
 											fenetre.remove (panelDeplacement);
+											
+											
+											Unit unit = new Unit();
+											unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,territoireSelect,choixTerrDestT, fenetre, contentPaneJeu);
+											
+											JButton btnNvDep = new JButton("Nouveau d\u00E9placement");
+											btnNvDep.addMouseListener(new MouseAdapter() {
+												@Override
+												public void mouseClicked(MouseEvent e) {
+													
+													fenetre.remove(Unit.getPanelAttack());
+													fenetre.validate();
+													fenetre.repaint();
+													attaqueChoix();
+													
+												}
+											});
+											btnNvDep.setBounds(957, 654, 145, 37);
+											contentPaneJeu.add(btnNvDep);
+											
 											fenetre.validate();
 										    fenetre.repaint();
 											
-											//Unit unit = new Unit();
-											//unit.attaque (joueurList.get(indexJoueurJeu), armeDeplacerList,territoireSelect,choixTerrDestT, fenetre, contentPaneJeu);
 										}
 										
 									}
